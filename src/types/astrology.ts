@@ -165,6 +165,7 @@ export interface ConversationThread {
   orderId?: string;
   topics: string[];
   productName?: string;
+  guruId?: string;
 }
 
 export type MainAppMenuItem =

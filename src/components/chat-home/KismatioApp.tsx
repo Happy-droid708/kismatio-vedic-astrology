@@ -48,6 +48,18 @@ import { ToolsScreen } from '../tools/ToolsScreen';
 import { SanctumHomeScreen } from '../home/SanctumHomeScreen';
 import { DEFAULT_RECHARGE_CONFIG } from '../../config/rechargeConfig';
 import {
+  MAHARAJ_GURUS,
+  MaharajGuru,
+  getGuruById,
+  getGuruByRoute,
+  guruToAstrologer,
+} from '../../data/maharajGurusData';
+import { GuruBackground } from './GuruBackground';
+import { GuruHeader } from './GuruHeader';
+import { GuruEmptyState } from './GuruEmptyState';
+import { GuruDiscoveryView } from './GuruDiscoveryView';
+import { GuruStructuredCards } from './GuruStructuredCards';
+import {
   ArrowLeft,
   Clock,
   MoreVertical,
@@ -76,11 +88,70 @@ export const KismatioApp: React.FC = () => {
 
   // Conversations State
   const [conversations, setConversations] = useState<ConversationThread[]>(INITIAL_CONVERSATIONS);
-  const [selectedConvId, setSelectedConvId] = useState<string | null>('conv-rajiv');
+  const [selectedConvId, setSelectedConvId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeFilter, setActiveFilter] = useState<ConversationFilter>('all');
   const [activeMobileTab, setActiveMobileTab] = useState<MobileTab>('chats');
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
+
+  // Eight Maharaj Guru Experience State
+  const [activeGuru, setActiveGuru] = useState<MaharajGuru | null>(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      const matched = getGuruByRoute(path);
+      if (matched) return matched;
+    }
+    return null;
+  });
+  const [isStructuredWorkspaceOpen, setIsStructuredWorkspaceOpen] = useState<boolean>(false);
+
+  // Message cache across conversations / Gurus
+  const [messagesByConv, setMessagesByConv] = useState<Record<string, ChatMessageItem[]>>({
+    'conv-rajiv': [
+      {
+        id: 'm1',
+        sender: 'astrologer',
+        text: 'Hari Om, Devanand ji. I have cast your Janma Kundli based on your birth coordinates in Jaipur (Libra Lagna, Pisces Moon in Uttara Bhadrapada Nakshatra). I see profound planetary movements at play in your chart right now.',
+        timestamp: '10:02 AM',
+        widgetType: 'kundli_summary',
+      },
+      {
+        id: 'm2',
+        sender: 'user',
+        text: 'Pranam Acharya ji. Over the past 9 months, despite putting in 14-hour days, every major deal and promotion in my tech enterprise has gotten stalled at the final signature. I feel an unexplained exhaustion and heavy resistance. What is happening in my Graha dasha?',
+        timestamp: '10:03 AM',
+      },
+      {
+        id: 'm-recom',
+        sender: 'astrologer',
+        text: 'I recommend these stones based on your chart and current planetary transits to dissolve this resistance and unlock your Rajayoga momentum:',
+        timestamp: '10:04 AM',
+        widgetType: 'gemstone_recommendation',
+      },
+    ],
+    'conv-acharya-guru': [
+      {
+        id: 'm1-flagship',
+        sender: 'astrologer',
+        text: 'Hari Om, Devanand ji. I have cast your Janma Kundli with Lahiri Chitra Paksha coordinates in Jaipur (Libra Lagna, Pisces Moon in Uttara Bhadrapada Nakshatra). I see profound planetary movements at play in your chart right now.',
+        timestamp: '10:02 AM',
+        widgetType: 'kundli_summary',
+      },
+      {
+        id: 'm2-flagship',
+        sender: 'user',
+        text: 'Pranam Acharya ji. Over the past 9 months, despite putting in 14-hour days, every major deal and promotion in my tech enterprise has gotten stalled at the final signature. I feel an unexplained exhaustion and heavy resistance. What is happening in my Graha dasha?',
+        timestamp: '10:03 AM',
+      },
+      {
+        id: 'm-recom-flagship',
+        sender: 'astrologer',
+        text: 'I recommend these stones based on your chart and current planetary transits to dissolve this resistance and unlock your Rajayoga momentum:',
+        timestamp: '10:04 AM',
+        widgetType: 'gemstone_recommendation',
+      },
+    ],
+  });
 
   // Tablet Sidebar Collapse State
   const [isTabletSidebarCollapsed, setIsTabletSidebarCollapsed] = useState<boolean>(false);
@@ -195,15 +266,19 @@ export const KismatioApp: React.FC = () => {
   } = useChatStream({
     onFinish: (fullText) => {
       if (!fullText || !fullText.trim()) return;
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `astrologer-${Date.now()}`,
-          sender: 'astrologer',
-          text: fullText.trim(),
-          timestamp: 'Just now',
-        },
-      ]);
+      const newAssistantMsg: ChatMessageItem = {
+        id: `astrologer-${Date.now()}`,
+        sender: 'astrologer',
+        text: fullText.trim(),
+        timestamp: 'Just now',
+      };
+      setMessages((prev) => {
+        const next = [...prev, newAssistantMsg];
+        if (selectedConvId) {
+          setMessagesByConv((map) => ({ ...map, [selectedConvId]: next }));
+        }
+        return next;
+      });
       if (selectedConvId) {
         setConversations((prev) =>
           prev.map((c) =>
@@ -298,7 +373,7 @@ export const KismatioApp: React.FC = () => {
 
   // Initial streaming on load or STREAMING state
   useEffect(() => {
-    if (currentState === 'STREAMING' && !hasInitialStreamStarted.current && !isStreaming) {
+    if (selectedConvId && messages.length > 0 && currentState === 'STREAMING' && !hasInitialStreamStarted.current && !isStreaming) {
       hasInitialStreamStarted.current = true;
       startStream({
         message: 'Pranam Acharya ji. Over the past 9 months, despite putting in 14-hour days, every major deal and promotion in my tech enterprise has gotten stalled at the final signature. I feel an unexplained exhaustion and heavy resistance. What is happening in my Graha dasha?',
@@ -307,7 +382,7 @@ export const KismatioApp: React.FC = () => {
         history: messages,
       });
     }
-  }, [currentState, startStream, selectedAstrologer, kundli, messages, isStreaming]);
+  }, [currentState, startStream, selectedAstrologer, kundli, messages, isStreaming, selectedConvId]);
 
   // Auto Advance orchestrator
   useEffect(() => {
@@ -541,7 +616,13 @@ export const KismatioApp: React.FC = () => {
       text,
       timestamp: 'Just now',
     };
-    setMessages((prev) => [...prev, userMsg]);
+    setMessages((prev) => {
+      const next = [...prev, userMsg];
+      if (selectedConvId) {
+        setMessagesByConv((map) => ({ ...map, [selectedConvId]: next }));
+      }
+      return next;
+    });
 
     // Update conversation last message in list
     if (selectedConvId) {
@@ -785,13 +866,93 @@ export const KismatioApp: React.FC = () => {
     handleSetState('CONVERSATION_CONTINUES');
   };
 
+  // Eight Maharaj Guru Selection Handler
+  const handleSelectGuru = (guru: MaharajGuru, pushHistory: boolean = true) => {
+    if (pushHistory) {
+      window.history.pushState(null, '', guru.route);
+    }
+    setActiveGuru(guru);
+    const astro = guruToAstrologer(guru);
+    setSelectedAstrologer(astro);
+
+    const convId = `conv-${guru.id}`;
+    const existing = conversations.find(
+      (c) => c.astrologerId === guru.id || c.id === convId || c.guruId === guru.id
+    );
+    if (!existing) {
+      const newConv: ConversationThread = {
+        id: convId,
+        astrologerId: guru.id,
+        astrologerName: guru.name,
+        astrologerTitle: guru.title,
+        astrologerLineage: guru.location,
+        isVerified: true,
+        avatarSeed: guru.id,
+        avatarColor: guru.accentColor,
+        status: 'active',
+        remainingSeconds: 600,
+        lastMessage: guru.welcomeMessage,
+        lastMessageTimestamp: 'Just now',
+        unreadCount: 0,
+        isPinned: guru.badge === 'flagship',
+        isArchived: false,
+        isOnline: true,
+        topics: guru.quickActions,
+        guruId: guru.id,
+      };
+      setConversations((prev) => [newConv, ...prev]);
+    }
+    setSelectedConvId(convId);
+    setMessages(messagesByConv[convId] || []);
+    setIsStructuredWorkspaceOpen(false);
+    setActiveMobileTab('chats');
+  };
+
+  // Back to All 8 Gurus Discovery
+  const handleBackToGurusDiscovery = () => {
+    window.history.pushState(null, '', '/chats');
+    setActiveGuru(null);
+    setSelectedConvId(null);
+    setIsStructuredWorkspaceOpen(false);
+  };
+
+  // URL routing and browser back/forward sync
+  useEffect(() => {
+    const checkRoute = () => {
+      if (typeof window === 'undefined') return;
+      const path = window.location.pathname;
+      const matchedGuru = getGuruByRoute(path);
+      if (matchedGuru) {
+        handleSelectGuru(matchedGuru, false);
+      } else if (path === '/chats' || path === '/' || path === '') {
+        setActiveGuru(null);
+        setSelectedConvId(null);
+      }
+    };
+
+    checkRoute();
+    window.addEventListener('popstate', checkRoute);
+    return () => window.removeEventListener('popstate', checkRoute);
+  }, []);
+
   // Conversation Selection & Actions
   const handleSelectConversation = (conv: ConversationThread) => {
     setSelectedConvId(conv.id);
-    const foundAstro = CURATED_ASTROLOGERS.find((a) => a.id === conv.astrologerId);
-    if (foundAstro) {
-      setSelectedAstrologer(foundAstro);
+    const foundGuru = MAHARAJ_GURUS.find(
+      (g) => g.id === conv.astrologerId || `conv-${g.id}` === conv.id || g.id === conv.guruId
+    );
+    if (foundGuru) {
+      setActiveGuru(foundGuru);
+      window.history.pushState(null, '', foundGuru.route);
+      setSelectedAstrologer(guruToAstrologer(foundGuru));
+    } else {
+      setActiveGuru(null);
+      const foundAstro = CURATED_ASTROLOGERS.find((a) => a.id === conv.astrologerId);
+      if (foundAstro) {
+        setSelectedAstrologer(foundAstro);
+      }
     }
+    setMessages(messagesByConv[conv.id] || []);
     // Mark as read
     setConversations((prev) =>
       prev.map((c) => (c.id === conv.id ? { ...c, unreadCount: 0 } : c))
@@ -937,6 +1098,37 @@ export const KismatioApp: React.FC = () => {
         onOpenProfile={() => setIsProfileOpen(true)}
       />
 
+      {/* Eight Maharajs Central Entry Banner */}
+      <div className="px-3 py-2 bg-gradient-to-r from-[#1c1410] via-[#141220] to-[#0f111a] border-b border-[#dfb76c]/20">
+        <button
+          onClick={handleBackToGurusDiscovery}
+          className="w-full py-2 px-3 rounded-xl bg-[#191624] hover:bg-[#221e33] border border-[#dfb76c]/30 hover:border-[#dfb76c] text-left flex items-center justify-between gap-2 transition-all cursor-pointer group shadow-sm"
+          title="Open The Eight Maharajs Discovery Page"
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="text-base select-none group-hover:scale-110 transition-transform">
+              👑
+            </span>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-serif-luxury font-bold text-[#fcedc5] group-hover:text-[#dfb76c] transition-colors">
+                  The Eight Maharajs
+                </span>
+                <span className="text-[9px] font-mono font-bold px-1.5 rounded-full bg-[#dfb76c]/20 text-[#dfb76c]">
+                  8 GURUS
+                </span>
+              </div>
+              <p className="text-[10px] text-[#9a9385] truncate">
+                Discover all specialized Guru chats
+              </p>
+            </div>
+          </div>
+          <span className="text-xs text-[#dfb76c] font-bold group-hover:translate-x-0.5 transition-transform shrink-0">
+            ✦ Explore
+          </span>
+        </button>
+      </div>
+
       {/* 2. Instant Search Bar */}
       <ChatSearchBar
         searchQuery={searchQuery}
@@ -992,8 +1184,207 @@ export const KismatioApp: React.FC = () => {
   // RENDER: Right Panel / Active Conversation View
   // =========================================================================
   const renderActiveConversationView = () => {
+    if (activeGuru) {
+      return (
+        <div className="flex-1 min-h-0 h-full flex flex-col bg-[#0c0d15] relative overflow-hidden">
+          {/* Guru Dedicated Header */}
+          <GuruHeader
+            guru={activeGuru}
+            remainingSeconds={remainingSeconds}
+            isMobile={isMobile}
+            isTablet={isTablet}
+            isTabletSidebarCollapsed={isTabletSidebarCollapsed}
+            onToggleTabletSidebar={() => setIsTabletSidebarCollapsed(!isTabletSidebarCollapsed)}
+            onBackToDiscovery={handleBackToGurusDiscovery}
+            onOpenRecharge={handleOpenRecharge}
+            onOpenChatMenu={() => setIsChatMenuOpen(true)}
+            onToggleSearch={() => setIsInChatSearchOpen(!isInChatSearchOpen)}
+            isSearchOpen={isInChatSearchOpen}
+            onToggleStructuredWorkspace={() => setIsStructuredWorkspaceOpen(!isStructuredWorkspaceOpen)}
+            isStructuredWorkspaceOpen={isStructuredWorkspaceOpen}
+          />
+
+          {/* Collapsible In-Chat Search Bar */}
+          <InChatSearchBar
+            isOpen={isInChatSearchOpen}
+            onClose={() => {
+              setIsInChatSearchOpen(false);
+              setInChatSearchQuery('');
+            }}
+            onSearch={(q) => {
+              setInChatSearchQuery(q);
+              setInChatMatchIndex(0);
+            }}
+            matchCount={inChatMatches.length}
+            currentMatchIndex={inChatMatchIndex}
+            onNextMatch={() => {
+              if (inChatMatches.length > 0) {
+                setInChatMatchIndex((prev) => (prev + 1) % inChatMatches.length);
+              }
+            }}
+            onPrevMatch={() => {
+              if (inChatMatches.length > 0) {
+                setInChatMatchIndex((prev) => (prev - 1 + inChatMatches.length) % inChatMatches.length);
+              }
+            }}
+          />
+
+          {/* State Machine Step Controller Floating Pill */}
+          <MobileStateFloatingPill
+            currentState={currentState}
+            onOpenDrawer={() => setIsStateDrawerOpen(true)}
+            onTriggerNext={handleTriggerNext}
+            isAutoAdvancing={isAutoAdvancing}
+            onToggleAutoAdvance={() => setIsAutoAdvancing(!isAutoAdvancing)}
+          />
+
+          {/* Active Conversation Viewport with Guru-Dedicated Background */}
+          <div className="flex-1 relative overflow-hidden flex flex-col">
+            {/* Dedicated Guru Background Environment */}
+            <GuruBackground backgroundKey={activeGuru.backgroundKey} isEmpty={messages.length === 0} />
+
+            {/* Main Scroll Container */}
+            <main
+              ref={chatScrollContainerRef}
+              onScroll={handleChatScroll}
+              className="flex-1 overflow-y-auto px-3 sm:px-5 py-4 space-y-2 scrollbar-thin relative z-10"
+            >
+              <div className="w-full max-w-[880px] mx-auto min-h-full flex flex-col justify-start space-y-2">
+                {/* Guru Structured Workspace Card if open */}
+                <GuruStructuredCards
+                  guru={activeGuru}
+                  isOpen={isStructuredWorkspaceOpen}
+                  onClose={() => setIsStructuredWorkspaceOpen(false)}
+                  onSendQuickAction={handleSendMessage}
+                />
+
+                {messages.length === 0 ? (
+                  <GuruEmptyState
+                    guru={activeGuru}
+                    onSendSuggestedPrompt={handleSendMessage}
+                    onOpenWorkspace={() => setIsStructuredWorkspaceOpen(true)}
+                  />
+                ) : (
+                  <>
+                    {/* Vedic Date Separator */}
+                    <div className="flex justify-center my-1 select-none">
+                      <span className="text-[10px] uppercase font-mono font-medium tracking-wider text-[#dfb76c]/90 bg-[#141624]/90 border border-[#dfb76c]/25 px-3.5 py-1 rounded-full shadow-md backdrop-blur-md">
+                        Today · Shukla Navami, Ashwini Nakshatra
+                      </span>
+                    </div>
+
+                    {/* Render all in-chat messages and embedded widgets */}
+                    {messages.map((msg) => (
+                      <ChatMessage
+                        key={msg.id}
+                        message={msg}
+                        astrologer={selectedAstrologer}
+                        gemstone={gemstone}
+                        kundli={kundli}
+                        order={currentOrder}
+                        remainingSeconds={remainingSeconds}
+                        isProcessingPayment={isProcessingPayment}
+                        searchHighlight={inChatSearchQuery}
+                        onInspectGemstone={handleInspectGemstone}
+                        onProceedToCheckout={handleProceedToCheckout}
+                        onProceedToPayment={handleProceedToPayment}
+                        onStartPaymentProcessing={handleStartPaymentProcessing}
+                        onPaymentSuccess={handlePaymentSuccess}
+                        onContinueAfterSuccess={handleContinueAfterSuccess}
+                        onContinueChatAfterOrder={handleContinueChatAfterOrder}
+                        onViewOrderTracking={handleViewOrderTracking}
+                        onOpenRecharge={handleOpenRecharge}
+                        onRechargeComplete={handleRechargeComplete}
+                        onDismissRecharge={handleDismissRecharge}
+                        onAskAcharya={handleSendMessage}
+                        onBackToProduct={handleBackToProduct}
+                        onCatalogOrderPlaced={handleCatalogOrderPlaced}
+                        onCatalogAddToCart={handleCatalogAddToCart}
+                      />
+                    ))}
+
+                    {/* STREAMING Real-Time SSE Assistant Container with Astrology Loader & Morph System */}
+                    {(isStreaming || isThinking || loaderPhase === 'transitioning' || loaderPhase === 'completing' || Boolean(streamedText && loaderPhase !== 'complete') || (words.length > 0 && loaderPhase !== 'complete') || error) && (
+                      <StreamingMessageBubble
+                        astrologer={selectedAstrologer}
+                        isThinking={isThinking}
+                        loaderPhase={loaderPhase}
+                        morphStage={morphStage}
+                        thinkingStatus={thinkingStatus}
+                        activeSequence={activeSequence}
+                        words={words}
+                        streamedText={streamedText}
+                        error={error}
+                        isCompleted={isCompleted}
+                        onStop={stopStream}
+                        onRetry={retryLastStream}
+                      />
+                    )}
+
+                    {/* TYPING meditating indicator */}
+                    {currentState === 'TYPING' && !isStreaming && (
+                      <div className="flex items-center gap-2 text-xs text-[#a69e90] p-2 pl-10 italic">
+                        <div className="flex gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-bounce" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-bounce [animation-delay:0.2s]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-bounce [animation-delay:0.4s]" />
+                        </div>
+                        <span>{selectedAstrologer.name} is contemplating your chart...</span>
+                      </div>
+                    )}
+
+                    <div ref={messagesEndRef} />
+                  </>
+                )}
+              </div>
+
+              {/* Smart Auto-Scroll */}
+              {!isNearBottom && (hasNewUnseenMessage || isStreaming) && (
+                <div className="sticky bottom-4 w-full flex justify-center pointer-events-none z-20">
+                  <button
+                    onClick={() => scrollToBottom('smooth')}
+                    className="pointer-events-auto px-4 py-2 rounded-full bg-gradient-to-r from-[#dfb76c] to-[#fef08a] text-[#0e1017] text-xs font-bold shadow-xl shadow-[#dfb76c]/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer animate-progressive-glow"
+                    title="Scroll to latest stream"
+                  >
+                    <span className="text-sm font-bold">✦</span>
+                    <span>Jump to latest</span>
+                    <ArrowDown className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </button>
+                </div>
+              )}
+            </main>
+          </div>
+
+          {/* Chat Input Bar */}
+          <div className="w-full flex justify-center bg-[#0e1017]/95 relative z-20">
+            <div className="w-full max-w-[880px]">
+              <ChatInput
+                onSendMessage={handleSendMessage}
+                currentState={currentState}
+                disabled={currentState === 'PAYMENT_PROCESSING' || remainingSeconds <= 0}
+                disabledPlaceholder={
+                  remainingSeconds <= 0 ? 'Recharge minutes to continue' : undefined
+                }
+                isStreaming={isStreaming || loaderPhase === 'completing'}
+                isPillsReady={isPillsReady}
+                onStopStreaming={stopStream}
+                onRegenerate={handleRegenerate}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     if (!selectedConversation) {
-      return <DesktopEmptyState onStartNewChat={() => setIsNewChatModalOpen(true)} />;
+      return (
+        <GuruDiscoveryView
+          onSelectGuru={handleSelectGuru}
+          recentConversations={conversations}
+          onSelectRecentConversation={handleSelectConversation}
+          liveRemainingSeconds={remainingSeconds}
+        />
+      );
     }
 
     return (
@@ -1492,7 +1883,7 @@ export const KismatioApp: React.FC = () => {
 
                     {activeMobileTab === 'chats' && (
                       <div className="w-full h-full min-h-0 flex flex-col overflow-hidden">
-                        {selectedConvId ? renderActiveConversationView() : renderChatHomeListPanel()}
+                        {selectedConvId || activeGuru ? renderActiveConversationView() : renderChatHomeListPanel()}
                       </div>
                     )}
                   </>
@@ -1500,7 +1891,7 @@ export const KismatioApp: React.FC = () => {
               </div>
 
               {/* Fixed Mobile Bottom Navigation (docked across the 4 primary tabs: Chats, Explore, Orders, Tools) */}
-              {!isProfileOpen && (!selectedConvId || activeMobileTab !== 'chats') && (
+              {!isProfileOpen && (!selectedConvId && !activeGuru || activeMobileTab !== 'chats') && (
                 <div className="shrink-0 z-40">
                   <MobileBottomNav
                     activeTab={activeMobileTab}
