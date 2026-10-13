@@ -1,0 +1,6 @@
+{
+  "name": "Kismatio — Astrology Chat & Sanctum",
+  "description": "WhatsApp-level familiarity meets Kismatio's premium Indian astrology identity with real-time consultations, embedded gemstone commerce, and two-panel desktop experience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

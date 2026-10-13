@@ -1,0 +1,1119 @@
+@import "tailwindcss";
+
+@layer base {
+  :root,
+  [data-theme="dark"] {
+    --font-display: 'Cinzel', serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+
+    /* Theme tokens - Dark Mode (Default) */
+    --bg-app: #0c0d12;
+    --bg-surface: #0e1019;
+    --bg-card: rgba(18, 20, 29, 0.75);
+    --bg-card-solid: #121524;
+    --bg-card-hover: rgba(26, 29, 41, 0.85);
+    --bg-elevated: #161824;
+    --bg-input: #141724;
+    --border-subtle: rgba(212, 175, 55, 0.15);
+    --border-card: #23293f;
+    --border-gold: rgba(223, 183, 108, 0.3);
+    --border-strong: rgba(223, 183, 108, 0.45);
+    --text-primary: #ede8dc;
+    --text-title: #fcedc5;
+    --text-secondary: #c2baa8;
+    --text-muted: #8e8779;
+    --gold-primary: #dfb76c;
+    --gold-secondary: #c49746;
+    --gold-accent: #fef08a;
+    --nav-bg: rgba(11, 13, 21, 0.95);
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: transparent;
+    --scrollbar-thumb-hover-area: transparent;
+    --scrollbar-thumb-hover: transparent;
+    --scrollbar-thumb-active: transparent;
+    --bubble-astro-bg: rgba(18, 20, 32, 0.96);
+    --bubble-astro-border: rgba(223, 183, 108, 0.3);
+    --bubble-astro-text: #f5eedf;
+    --bubble-user-bg: rgba(27, 33, 51, 0.96);
+    --bubble-user-border: #3c4667;
+    --bubble-user-text: #fcedc5;
+    color-scheme: dark;
+  }
+
+  [data-theme="light"] {
+    /* Theme tokens - Warm Celestial Light Mode (Warm Ivory, Sandalwood & Luminous Gold) */
+    --bg-app: #f8f5ee;
+    --bg-surface: #f1ecdf;
+    --bg-card: rgba(255, 255, 255, 0.92);
+    --bg-card-solid: #ffffff;
+    --bg-card-hover: #f5eee0;
+    --bg-elevated: #ece3d2;
+    --bg-input: #fcfbfa;
+    --border-subtle: rgba(180, 135, 50, 0.2);
+    --border-card: rgba(180, 135, 50, 0.22);
+    --border-gold: rgba(180, 135, 50, 0.38);
+    --border-strong: rgba(160, 115, 30, 0.55);
+    --text-primary: #1f1b16;
+    --text-title: #2a2014;
+    --text-secondary: #574d3f;
+    --text-muted: #877967;
+    --gold-primary: #9d7224;
+    --gold-secondary: #805814;
+    --gold-accent: #b4842b;
+    --nav-bg: rgba(247, 243, 235, 0.96);
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: transparent;
+    --scrollbar-thumb-hover-area: transparent;
+    --scrollbar-thumb-hover: transparent;
+    --scrollbar-thumb-active: transparent;
+    --bubble-astro-bg: #ffffff;
+    --bubble-astro-border: rgba(180, 135, 50, 0.28);
+    --bubble-astro-text: #1f1b16;
+    --bubble-user-bg: linear-gradient(135deg, rgba(235, 215, 175, 0.55) 0%, rgba(225, 200, 150, 0.4) 100%);
+    --bubble-user-border: rgba(180, 135, 50, 0.35);
+    --bubble-user-text: #1f1b16;
+    color-scheme: light;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    min-height: 100dvh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.font-display {
+  font-family: 'Cinzel', serif;
+}
+
+.font-serif-luxury {
+  font-family: 'Playfair Display', serif;
+}
+
+/* ========================================================================= */
+/* KISMATIO COMPLETELY INVISIBLE SCROLLBARS (UNIVERSAL & CROSS-BROWSER)      */
+/* Fully hides horizontal & vertical scrollbars across all scrollable areas   */
+/* while keeping mousewheel, trackpad, touch & programmatic scrolling 100%    */
+/* fully functional without any layout shifts or overflow overrides.         */
+/* ========================================================================= */
+
+/* Standard CSS for Firefox & modern specifications */
+html,
+body,
+#root,
+*,
+*::before,
+*::after {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Ensure no scrollbars appear on hover, focus, or active states */
+*:hover,
+*:focus,
+*:focus-visible,
+*:active {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* WebKit / Chromium (Chrome, Edge, Safari, Opera, Android WebView) */
+::-webkit-scrollbar,
+*::-webkit-scrollbar,
+*::-webkit-scrollbar:horizontal,
+*::-webkit-scrollbar:vertical {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  max-width: 0 !important;
+  max-height: 0 !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Ensure track, track-piece, thumb, buttons, corners, and resizers never render */
+::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner,
+::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button,
+::-webkit-resizer,
+*::-webkit-resizer {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Prevent any scrollbar appearance on hover, focus, or active interaction */
+*:hover::-webkit-scrollbar,
+*:focus::-webkit-scrollbar,
+*:active::-webkit-scrollbar,
+*:hover::-webkit-scrollbar-thumb,
+*:focus::-webkit-scrollbar-thumb,
+*:active::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:active {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Gold glow and subtle sacred geometry background */
+.vedic-gold-gradient {
+  background: linear-gradient(135deg, #dfb76c 0%, #c49746 50%, #996e28 100%);
+}
+
+.vedic-gold-text {
+  background: linear-gradient(135deg, #fcedc5 0%, #dfb76c 40%, #c49746 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.vedic-border-subtle {
+  border-color: rgba(212, 175, 55, 0.15);
+}
+
+.vedic-card-bg {
+  background: rgba(18, 20, 29, 0.75);
+  backdrop-filter: blur(12px);
+}
+
+/* ========================================================================= */
+/* KISMATIO ANIMATED CELESTIAL RAIN BACKGROUND                               */
+/* Subtle cosmic rain & celestial energy trails tailored for conversation UI */
+/* ========================================================================= */
+
+@keyframes celestialRainFall {
+  0% {
+    transform: translateY(-160px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100vh + 160px));
+    opacity: 0;
+  }
+}
+
+@keyframes celestialRainShimmer {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes celestialAuraPulse {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.08) translateY(-10px);
+    opacity: 0.55;
+  }
+}
+
+.celestial-drop {
+  position: absolute;
+  top: -160px;
+  pointer-events: none;
+  border-radius: 9999px;
+  will-change: transform, opacity;
+  animation-name: celestialRainFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .celestial-drop {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.15 !important;
+    top: 20% !important;
+  }
+  .celestial-aura-animated {
+    animation: none !important;
+  }
+  .animate-celestial-burst-ring,
+  .animate-celestial-particle,
+  .celestial-message-entry {
+    animation: none !important;
+  }
+}
+
+/* ========================================================================= */
+/* KISMATIO CELESTIAL MICRO-INTERACTION BUTTON SYSTEM ANIMATIONS             */
+/* ========================================================================= */
+
+@keyframes celestialBurstRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.85;
+    border-width: 2px;
+  }
+  50% {
+    opacity: 0.6;
+    border-width: 1.5px;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+@keyframes celestialParticleOut {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--tx, 20px), var(--ty, -20px)) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes celestialSparkleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-2px) scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes celestialMessageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========================================================================= */
+/* KISMATIO CELESTIAL PILL MICRO-INTERACTION SYSTEM ANIMATIONS               */
+/* ========================================================================= */
+
+@keyframes celestialPillSweep {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.45;
+  }
+  70% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(220%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes celestialGemstoneShimmer {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(250%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes celestialOrbitOneSpin {
+  0% {
+    stroke-dashoffset: 140;
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.85;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    transform: rotate(360deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes celestialPromptMorph {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(4px) scale(0.96);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(12px) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes celestialProgressiveGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(223, 183, 108, 0);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(223, 183, 108, 0.45), 0 0 24px rgba(139, 92, 246, 0.15);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(223, 183, 108, 0.25);
+  }
+}
+
+.animate-celestial-burst-ring {
+  animation: celestialBurstRing 480ms cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+}
+
+.animate-celestial-particle {
+  animation: celestialParticleOut 440ms cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+}
+
+.animate-celestial-sparkle-float {
+  animation: celestialSparkleFloat 1.8s ease-in-out infinite;
+}
+
+.celestial-message-entry {
+  animation: celestialMessageEnter 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-celestial-sweep {
+  animation: celestialPillSweep 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.animate-gemstone-shimmer {
+  animation: celestialGemstoneShimmer 1.8s ease-in-out infinite;
+}
+
+.animate-celestial-orbit-single {
+  animation: celestialOrbitOneSpin 750ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center;
+}
+
+.animate-celestial-morph {
+  animation: celestialPromptMorph 380ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-progressive-glow {
+  animation: celestialProgressiveGlow 1.2s ease-out forwards;
+}
+
+/* ========================================================================= */
+/* KISMATIO SMOOTH REAL-TIME STREAMING ANIMATIONS                            */
+/* ========================================================================= */
+
+@keyframes celestialWordReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.celestial-word-enter {
+  display: inline;
+  animation: celestialWordReveal 120ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes celestialCursorPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 6px rgba(223, 183, 108, 0.8));
+  }
+}
+
+@keyframes celestialCursorPulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 5px rgba(223, 183, 108, 0.75));
+  }
+}
+
+.animate-celestial-cursor {
+  display: inline-block;
+  animation: celestialCursorPulse 1.25s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Soft streaming cursor indicator (Block pulse, smooth opacity, non-harsh) */
+@keyframes softCursorFade {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+.animate-soft-cursor {
+  display: inline-block;
+  animation: softCursorFade 1.15s ease-in-out infinite;
+  color: #dfb76c;
+  font-weight: 700;
+  vertical-align: baseline;
+  margin-left: 2px;
+  will-change: opacity;
+}
+
+@keyframes celestialThinkingPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.animate-celestial-thinking {
+  animation: celestialThinkingPulse 3s ease-in-out infinite;
+}
+
+/* ========================================================================= */
+/* KISMATIO ASTROLOGY STREAMING LOADER SYSTEM (CALM + MYSTICAL + SLOW)      */
+/* ========================================================================= */
+
+@keyframes celestialObjectFloat {
+  0% {
+    opacity: 0.3;
+    transform: translateY(2px) scale(0.9) rotate(-3deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.05) rotate(2deg);
+    filter: drop-shadow(0 0 8px rgba(223, 183, 108, 0.8));
+  }
+  100% {
+    opacity: 0.3;
+    transform: translateY(2px) scale(0.9) rotate(-3deg);
+  }
+}
+
+.animate-celestial-obj {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: celestialObjectFloat 3.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes celestialDiamondStream {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(2px) scale(0.92) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.08) rotate(45deg);
+    filter: drop-shadow(0 0 7px rgba(223, 183, 108, 0.75));
+  }
+}
+
+.animate-diamond-stream {
+  display: inline-block;
+  animation: celestialDiamondStream 3.6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes celestialOmSacredPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.95);
+    filter: drop-shadow(0 0 3px rgba(223, 183, 108, 0.3));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 10px rgba(223, 183, 108, 0.85)) drop-shadow(0 0 16px rgba(245, 158, 11, 0.4));
+  }
+}
+
+.animate-om-sacred {
+  display: inline-block;
+  animation: celestialOmSacredPulse 3.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes celestialRudrakshaFloat {
+  0%, 100% {
+    opacity: 0.55;
+    transform: translateY(2px) scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.06);
+    filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.7));
+  }
+}
+
+.animate-rudraksha-float {
+  display: inline-block;
+  animation: celestialRudrakshaFloat 3.4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes celestialPlanetOrbit {
+  0% {
+    transform: rotate(0deg) translateX(7px) rotate(0deg) scale(0.93);
+    opacity: 0.65;
+  }
+  50% {
+    transform: rotate(180deg) translateX(8px) rotate(-180deg) scale(1.08);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.65));
+  }
+  100% {
+    transform: rotate(360deg) translateX(7px) rotate(-360deg) scale(0.93);
+    opacity: 0.65;
+  }
+}
+
+.animate-planet-orbit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: celestialPlanetOrbit 5.5s linear infinite;
+  will-change: transform, opacity;
+}
+
+/* ========================================================================= */
+/* THINKING → STREAMING SMOOTH TRANSITION (300-500ms)                        */
+/* ========================================================================= */
+
+@keyframes thinkingContainerExit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+    filter: blur(1px);
+  }
+}
+
+.animate-thinking-exit {
+  animation: thinkingContainerExit 380ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes streamingBubbleAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-streaming-appear {
+  animation: streamingBubbleAppear 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes microGemstoneShimmer {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(0) scale(0.9);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-1.5px) scale(1.1);
+  }
+}
+
+.animate-gemstone-shimmer-subtle {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  animation: microGemstoneShimmer 2.8s ease-in-out infinite;
+}
+
+@keyframes celestialCompletionSparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(90deg);
+    filter: drop-shadow(0 0 10px rgba(254, 240, 138, 0.95));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7) rotate(180deg);
+  }
+}
+
+.animate-completion-sparkle {
+  display: inline-block;
+  animation: celestialCompletionSparkle 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================================================= */
+/* KISMATIO STREAMING UI → FINAL CHAT MESSAGE MORPH SYSTEM                   */
+/* ========================================================================= */
+
+@keyframes celestialMomentPulse {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.7;
+    filter: drop-shadow(0 0 4px rgba(223, 183, 108, 0.4));
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(223, 183, 108, 0.95)) drop-shadow(0 0 20px rgba(245, 158, 11, 0.5));
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 6px rgba(223, 183, 108, 0.4));
+  }
+}
+
+.animate-celestial-moment {
+  animation: celestialMomentPulse 320ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+@keyframes celestialSymbolDissolve {
+  0% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.78) translate(var(--dx, 8px), var(--dy, -8px));
+    filter: blur(3px);
+  }
+}
+
+.animate-symbol-dissolve {
+  animation: celestialSymbolDissolve 350ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+@keyframes celestialBubbleSettle {
+  0% {
+    transform: scale(0.985) translateY(2px);
+    opacity: 0.96;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-bubble-settle {
+  animation: celestialBubbleSettle 190ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes celestialFinalSparkFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2) rotate(45deg);
+    filter: drop-shadow(0 0 8px rgba(254, 240, 138, 0.95));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.75) rotate(90deg);
+  }
+}
+
+.animate-final-spark {
+  display: inline-block;
+  animation: celestialFinalSparkFade 260ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.celestial-morph-transition {
+  transition: background-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reduced Motion Override (Section 25) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-celestial-thinking,
+  .animate-celestial-obj,
+  .animate-diamond-stream,
+  .animate-om-sacred,
+  .animate-planet-orbit,
+  .animate-completion-sparkle,
+  .animate-celestial-moment,
+  .animate-symbol-dissolve,
+  .animate-bubble-settle,
+  .animate-final-spark,
+  .animate-celestial-cursor,
+  .celestial-word-enter {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ========================================================================= */
+/* KISMATIO FULL-SCREEN PAGE TRANSITIONS & UTILITIES                         */
+/* ========================================================================= */
+
+@keyframes pageSlideEnter {
+  0% {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-page-enter {
+  animation: pageSlideEnter 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+/* Custom scrollbar utility classes - completely invisible across all devices & browsers */
+.scrollbar-none,
+.scrollbar-thin,
+.scrollbar-hidden {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.scrollbar-none::-webkit-scrollbar,
+.scrollbar-thin::-webkit-scrollbar,
+.scrollbar-hidden::-webkit-scrollbar,
+.scrollbar-none:hover::-webkit-scrollbar,
+.scrollbar-thin:hover::-webkit-scrollbar,
+.scrollbar-hidden:hover::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* ========================================================================= */
+/* KISMATIO WARM CELESTIAL LIGHT MODE DESIGN SYSTEM                          */
+/* Warm ivory, sandalwood, refined gold borders & deep legible typography    */
+/* ========================================================================= */
+
+[data-theme="light"] {
+  /* Surfaces & Backgrounds */
+  .bg-\[\#0c0d12\],
+  .bg-\[\#0b0c14\],
+  .bg-\[\#08090e\],
+  .bg-\[\#0c0d15\] {
+    background-color: var(--bg-app) !important;
+  }
+
+  .bg-\[\#0e1017\],
+  .bg-\[\#0e1019\],
+  .bg-\[\#0e1019\]\/96,
+  .bg-\[\#10121b\],
+  .bg-\[\#0d0e14\],
+  .bg-\[\#0b0d15\]\/95,
+  .bg-\[\#0b0c15\] {
+    background-color: var(--bg-surface) !important;
+  }
+
+  .bg-\[\#121524\],
+  .bg-\[\#141724\],
+  .bg-\[\#151825\],
+  .bg-\[\#181a24\],
+  .bg-\[\#1a1d2b\],
+  .bg-\[\#131626\]\/90,
+  .bg-\[\#161a2c\],
+  .bg-\[\#181d2e\],
+  .bg-\[\#1a1f33\],
+  .bg-\[\#12141d\],
+  .bg-\[\#12141e\],
+  .bg-\[\#0f111a\],
+  .bg-\[\#1a1e2d\],
+  .bg-\[\#171b30\],
+  .bg-\[\#1b2038\],
+  .bg-\[\#161824\] {
+    background-color: var(--bg-card-solid) !important;
+  }
+
+  .bg-\[\#181c2b\],
+  .bg-\[\#1b1f2e\],
+  .bg-\[\#141622\]\/90,
+  .bg-\[\#111322\]\/90 {
+    background-color: var(--bg-elevated) !important;
+  }
+
+  .hover\:bg-\[\#161a2c\]:hover,
+  .hover\:bg-\[\#181a28\]:hover,
+  .hover\:bg-\[\#141724\]:hover,
+  .hover\:bg-\[\#1a1d2b\]:hover,
+  .hover\:bg-\[\#252c48\]:hover {
+    background-color: var(--bg-card-hover) !important;
+  }
+
+  .active\:bg-\[\#181b28\]:active,
+  .active\:bg-\[\#1a1d2b\]:active {
+    background-color: var(--bg-elevated) !important;
+  }
+
+  /* Text & Typography */
+  .text-\[\#ede8dc\],
+  .text-\[\#f5eedf\] {
+    color: var(--text-primary) !important;
+  }
+
+  .text-\[\#fcedc5\],
+  .text-\[\#fef08a\] {
+    color: var(--text-title) !important;
+  }
+
+  .text-\[\#8e8779\],
+  .text-\[\#857e72\],
+  .text-\[\#9a9385\],
+  .text-\[\#8a8374\],
+  .text-\[\#a49d8f\],
+  .text-\[\#a8a192\],
+  .text-\[\#b8b1a3\],
+  .text-\[\#7d7668\],
+  .text-\[\#6e685c\],
+  .text-\[\#787163\],
+  .text-\[\#7d776a\],
+  .text-\[\#9d9688\] {
+    color: var(--text-muted) !important;
+  }
+
+  .text-\[\#cdc7ba\],
+  .text-\[\#c2baa8\],
+  .text-\[\#c4bcac\] {
+    color: var(--text-secondary) !important;
+  }
+
+  /* Borders & Dividers */
+  .border-\[\#23293f\],
+  .border-\[\#1b2034\],
+  .border-\[\#272d42\],
+  .border-\[\#2d3249\],
+  .border-\[\#2a2e45\],
+  .border-\[\#1f2334\],
+  .border-\[\#1b1e2c\],
+  .border-\[\#191c28\],
+  .border-\[\#2b3350\],
+  .border-\[\#2b3147\],
+  .border-\[\#2d344b\],
+  .border-\[\#3c4667\],
+  .border-\[\#394263\],
+  .border-\[\#23273a\] {
+    border-color: var(--border-subtle) !important;
+  }
+
+  .divide-\[\#1b2034\] > :not([hidden]) ~ :not([hidden]),
+  .divide-\[\#1f2334\] > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--border-subtle) !important;
+  }
+
+  /* Gold borders softened for light mode */
+  .border-\[\#dfb76c\]\/15,
+  .border-\[\#dfb76c\]\/20,
+  .border-\[\#dfb76c\]\/25,
+  .border-\[\#dfb76c\]\/30 {
+    border-color: var(--border-gold) !important;
+  }
+
+  /* Cards and Modals */
+  .vedic-card-bg {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(14px);
+    border-color: var(--border-subtle) !important;
+    box-shadow: 0 10px 30px -4px rgba(180, 135, 50, 0.1) !important;
+  }
+
+  /* Hero Gradients Adaptation */
+  .from-\[\#151829\]\/95 {
+    --tw-gradient-from: rgba(255, 255, 255, 0.96) !important;
+  }
+  .via-\[\#111322\]\/90 {
+    --tw-gradient-via: rgba(252, 248, 240, 0.94) !important;
+  }
+  .to-\[\#0c0d16\] {
+    --tw-gradient-to: #f4ecdf !important;
+  }
+
+  .from-\[\#171b30\],
+  .from-\[\#1b2038\] {
+    --tw-gradient-from: #ffffff !important;
+  }
+  .to-\[\#121424\],
+  .to-\[\#0d0f1a\] {
+    --tw-gradient-to: #f3ebdE !important;
+  }
+  .via-\[\#14172a\] {
+    --tw-gradient-via: #faf5ed !important;
+  }
+
+  /* Chat Message Bubbles */
+  .bg-\[\#121420\]\/96 {
+    background-color: var(--bubble-astro-bg) !important;
+    border-color: var(--bubble-astro-border) !important;
+    color: var(--bubble-astro-text) !important;
+    box-shadow: 0 4px 18px -2px rgba(180, 135, 50, 0.1) !important;
+  }
+
+  .bg-\[\#1b2133\]\/96 {
+    background: var(--bubble-user-bg) !important;
+    border-color: var(--bubble-user-border) !important;
+    color: var(--bubble-user-text) !important;
+    box-shadow: 0 4px 18px -2px rgba(180, 135, 50, 0.08) !important;
+  }
+
+  .bg-\[\#1d2133\] {
+    background-color: #ffffff !important;
+    border-color: var(--border-subtle) !important;
+  }
+
+  /* Voice message bar */
+  .bg-\[\#586184\] {
+    background-color: #c9bea9 !important;
+  }
+
+  /* Inputs, Textareas & Search Bars */
+  input[type="text"],
+  textarea {
+    color: var(--text-primary) !important;
+    background-color: var(--bg-input) !important;
+    border-color: var(--border-subtle) !important;
+  }
+  input[type="text"]::placeholder,
+  textarea::placeholder {
+    color: var(--text-muted) !important;
+  }
+
+  /* Soften harsh black shadows into ambient golden umbra */
+  .shadow-black\/40,
+  .shadow-black\/30,
+  .shadow-black\/80,
+  .shadow-black\/50 {
+    box-shadow: 0 8px 24px -4px rgba(180, 135, 50, 0.12) !important;
+  }
+
+  /* Luminous Antique Gold text */
+  .vedic-gold-text {
+    background: linear-gradient(135deg, #78500f 0%, #9d7224 45%, #c49746 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+
+  /* Celestial Rain & Readability Overlays in Light Mode */
+  .from-\[\#0c0d15\] {
+    --tw-gradient-from: var(--bg-app) !important;
+    --tw-gradient-to: rgba(248, 245, 238, 0) !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  }
+  .to-\[\#0c0d15\] {
+    --tw-gradient-to: var(--bg-app) !important;
+  }
+  .from-\[\#0c0d15\]\/85 {
+    --tw-gradient-from: rgba(248, 245, 238, 0.9) !important;
+  }
+  .via-\[\#0c0d15\]\/75 {
+    --tw-gradient-via: rgba(248, 245, 238, 0.8) !important;
+  }
+  .to-\[\#0c0d15\]\/90 {
+    --tw-gradient-to: rgba(248, 245, 238, 0.94) !important;
+  }
+  .from-\[\#0c0d15\]\/55 {
+    --tw-gradient-from: rgba(248, 245, 238, 0.6) !important;
+  }
+  .via-\[\#0c0d15\]\/40 {
+    --tw-gradient-via: rgba(248, 245, 238, 0.45) !important;
+  }
+  .to-\[\#0c0d15\]\/65 {
+    --tw-gradient-to: rgba(248, 245, 238, 0.7) !important;
+  }
+
+  .celestial-drop {
+    filter: drop-shadow(0 0 4px rgba(180, 135, 50, 0.35));
+  }
+}
+
