@@ -15,9 +15,9 @@ export const ChatSearchBar: React.FC<ChatSearchBarProps> = ({
   placeholder = 'Search by astrologer, gemstone, order (e.g. KS48291)...',
 }) => {
   return (
-    <div className="px-4 py-2 bg-[#0e1017]">
+    <div className="px-4 py-2 bg-[#24133B]">
       <div className="relative flex items-center">
-        <div className="absolute left-3 flex items-center pointer-events-none text-[#7d7668]">
+        <div className="absolute left-3 flex items-center pointer-events-none text-[#9685AE]">
           <Search className="w-3.5 h-3.5" />
         </div>
 
@@ -26,13 +26,13 @@ export const ChatSearchBar: React.FC<ChatSearchBarProps> = ({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#151825] border border-[#272d42] text-xs text-[#ede8dc] placeholder-[#6e685c] focus:outline-none focus:border-[#dfb76c] transition-colors min-h-[38px]"
+          className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#12091F] border border-[#453052] text-xs text-[#F7F0FF] placeholder-[#9685AE] focus:outline-none focus:border-[#E7B743] transition-colors min-h-[38px]"
         />
 
         {searchQuery ? (
           <button
             onClick={onClear}
-            className="absolute right-2.5 p-1 rounded-full text-[#8e8779] hover:text-[#ede8dc] cursor-pointer"
+            className="absolute right-2.5 p-1 rounded-full text-[#9685AE] hover:text-[#F7F0FF] cursor-pointer"
             title="Clear search"
           >
             <X className="w-3.5 h-3.5" />
@@ -42,15 +42,15 @@ export const ChatSearchBar: React.FC<ChatSearchBarProps> = ({
 
       {/* Quick Search Chips if search is active or focused */}
       {searchQuery && (
-        <div className="flex items-center gap-1.5 mt-2 overflow-x-auto pb-1 text-[10px] text-[#9a9385] scrollbar-none">
-          <span className="shrink-0 flex items-center gap-1 text-[#dfb76c]">
+        <div className="flex items-center gap-1.5 mt-2 overflow-x-auto pb-1 text-[10px] text-[#9685AE] scrollbar-none">
+          <span className="shrink-0 flex items-center gap-1 text-[#E7B743]">
             <Sparkles className="w-2.5 h-2.5" /> Filter by:
           </span>
           {['career', 'gemstone', 'Blue Sapphire', 'KS48291', 'Pukhraj'].map((term) => (
             <button
               key={term}
               onClick={() => onSearchChange(term)}
-              className="px-2 py-0.5 rounded-full bg-[#1b1f2e] border border-[#2d344b] text-[#cdc7ba] hover:border-[#dfb76c] shrink-0 cursor-pointer"
+              className="px-2 py-0.5 rounded-full bg-[#2B173C] border border-[#453052] text-[#C5B8D9] hover:border-[#A87B2A] hover:bg-[#352044] hover:text-[#F7F0FF] shrink-0 cursor-pointer transition-colors"
             >
               {term}
             </button>

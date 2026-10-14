@@ -83,7 +83,7 @@ export const ChatFilterPills: React.FC<ChatFilterPillsProps> = ({
 
     // Trigger tiny celestial spark on selection (2–5 micro particles)
     const particleCount = 4;
-    const colors = ['#dfb76c', '#fcedc5', '#ffffff', '#e8d5ff'];
+    const colors = ['#E7B743', '#FFD76A', '#A87B2A', '#F7F0FF'];
     const newParticles: Particle[] = Array.from({ length: particleCount }).map((_, i) => ({
       id: Date.now() + i,
       angle: (360 / particleCount) * i + (Math.random() * 20 - 10),
@@ -104,16 +104,16 @@ export const ChatFilterPills: React.FC<ChatFilterPillsProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative px-3 sm:px-4 py-2 border-b border-[#1f2334] bg-[#0c0d15] overflow-x-auto scrollbar-none select-none"
+      className="relative px-3 sm:px-4 py-2 border-b border-[#453052] bg-[#180D2B] overflow-x-auto scrollbar-none select-none"
     >
       {/* Sliding Active Indicator Pill that smoothly travels between pills */}
       <span
-        className="absolute top-2 h-[34px] rounded-full bg-gradient-to-r from-[#dfb76c] via-[#d4a853] to-[#c49746] shadow-md shadow-[#dfb76c]/20 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+        className="absolute top-2 h-[34px] rounded-full bg-[#E7B743] shadow-md shadow-[#E7B743]/20 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
         style={{
           left: `${indicatorStyle.left}px`,
           width: `${indicatorStyle.width}px`,
           opacity: indicatorStyle.opacity,
-          boxShadow: '0 0 16px rgba(223, 183, 108, 0.35)',
+          boxShadow: '0 0 14px rgba(231, 183, 67, 0.3)',
         }}
         aria-hidden="true"
       />
@@ -158,8 +158,8 @@ export const ChatFilterPills: React.FC<ChatFilterPillsProps> = ({
                 onClick={() => handleSelect(f.id)}
                 className={`group relative px-3 py-1.5 rounded-full text-xs font-semibold cursor-pointer flex items-center gap-1.5 min-h-[34px] transition-all duration-200 outline-none select-none ${
                   isSelected
-                    ? 'scale-[1.03] text-[#0c0d13] font-bold'
-                    : 'scale-[0.98] text-[#9a9385] hover:text-[#ede8dc] hover:scale-[1.01] active:scale-[0.94] bg-[#151825] border border-[#272d42] hover:border-[#dfb76c]/40'
+                    ? 'scale-[1.03] text-[#180D2B] font-bold'
+                    : 'scale-[0.98] text-[#C5B8D9] hover:text-[#F7F0FF] hover:scale-[1.01] active:scale-[0.94] bg-[#2B173C] border border-[#453052] hover:border-[#A87B2A] hover:bg-[#352044]'
                 }`}
                 style={{
                   background: isSelected ? 'transparent' : undefined,
@@ -168,7 +168,7 @@ export const ChatFilterPills: React.FC<ChatFilterPillsProps> = ({
               >
                 {/* Active star indicator */}
                 {isSelected && (
-                  <span className="text-[#0c0d13] font-bold text-[10px] leading-none animate-in zoom-in-75 duration-150">
+                  <span className="text-[#180D2B] font-bold text-[10px] leading-none animate-in zoom-in-75 duration-150">
                     ✦
                   </span>
                 )}
@@ -179,8 +179,8 @@ export const ChatFilterPills: React.FC<ChatFilterPillsProps> = ({
                   <span
                     className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold leading-tight ${
                       isSelected
-                        ? 'bg-[#0c0d13]/20 text-[#0c0d13]'
-                        : 'bg-[#22273a] text-[#dfb76c]'
+                        ? 'bg-[#180D2B]/20 text-[#180D2B]'
+                        : 'bg-[#24133B] text-[#E7B743] border border-[#453052]'
                     }`}
                   >
                     {f.count}

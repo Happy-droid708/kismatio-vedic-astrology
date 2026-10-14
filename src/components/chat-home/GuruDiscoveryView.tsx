@@ -77,26 +77,26 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
   };
 
   return (
-    <div className="w-full h-full min-h-0 flex flex-col overflow-y-auto bg-[#0b0c14] select-none text-[#ede8dc] relative scrollbar-thin">
+    <div className="w-full h-full min-h-0 flex flex-col overflow-y-auto bg-[#180D2B] select-none text-[#F7F0FF] relative scrollbar-thin">
       {/* Background Sacred Geometric Aura */}
-      <div className="fixed inset-0 pointer-events-none opacity-15 bg-[radial-gradient(#dfb76c_1px,transparent_1px)] [background-size:32px_32px]" />
+      <div className="fixed inset-0 pointer-events-none opacity-10 bg-[radial-gradient(#E7B743_1px,transparent_1px)] [background-size:32px_32px]" />
 
       <div className="w-full max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 flex flex-col gap-6 relative z-10">
         {/* ================================================================= */}
         {/* 1. HERO HEADER: Kismatio Chats — The Eight Maharaj Experience   */}
         {/* ================================================================= */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#dfb76c]/15 pb-5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#453052] pb-5">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#dfb76c] animate-pulse" />
-              <span className="text-[11px] font-mono uppercase tracking-widest text-[#dfb76c] font-semibold">
+              <span className="w-2 h-2 rounded-full bg-[#E7B743] animate-pulse" />
+              <span className="text-[11px] font-mono uppercase tracking-widest text-[#E7B743] font-semibold">
                 KISMATIO CHATS · DIVINE COUNSEL
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif-luxury font-bold text-[#fcedc5] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif-luxury font-bold text-[#F7F0FF] tracking-tight">
               The Eight Maharaj Experience
             </h1>
-            <p className="text-xs sm:text-sm text-[#a8a192] mt-1.5 leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#C5B8D9] mt-1.5 leading-relaxed">
               Consult with eight specialized Vedic Gurus—each with a dedicated cosmic environment,
               authentic lineage, and purposeful AI consultation expertise.
             </p>
@@ -104,7 +104,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
 
           {/* Quick Active Consultation Timer Pill */}
           <div className="flex items-center gap-2 self-start md:self-auto shrink-0">
-            <div className="px-3.5 py-1.5 rounded-xl bg-[#141829] border border-[#dfb76c]/30 flex items-center gap-2 text-xs text-[#dfb76c]">
+            <div className="px-3.5 py-1.5 rounded-xl bg-[#24133B] border border-[#A87B2A]/40 flex items-center gap-2 text-xs text-[#E7B743]">
               <Clock className="w-3.5 h-3.5" />
               <span className="font-mono font-medium">{formatTime(liveRemainingSeconds)} remaining</span>
             </div>
@@ -117,14 +117,14 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
         {selectedCategory === 'all' && !searchQuery.trim() && (
           <div
             onClick={() => onSelectGuru(flagshipGuru)}
-            className="w-full rounded-2xl p-5 sm:p-6 bg-gradient-to-r from-[#21090d]/95 via-[#180f1b]/90 to-[#0e101b]/95 border border-[#dfb76c]/40 hover:border-[#dfb76c] shadow-xl hover:shadow-2xl hover:shadow-[#dfb76c]/20 transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+            className="w-full rounded-2xl p-5 sm:p-6 bg-[#24133B] hover:bg-[#352044] border border-[#A87B2A]/40 hover:border-[#E7B743] shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
           >
             {/* Background radiant aura */}
-            <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#dfb76c]/15 blur-3xl pointer-events-none group-hover:scale-125 transition-transform" />
+            <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#E7B743]/10 blur-3xl pointer-events-none group-hover:scale-125 transition-transform" />
 
             <div className="flex items-start sm:items-center gap-4 relative z-10">
-              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl p-1 bg-gradient-to-tr from-[#dfb76c] via-[#fef08a] to-[#996e28] shadow-lg shrink-0 flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full rounded-[14px] bg-[#120a10] flex items-center justify-center text-3xl sm:text-4xl overflow-hidden">
+              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl p-1 bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] shadow-lg shrink-0 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full rounded-[14px] bg-[#180D2B] flex items-center justify-center text-3xl sm:text-4xl overflow-hidden">
                   {flagshipGuru.avatarUrl ? (
                     <img
                       src={flagshipGuru.avatarUrl}
@@ -139,17 +139,17 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
 
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-[#dfb76c] text-[#0e1017] font-bold shadow-xs">
+                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-[#E7B743] text-[#180D2B] font-bold shadow-xs">
                     ✦ FLAGSHIP GURU
                   </span>
-                  <span className="text-xs text-[#dfb76c] font-semibold flex items-center gap-1">
+                  <span className="text-xs text-[#E7B743] font-semibold flex items-center gap-1">
                     ★ {flagshipGuru.rating} · {flagshipGuru.experienceYears} Years Mastery
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-serif-luxury font-bold text-[#fff7df] group-hover:text-[#dfb76c] transition-colors mt-1">
+                <h3 className="text-lg sm:text-xl font-serif-luxury font-bold text-[#F7F0FF] group-hover:text-[#E7B743] transition-colors mt-1">
                   {flagshipGuru.name} — {flagshipGuru.title}
                 </h3>
-                <p className="text-xs text-[#b8b0a1] max-w-xl mt-1 leading-relaxed">
+                <p className="text-xs text-[#C5B8D9] max-w-xl mt-1 leading-relaxed">
                   {flagshipGuru.shortDescription}
                 </p>
               </div>
@@ -160,7 +160,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
                 e.stopPropagation();
                 onSelectGuru(flagshipGuru);
               }}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#dfb76c] to-[#fef08a] text-[#0e1017] text-xs font-bold flex items-center gap-2 shadow-lg shadow-[#dfb76c]/20 hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer self-stretch sm:self-auto justify-center"
+              className="px-5 py-2.5 rounded-xl bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B] text-xs font-bold flex items-center gap-2 shadow-lg shadow-[#E7B743]/20 hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer self-stretch sm:self-auto justify-center"
             >
               <span>Begin Flagship Reading</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -174,18 +174,18 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Instant Search Field */}
           <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 text-[#8a8374] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#9685AE] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search Guru by name, topic, or question (e.g. Love, Vastu, Lost, Legal)..."
-              className="w-full bg-[#121524] text-xs text-[#ede8dc] placeholder-[#7d7768] rounded-xl pl-10 pr-4 py-2.5 border border-[#232940] focus:border-[#dfb76c]/60 focus:outline-none transition-all"
+              className="w-full bg-[#12091F] text-xs text-[#F7F0FF] placeholder-[#9685AE] rounded-xl pl-10 pr-4 py-2.5 border border-[#453052] focus:border-[#E7B743] focus:outline-none transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#8a8374] hover:text-[#ede8dc]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#9685AE] hover:text-[#F7F0FF]"
               >
                 ✕
               </button>
@@ -193,8 +193,8 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
           </div>
 
           {/* Quick Count Badge */}
-          <div className="text-xs text-[#8a8374] font-mono shrink-0">
-            Showing <span className="text-[#dfb76c] font-bold">{filteredGurus.length}</span> of 8 Gurus
+          <div className="text-xs text-[#9685AE] font-mono shrink-0">
+            Showing <span className="text-[#E7B743] font-bold">{filteredGurus.length}</span> of 8 Gurus
           </div>
         </div>
 
@@ -208,8 +208,8 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                   isSelected
-                    ? 'bg-[#dfb76c] text-[#0e1017] font-semibold shadow-xs'
-                    : 'bg-[#121524] text-[#a49d8f] hover:text-[#ede8dc] border border-[#232940]'
+                    ? 'bg-[#E7B743] text-[#180D2B] font-semibold shadow-xs'
+                    : 'bg-[#2B173C] text-[#C5B8D9] hover:text-[#F7F0FF] hover:bg-[#352044] border border-[#453052] hover:border-[#A87B2A]'
                 }`}
               >
                 <span>{cat.icon}</span>

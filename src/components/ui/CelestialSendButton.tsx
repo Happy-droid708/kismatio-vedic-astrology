@@ -55,13 +55,13 @@ export const CelestialSendButton: React.FC<CelestialSendButtonProps> = ({
     // 2. Generate 7 tiny celestial particles
     // Palette: Champagne gold, soft warm white, amber, subtle violet
     const colors = [
-      '#fcedc5', // Champagne gold
-      '#dfb76c', // Vedic gold
-      '#ffffff', // Pure celestial white
-      '#fcd34d', // Warm amber
-      '#dfb76c', // Vedic gold
-      '#f5eedf', // Warm soft white
-      '#c4b5fd', // Very subtle violet-gold
+      '#E7B743', // Primary gold
+      '#FFD76A', // Bright gold
+      '#A87B2A', // Muted gold
+      '#F7F0FF', // Primary text
+      '#E7B743', // Primary gold
+      '#FFD76A', // Bright gold
+      '#00D6A0', // Success green
     ];
 
     const baseAngles = [15, 68, 122, 178, 235, 290, 342];
@@ -171,21 +171,21 @@ export const CelestialSendButton: React.FC<CelestialSendButtonProps> = ({
             : 'scale-100 duration-200'
         } ${className}`}
         style={{
-          // Premium dark/translucent surface with subtle border
+          // Send button: active is #E7B743 (hover #FFD76A), inactive is #2B173C
           background: disabled
-            ? 'rgba(21, 24, 37, 0.6)'
+            ? '#2B173C'
             : isHovered
-            ? 'radial-gradient(circle at 40% 30%, #252b42 0%, #151826 80%, #0f111c 100%)'
-            : 'radial-gradient(circle at 40% 30%, #1c2033 0%, #131522 80%, #0d0f17 100%)',
-          borderColor: isHovered && !disabled ? 'rgba(223, 183, 108, 0.75)' : 'rgba(223, 183, 108, 0.32)',
+            ? '#FFD76A'
+            : '#E7B743',
+          borderColor: disabled ? '#453052' : isHovered ? '#FFD76A' : '#A87B2A',
           borderWidth: '1px',
           borderStyle: 'solid',
           boxShadow:
             disabled
               ? 'none'
               : isHovered
-              ? '0 0 20px rgba(223, 183, 108, 0.28), 0 0 35px rgba(139, 92, 246, 0.12), 0 4px 14px rgba(0, 0, 0, 0.6)'
-              : '0 0 10px rgba(223, 183, 108, 0.08), 0 2px 8px rgba(0, 0, 0, 0.45)',
+              ? '0 0 16px rgba(255, 215, 106, 0.4), 0 4px 12px rgba(18, 9, 31, 0.5)'
+              : '0 0 8px rgba(231, 183, 67, 0.25), 0 2px 6px rgba(18, 9, 31, 0.35)',
         }}
       >
         {/* Step 3: Thin Animated Celestial Ring moving around the border on Desktop Hover */}
@@ -252,21 +252,19 @@ export const CelestialSendButton: React.FC<CelestialSendButtonProps> = ({
             <Send
               className={`w-4 h-4 transition-colors duration-200 stroke-[2.2] translate-x-[-0.5px] ${
                 disabled
-                  ? 'text-[#726d63]'
-                  : isHovered
-                  ? 'text-[#fff6e0] drop-shadow-[0_0_8px_rgba(223,183,108,0.6)]'
-                  : 'text-[#dfb76c]'
+                  ? 'text-[#9685AE]'
+                  : 'text-[#180D2B]'
               }`}
             />
           )}
 
           {iconPhase === 'spark' && (
-            <Sparkles className="w-4 h-4 text-[#fcedc5] animate-spin stroke-[2] drop-shadow-[0_0_8px_#dfb76c]" />
+            <Sparkles className="w-4 h-4 text-[#180D2B] animate-spin stroke-[2] drop-shadow-[0_0_6px_#FFD76A]" />
           )}
 
           {iconPhase === 'star' && (
             <span
-              className="text-[#fcedc5] text-base font-serif font-black leading-none drop-shadow-[0_0_10px_#dfb76c] animate-in zoom-in-75 duration-100"
+              className="text-[#180D2B] text-base font-serif font-black leading-none animate-in zoom-in-75 duration-100"
               aria-label="Celestial transmission"
             >
               ✦
@@ -274,7 +272,7 @@ export const CelestialSendButton: React.FC<CelestialSendButtonProps> = ({
           )}
 
           {iconPhase === 'check' && (
-            <Check className="w-4 h-4 text-[#7ee787] stroke-[3] drop-shadow-[0_0_8px_rgba(126,231,135,0.7)] animate-in zoom-in-90 duration-150" />
+            <Check className="w-4 h-4 text-[#00D6A0] stroke-[3] drop-shadow-[0_0_8px_rgba(0,214,160,0.7)] animate-in zoom-in-90 duration-150" />
           )}
         </div>
       </button>

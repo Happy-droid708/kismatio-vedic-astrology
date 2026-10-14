@@ -75,7 +75,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
   };
 
   return (
-    <header className="shrink-0 sticky top-0 z-30 bg-[#10121b]/98 backdrop-blur-md border-b border-[#dfb76c]/15 px-2.5 sm:px-4 py-2 sm:py-2.5 flex flex-col gap-1.5 sm:gap-0 justify-center min-h-[58px] select-none">
+    <header className="shrink-0 sticky top-0 z-30 bg-[#24133B] border-b border-[#453052] px-2.5 sm:px-4 py-2 sm:py-2.5 flex flex-col gap-1.5 sm:gap-0 justify-center min-h-[58px] select-none">
       {/* Top Main Controls Bar */}
       <div className="flex items-center justify-between w-full gap-2">
         {/* Left: Back to Discovery + Guru Avatar & Credentials */}
@@ -83,12 +83,12 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
           {/* Back to Chats Discovery button (Works on both mobile & desktop) */}
           <button
             onClick={onBackToDiscovery}
-            className="flex items-center gap-1 p-1.5 -ml-1 rounded-xl text-[#dfb76c] hover:text-[#fff9e6] hover:bg-[#1a1f33] active:bg-[#1a1f33] cursor-pointer shrink-0 transition-all font-medium text-xs group"
+            className="flex items-center gap-1 p-1.5 -ml-1 rounded-xl text-[#E7B743] hover:text-[#FFD76A] hover:bg-[#352044] active:bg-[#352044] cursor-pointer shrink-0 transition-all font-medium text-xs group"
             title="Return to all 8 Maharajs"
             aria-label="Back to all Gurus"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            <span className="hidden sm:inline font-sans font-semibold text-xs text-[#cdc7ba] group-hover:text-[#dfb76c]">
+            <span className="hidden sm:inline font-sans font-semibold text-xs text-[#C5B8D9] group-hover:text-[#E7B743]">
               All Gurus
             </span>
           </button>
@@ -97,11 +97,11 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
           {isTablet && onToggleTabletSidebar && (
             <button
               onClick={onToggleTabletSidebar}
-              className="p-1.5 rounded-lg text-[#9a9385] hover:text-[#ede8dc] cursor-pointer mr-0.5 shrink-0"
+              className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] cursor-pointer mr-0.5 shrink-0"
               title={isTabletSidebarCollapsed ? 'Show conversations list' : 'Hide conversations list'}
             >
               {isTabletSidebarCollapsed ? (
-                <PanelLeftOpen className="w-5 h-5 text-[#dfb76c]" />
+                <PanelLeftOpen className="w-5 h-5 text-[#E7B743]" />
               ) : (
                 <PanelLeftClose className="w-5 h-5" />
               )}
@@ -112,12 +112,9 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="relative shrink-0">
               <div
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 shadow-sm flex items-center justify-center overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${guru.accentColor}, #dfb76c)`,
-                }}
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 shadow-sm flex items-center justify-center overflow-hidden bg-gradient-to-tr from-[#A87B2A] to-[#E7B743]"
               >
-                <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center text-base sm:text-lg select-none overflow-hidden">
+                <div className="w-full h-full rounded-full bg-[#24133B] flex items-center justify-center text-base sm:text-lg select-none overflow-hidden text-[#E7B743]">
                   {guru.avatarUrl ? (
                     <img
                       src={guru.avatarUrl}
@@ -129,27 +126,27 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
                   )}
                 </div>
               </div>
-              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#10121b] animate-pulse" />
+              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#00D6A0] border-2 border-[#24133B]" />
             </div>
 
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <h3 className="text-xs sm:text-sm font-serif-luxury font-bold text-[#f5eedf] truncate max-w-[120px] xs:max-w-[160px] sm:max-w-[220px]">
+                <h3 className="text-xs sm:text-sm font-serif-luxury font-bold text-[#F7F0FF] truncate max-w-[120px] xs:max-w-[160px] sm:max-w-[220px]">
                   {guru.name}
                 </h3>
-                <span className="w-3.5 h-3.5 rounded-full bg-[#dfb76c]/20 text-[#dfb76c] flex items-center justify-center text-[9px] font-bold shrink-0">
+                <span className="w-3.5 h-3.5 rounded-full bg-[#E7B743]/20 text-[#E7B743] flex items-center justify-center text-[9px] font-bold shrink-0">
                   ✓
                 </span>
                 {isFlagship && (
-                  <span className="text-[9px] font-bold text-[#dfb76c] bg-[#dfb76c]/15 px-1.5 py-0.2 rounded-full hidden xs:inline shrink-0">
+                  <span className="text-[9px] font-bold text-[#E7B743] bg-[#24133B] border border-[#A87B2A] px-1.5 py-0.2 rounded-full hidden xs:inline shrink-0">
                     FLAGSHIP
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] text-[#9d9688]">
-                <span className="text-emerald-400 font-semibold shrink-0">🟢 Active</span>
+              <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] text-[#9685AE]">
+                <span className="text-[#00D6A0] font-semibold shrink-0">● Active</span>
                 <span>·</span>
-                <span className="truncate max-w-[130px] sm:max-w-[200px] text-[#b8b2a3]">
+                <span className="truncate max-w-[130px] sm:max-w-[200px] text-[#C5B8D9]">
                   {guru.title}
                 </span>
               </div>

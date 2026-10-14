@@ -52,9 +52,9 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
             return (
               <h4
                 key={pIdx}
-                className="font-display font-semibold text-[#fcedc5] text-sm sm:text-[15px] tracking-wide flex items-center gap-1.5 pt-1 text-gold-glow"
+                className="font-display font-semibold text-[#F7F0FF] text-sm sm:text-[15px] tracking-wide flex items-center gap-1.5 pt-1 text-gold-glow"
               >
-                <span className="text-xs text-[#dfb76c]">✦</span>
+                <span className="text-xs text-[#E7B743]">✦</span>
                 <span>{renderInlineFormatting(headingText)}</span>
                 {isLastParagraph && isCurrentlyActiveStream && renderTrailingCursor()}
               </h4>
@@ -70,8 +70,8 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                   const cleanItem = item.replace(/^[-*•]\s*/, '');
                   const isLastBullet = isLastParagraph && bIdx === bulletItems.length - 1;
                   return (
-                    <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-[14px] text-[#f5eedf]">
-                      <span className="text-[#dfb76c] text-[10px] mt-1 shrink-0">◇</span>
+                    <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-[14px] text-[#F7F0FF]">
+                      <span className="text-[#E7B743] text-[10px] mt-1 shrink-0">◇</span>
                       <span>
                         {renderInlineFormatting(cleanItem)}
                         {isLastBullet && isCurrentlyActiveStream && renderTrailingCursor()}
@@ -85,7 +85,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
 
           // Standard conversational paragraph
           return (
-            <p key={pIdx} className="text-xs sm:text-[14.5px] text-[#f5eedf] leading-relaxed">
+            <p key={pIdx} className="text-xs sm:text-[14.5px] text-[#F7F0FF] leading-relaxed">
               {renderInlineFormatting(para)}
               {isLastParagraph && isCurrentlyActiveStream && renderTrailingCursor()}
             </p>
@@ -95,7 +95,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
         {/* Final Completion Spark (Section 14) */}
         {morphStage === 'spark' && (
           <span
-            className="animate-final-spark ml-1.5 text-[#fef08a] font-bold text-sm select-none inline-block align-middle"
+            className="animate-final-spark ml-1.5 text-[#FFD76A] font-bold text-sm select-none inline-block align-middle"
             title="Vedic revelation complete"
           >
             ✦
@@ -115,7 +115,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
       // Odd indices are between ** **
       if (index % 2 === 1) {
         return (
-          <strong key={index} className="font-semibold text-[#fcedc5] text-gold-glow">
+          <strong key={index} className="font-semibold text-[#FFD76A] text-gold-glow">
             {part}
           </strong>
         );
@@ -129,13 +129,13 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
     return (
       <span className="inline-flex items-center align-baseline select-none ml-0.5">
         <span
-          className="animate-soft-cursor text-[#dfb76c] font-bold text-xs sm:text-sm"
+          className="animate-soft-cursor text-[#E7B743] font-bold text-xs sm:text-sm"
           title="Streaming celestial response"
         >
           ▌
         </span>
         <span
-          className="animate-gemstone-shimmer-subtle text-[#dfb76c]/70 text-[10px] sm:text-xs ml-1"
+          className="animate-gemstone-shimmer-subtle text-[#E7B743]/70 text-[10px] sm:text-xs ml-1"
           title="Planetary resonance"
         >
           ✦
@@ -180,7 +180,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                 <div
                   key={idx}
                   style={{ animationDelay: `${delayMs}ms` }}
-                  className="animate-diamond-stream text-[#dfb76c] text-sm sm:text-base select-none"
+                  className="animate-diamond-stream text-[#E7B743] text-sm sm:text-base select-none"
                   title={obj.label}
                 >
                   {obj.symbol}
@@ -193,7 +193,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                 <div
                   key={idx}
                   style={{ animationDelay: `${delayMs}ms` }}
-                  className="animate-om-sacred text-[#fcedc5] text-base sm:text-lg select-none"
+                  className="animate-om-sacred text-[#FFD76A] text-base sm:text-lg select-none"
                   title={obj.label}
                 >
                   ॐ
@@ -206,7 +206,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                 <div
                   key={idx}
                   style={{ animationDelay: `${delayMs}ms` }}
-                  className="animate-planet-orbit text-[#d8b4fe] text-sm sm:text-base select-none"
+                  className="animate-planet-orbit text-[#C5B8D9] text-sm sm:text-base select-none"
                   title={obj.label}
                 >
                   {obj.symbol}
@@ -218,7 +218,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
               <div
                 key={idx}
                 style={{ animationDelay: `${delayMs}ms` }}
-                className="animate-celestial-obj text-[#dfb76c] text-sm sm:text-base select-none"
+                className="animate-celestial-obj text-[#E7B743] text-sm sm:text-base select-none"
                 title={obj.label}
               >
                 {obj.symbol}
@@ -228,8 +228,8 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
         </div>
 
         {/* Gemstone letter streaming simulation effect & status caption */}
-        <div className="flex items-center gap-2 text-[11px] sm:text-xs text-[#dfb76c]/90 font-serif-luxury italic">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-pulse" />
+        <div className="flex items-center gap-2 text-[11px] sm:text-xs text-[#E7B743] font-serif-luxury italic">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#E7B743] animate-pulse" />
           <span>{thinkingStatus || '✦ Channeling planetary transits & Vedic guidance...'}</span>
         </div>
       </div>
@@ -276,7 +276,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                   '--dy': pos.dy,
                 } as React.CSSProperties
               }
-              className="animate-symbol-dissolve text-[#dfb76c] text-xs select-none"
+              className="animate-symbol-dissolve text-[#E7B743] text-xs select-none"
             >
               {obj.symbol}
             </span>
@@ -292,32 +292,32 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
       'p-3.5 sm:p-4 rounded-2xl text-xs sm:text-[14.5px] leading-relaxed whitespace-pre-line break-words [overflow-wrap:anywhere] rounded-tl-xs shadow-xl shadow-black/30 min-h-[58px] celestial-morph-transition relative overflow-visible';
 
     if (isTransitioning) {
-      return `${base} bg-[#121420]/96 border border-[#dfb76c]/40 text-[#f5eedf] animate-thinking-exit`;
+      return `${base} bg-[#2B173C] border border-[#A87B2A]/50 text-[#F7F0FF] animate-thinking-exit`;
     }
 
     if (morphStage === 'moment') {
-      return `${base} bg-[#141726]/96 border border-[#dfb76c]/60 text-[#fff9eb] animate-celestial-moment`;
+      return `${base} bg-[#2B173C] border border-[#E7B743]/60 text-[#F7F0FF] animate-celestial-moment`;
     }
     if (morphStage === 'settling') {
-      return `${base} bg-[#121420]/96 border border-[#dfb76c]/35 text-[#f5eedf] animate-bubble-settle`;
+      return `${base} bg-[#2B173C] border border-[#453052] text-[#F7F0FF] animate-bubble-settle`;
     }
     if (morphStage === 'spark' || morphStage === 'settled') {
-      return `${base} bg-[#121420]/96 border border-[#dfb76c]/30 text-[#f5eedf]`;
+      return `${base} bg-[#2B173C] border border-[#453052] text-[#F7F0FF]`;
     }
 
     if (hasStreamedContent) {
-      return `${base} bg-[#121420]/96 border border-[#dfb76c]/35 text-[#f5eedf] animate-streaming-appear`;
+      return `${base} bg-[#2B173C] border border-[#453052] text-[#F7F0FF] animate-streaming-appear`;
     }
 
-    return `${base} bg-[#121420]/96 border border-[#dfb76c]/40 text-[#f5eedf]`;
+    return `${base} bg-[#2B173C] border border-[#453052] text-[#F7F0FF]`;
   };
 
   return (
     <div className="flex w-full mb-3.5 justify-start select-text transition-all duration-300">
       <div className="flex gap-2 w-full max-w-[92%] sm:max-w-[640px] flex-row">
         {/* Astrologer Avatar with live aura */}
-        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#996e28] to-[#dfb76c] p-0.5 shrink-0 mt-0.5 shadow-sm">
-          <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center overflow-hidden">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] p-0.5 shrink-0 mt-0.5 shadow-sm">
+          <div className="w-full h-full rounded-full bg-[#24133B] flex items-center justify-center overflow-hidden">
             {astrologer.avatarUrl ? (
               <img
                 src={astrologer.avatarUrl}
@@ -325,7 +325,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                 className="w-full h-full object-cover rounded-full"
               />
             ) : (
-              <span className="font-display text-[11px] font-bold text-[#dfb76c]">
+              <span className="font-display text-[11px] font-bold text-[#E7B743]">
                 {astrologer.name.charAt(0)}
               </span>
             )}
@@ -334,18 +334,12 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
 
         <div className="flex flex-col flex-1 min-w-0">
           {/* Astrologer Name & Transmitting/Verified Status Header */}
-          <div className="flex items-center justify-between gap-1.5 mb-1 text-[10px] text-[#8e8779]">
+          <div className="flex items-center justify-between gap-1.5 mb-1 text-[10px] text-[#9685AE]">
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-[#cdc7ba]">{astrologer.name}</span>
+              <span className="font-semibold text-[#C5B8D9]">{astrologer.name}</span>
               <span aria-hidden="true">·</span>
               {!error ? (
-                <span
-                  className={`font-medium flex items-center gap-1 transition-colors duration-300 ${
-                    morphStage === 'settled' || morphStage === 'spark'
-                      ? 'text-[#dfb76c]'
-                      : 'text-[#dfb76c]'
-                  }`}
-                >
+                <span className="font-medium flex items-center gap-1 transition-colors duration-300 text-[#E7B743]">
                   {morphStage === 'settled' || morphStage === 'spark' ? (
                     <>
                       <span className="text-xs">✦</span>
@@ -353,22 +347,22 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                     </>
                   ) : morphStage === 'moment' || morphStage === 'settling' ? (
                     <>
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFD76A] animate-pulse" />
                       <span>Completing revelation...</span>
                     </>
                   ) : hasStreamedContent ? (
                     <>
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00D6A0] animate-pulse" />
                       <span>Transmitting live revelation...</span>
                     </>
                   ) : isTransitioning ? (
                     <>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E7B743] animate-pulse" />
                       <span>Awakening celestial revelation...</span>
                     </>
                   ) : (
                     <>
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400/80 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E7B743] animate-pulse" />
                       <span>
                         {isCelestialLoading
                           ? 'Synthesizing Graha alignment...'
@@ -378,8 +372,8 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                   )}
                 </span>
               ) : (
-                <span className="text-amber-400 font-medium flex items-center gap-1">
-                  <AlertCircle className="w-2.5 h-2.5 text-amber-400" />
+                <span className="text-[#FFD76A] font-medium flex items-center gap-1">
+                  <AlertCircle className="w-2.5 h-2.5 text-[#FFD76A]" />
                   <span>Response interrupted</span>
                 </span>
               )}
@@ -390,10 +384,10 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
               <button
                 type="button"
                 onClick={onStop}
-                className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#241a1a] hover:bg-[#382020] text-red-300 hover:text-red-200 border border-red-500/30 text-[10px] cursor-pointer transition-colors active:scale-95"
+                className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#2B173C] hover:bg-[#352044] text-[#F7F0FF] border border-[#453052] text-[10px] cursor-pointer transition-colors active:scale-95"
                 title="Stop streaming"
               >
-                <Square className="w-2.5 h-2.5 fill-current" />
+                <Square className="w-2.5 h-2.5 fill-[#E7B743] text-[#E7B743]" />
                 <span>Stop</span>
               </button>
             )}
@@ -406,8 +400,8 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
 
             {/* 1. Initial Thinking State with calm celestial breathing animation (Section 2 & 3) */}
             {isInitialThinking && !error && (
-              <div className="flex items-center gap-2.5 text-[#dfb76c]/90 py-1 font-serif-luxury italic animate-celestial-thinking">
-                <span className="text-sm font-bold text-[#dfb76c]">✦</span>
+              <div className="flex items-center gap-2.5 text-[#E7B743] py-1 font-serif-luxury italic animate-celestial-thinking">
+                <span className="text-sm font-bold text-[#E7B743]">✦</span>
                 <span className="text-xs sm:text-sm">{thinkingStatus || '✦ Consulting your Janma Kundli...'}</span>
               </div>
             )}
@@ -417,7 +411,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
 
             {/* 3. Transitioning state placeholder */}
             {isTransitioning && !hasStreamedContent && (
-              <div className="flex items-center gap-2 text-[#dfb76c]/80 py-1 font-serif-luxury italic text-xs">
+              <div className="flex items-center gap-2 text-[#E7B743] py-1 font-serif-luxury italic text-xs">
                 <span className="text-xs">✦</span>
                 <span>Synthesizing Vedic wisdom...</span>
               </div>
@@ -428,8 +422,8 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
 
             {/* 5. Error Interruption State */}
             {error && (
-              <div className="mt-3 pt-2.5 border-t border-amber-500/20 text-xs animate-in fade-in">
-                <div className="flex items-center gap-1.5 text-amber-300 font-medium mb-2">
+              <div className="mt-3 pt-2.5 border-t border-[#453052] text-xs animate-in fade-in">
+                <div className="flex items-center gap-1.5 text-[#FFD76A] font-medium mb-2">
                   <span>✦</span>
                   <span>Something interrupted the reading.</span>
                 </div>
@@ -437,7 +431,7 @@ export const StreamingMessageBubble: React.FC<StreamingMessageBubbleProps> = ({
                   <button
                     type="button"
                     onClick={onRetry}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#dfb76c] hover:bg-[#fcedc5] text-[#0e1017] font-semibold text-xs transition-transform active:scale-95 shadow-md cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B] font-semibold text-xs transition-transform active:scale-95 shadow-md cursor-pointer"
                   >
                     <RotateCcw className="w-3 h-3 stroke-[2.5]" />
                     <span>Try Again</span>

@@ -142,13 +142,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="w-full bg-[#0e1017]/95 border-t border-[#dfb76c]/15 px-3 sm:px-4 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md z-30 select-none">
+    <div className="w-full bg-[#180D2B]/95 border-t border-[#453052] px-3 sm:px-4 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md z-30 select-none">
       {/* Quick Reply Pills & Regenerate (Section 15, 16, 19, Requirement 9: only after morph settles) */}
       {(quickReplies.length > 0 || (onRegenerate && !isStreaming && currentState === 'MESSAGE_COMPLETE')) &&
         !disabled &&
         isPillsReady && (
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-none -mx-1 px-1 mb-1 animate-in fade-in duration-300">
-          <span className="text-[10px] text-[#dfb76c] font-semibold shrink-0 pl-1 flex items-center gap-1">
+          <span className="text-[10px] text-[#E7B743] font-semibold shrink-0 pl-1 flex items-center gap-1">
             <span>✦</span>
             <span>Quick:</span>
           </span>
@@ -158,7 +158,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             <button
               type="button"
               onClick={onRegenerate}
-              className="text-[11px] py-1 px-2.5 min-h-[30px] rounded-full border border-[#dfb76c]/40 text-[#dfb76c] hover:bg-[#dfb76c]/15 hover:border-[#dfb76c]/70 active:scale-95 transition-all flex items-center gap-1 shrink-0 cursor-pointer shadow-xs"
+              className="text-[11px] py-1 px-2.5 min-h-[30px] rounded-full border border-[#A87B2A]/50 text-[#E7B743] hover:bg-[#352044] hover:border-[#E7B743] active:scale-95 transition-all flex items-center gap-1 shrink-0 cursor-pointer shadow-xs"
               title="Regenerate last response"
             >
               <RotateCcw className="w-3 h-3 stroke-[2.2]" />
@@ -177,7 +177,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                 variant="quick-reply"
                 onSelectAction={() => handleSelectSuggestion(qr.text)}
                 disabled={disabled || isStreaming}
-                className="text-[11px] py-1 px-3 min-h-[30px] border-[#dfb76c]/30 text-[#fcedc5] bg-[#1a1e30]"
+                className="text-[11px] py-1 px-3 min-h-[30px] border-[#453052] text-[#F7F0FF] bg-[#2B173C] hover:bg-[#352044]"
               >
                 {qr.label}
               </CelestialPill>
@@ -189,8 +189,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       {/* Celestial Chat Prompt Pills (Section 15, 16, Requirement 9: only after morph settles) */}
       {isPillsReady && (
         <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none -mx-1 px-1 animate-in fade-in duration-300">
-          <span className="text-[10px] text-[#8e8779] flex items-center gap-1 shrink-0 font-medium pl-1">
-            <Sparkles className="w-3 h-3 text-[#dfb76c]" />
+          <span className="text-[10px] text-[#9685AE] flex items-center gap-1 shrink-0 font-medium pl-1">
+            <Sparkles className="w-3 h-3 text-[#E7B743]" />
             <span className="hidden sm:inline">Prompts:</span>
           </span>
           {suggestions.map((sug, i) => (
@@ -214,11 +214,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
       {/* Input Bar or Active Voice Recording Bar */}
       {isRecording ? (
-        <div className="flex items-center justify-between gap-3 p-2 rounded-2xl bg-red-950/30 border border-red-500/40 text-xs text-red-200 animate-in fade-in">
+        <div className="flex items-center justify-between gap-3 p-2 rounded-2xl bg-[#2B173C] border border-[#453052] text-xs text-[#F7F0FF] animate-in fade-in">
           <div className="flex items-center gap-2 pl-2">
-            <span className="w-3 h-3 rounded-full bg-red-500 animate-ping" />
-            <span className="font-semibold text-red-300">Recording Voice Note...</span>
-            <span className="font-mono text-red-400 font-bold ml-1">
+            <span className="w-3 h-3 rounded-full bg-[#E7B743] animate-ping" />
+            <span className="font-semibold text-[#E7B743]">Recording Voice Note...</span>
+            <span className="font-mono text-[#F7F0FF] font-bold ml-1">
               0:0{recordSeconds}
             </span>
           </div>
@@ -226,13 +226,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsRecording(false)}
-              className="text-xs text-[#a8a192] hover:text-white px-2 py-1 cursor-pointer"
+              className="text-xs text-[#9685AE] hover:text-[#F7F0FF] px-2 py-1 cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={handleToggleRecording}
-              className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold flex items-center gap-1.5 cursor-pointer shadow-md"
+              className="px-3 py-1.5 rounded-xl bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B] font-bold flex items-center gap-1.5 cursor-pointer shadow-md"
             >
               <Square className="w-3 h-3 fill-current" />
               <span>Send Voice</span>
@@ -256,7 +256,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                   ? 'Acharya meditating on query...'
                   : 'Ask your astrologer anything...'
               }
-              className="w-full pl-4 pr-12 py-2.5 sm:py-3 rounded-2xl bg-[#151825] border border-[#2c3349] text-xs sm:text-sm text-[#ede8dc] placeholder-[#716a5d] focus:outline-none focus:border-[#dfb76c] transition-colors disabled:opacity-60 min-h-[44px]"
+              className="w-full pl-4 pr-12 py-2.5 sm:py-3 rounded-2xl bg-[#12091F] border border-[#453052] text-xs sm:text-sm text-[#F7F0FF] placeholder-[#9685AE] focus:outline-none focus:border-[#E7B743] transition-colors disabled:opacity-60 min-h-[44px]"
             />
 
             {/* Voice recording button inside input */}
@@ -264,7 +264,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
               type="button"
               onClick={handleToggleRecording}
               disabled={disabled || isStreaming}
-              className="absolute right-1.5 p-2 rounded-xl text-[#8e8779] hover:text-[#dfb76c] hover:bg-[#1f2436] transition-all cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center disabled:opacity-40"
+              className="absolute right-1.5 p-2 rounded-xl text-[#9685AE] hover:text-[#E7B743] hover:bg-[#352044] transition-all cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center disabled:opacity-40"
               title="Record voice note for Acharya"
             >
               <Mic className="w-4 h-4" />
@@ -276,10 +276,10 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             <button
               type="button"
               onClick={onStopStreaming}
-              className="h-10 sm:h-11 px-3 sm:px-4 rounded-2xl bg-[#241a1a] hover:bg-[#382020] border border-red-500/40 text-red-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 shadow-lg shadow-black/40 cursor-pointer active:scale-95 transition-all shrink-0 animate-in fade-in"
+              className="h-10 sm:h-11 px-3 sm:px-4 rounded-2xl bg-[#2B173C] hover:bg-[#352044] border border-[#A87B2A]/60 text-[#F7F0FF] text-xs sm:text-sm font-semibold flex items-center gap-1.5 shadow-lg shadow-black/40 cursor-pointer active:scale-95 transition-all shrink-0 animate-in fade-in"
               title="Stop generating"
             >
-              <Square className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-red-400 text-red-400" />
+              <Square className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#E7B743] text-[#E7B743]" />
               <span>Stop</span>
             </button>
           ) : (

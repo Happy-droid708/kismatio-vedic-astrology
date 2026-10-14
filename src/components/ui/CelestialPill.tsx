@@ -83,7 +83,7 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
   const triggerSparkParticles = () => {
     // 2 to 5 tiny particles in warm gold / soft white tones
     const particleCount = 3 + Math.floor(Math.random() * 3); // 3 to 5
-    const colors = ['#dfb76c', '#fcedc5', '#ffffff', '#e2d5ff', '#fcd34d'];
+    const colors = ['#E7B743', '#FFD76A', '#A87B2A', '#F7F0FF'];
 
     const newParticles: PillParticle[] = Array.from({ length: particleCount }).map((_, idx) => ({
       id: Date.now() + idx,
@@ -179,23 +179,23 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
         return {
           bg: isLight
             ? 'linear-gradient(135deg, rgba(223, 183, 108, 0.95) 0%, rgba(196, 151, 70, 0.95) 100%)'
-            : 'linear-gradient(135deg, rgba(223, 183, 108, 0.95) 0%, rgba(196, 151, 70, 0.9) 100%)',
-          border: isLight ? '1px solid rgba(180, 135, 50, 0.6)' : '1px solid rgba(254, 240, 190, 0.5)',
-          text: 'text-[#0c0d13] font-bold',
-          glow: isLight ? '0 2px 10px rgba(180, 135, 50, 0.25)' : '0 0 14px rgba(223, 183, 108, 0.35)',
+            : '#E7B743',
+          border: isLight ? '1px solid rgba(180, 135, 50, 0.6)' : '1px solid #E7B743',
+          text: 'text-[#180D2B] font-bold',
+          glow: '0 0 12px rgba(231, 183, 67, 0.3)',
         };
       }
       return {
         bg: isLight
           ? isHovered ? 'rgba(245, 238, 225, 0.98)' : 'rgba(255, 255, 255, 0.92)'
-          : isHovered ? 'rgba(28, 33, 50, 0.95)' : 'rgba(21, 24, 37, 0.85)',
+          : isHovered ? '#352044' : '#2B173C',
         border: isLight
           ? isHovered ? '1px solid rgba(180, 135, 50, 0.45)' : '1px solid rgba(180, 135, 50, 0.22)'
-          : isHovered ? '1px solid rgba(223, 183, 108, 0.45)' : '1px solid rgba(39, 45, 66, 0.8)',
+          : isHovered ? '1px solid #A87B2A' : '1px solid #453052',
         text: isLight
           ? isHovered ? 'text-[#1f1b16]' : 'text-[#6b5f4f]'
-          : isHovered ? 'text-[#f5eedf]' : 'text-[#a29b8d]',
-        glow: isLight ? 'none' : isHovered ? '0 0 10px rgba(223, 183, 108, 0.15)' : 'none',
+          : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+        glow: isHovered ? '0 0 8px rgba(168, 123, 42, 0.2)' : 'none',
       };
     }
 
@@ -204,64 +204,56 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
         return {
           bg: isLight
             ? 'linear-gradient(135deg, rgba(235, 215, 175, 0.9) 0%, rgba(225, 200, 150, 0.8) 100%)'
-            : 'radial-gradient(circle at 50% 50%, #282f48 0%, #171a28 100%)',
-          border: isLight ? '1px solid rgba(180, 135, 50, 0.7)' : '1px solid rgba(223, 183, 108, 0.85)',
-          text: isLight ? 'text-[#1f1b16] font-bold' : 'text-[#fcedc5] font-bold',
-          glow: isLight ? '0 2px 10px rgba(180, 135, 50, 0.2)' : '0 0 16px rgba(223, 183, 108, 0.3)',
+            : '#E7B743',
+          border: isLight ? '1px solid rgba(180, 135, 50, 0.7)' : '1px solid #E7B743',
+          text: 'text-[#180D2B] font-bold',
+          glow: '0 0 14px rgba(231, 183, 67, 0.35)',
         };
       }
       return {
         bg: isLight
           ? isHovered ? 'rgba(245, 238, 225, 0.98)' : 'rgba(255, 255, 255, 0.92)'
-          : isHovered ? 'rgba(26, 30, 46, 0.95)' : 'rgba(19, 22, 34, 0.8)',
+          : isHovered ? '#352044' : '#2B173C',
         border: isLight
           ? isHovered ? '1px solid rgba(180, 135, 50, 0.4)' : '1px solid rgba(180, 135, 50, 0.22)'
-          : isHovered ? '1px solid rgba(223, 183, 108, 0.4)' : '1px solid rgba(40, 46, 68, 0.7)',
+          : isHovered ? '1px solid #A87B2A' : '1px solid #453052',
         text: isLight
           ? isHovered ? 'text-[#1f1b16]' : 'text-[#6b5f4f]'
-          : isHovered ? 'text-[#ede8dc]' : 'text-[#9e9788]',
-        glow: isLight ? 'none' : isHovered ? '0 0 8px rgba(223, 183, 108, 0.12)' : 'none',
+          : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+        glow: isHovered ? '0 0 8px rgba(168, 123, 42, 0.15)' : 'none',
       };
     }
 
     if (variant === 'gemstone') {
       return {
-        bg: isLight
-          ? isHovered ? 'linear-gradient(135deg, #ffffff 0%, #f6efe2 100%)' : 'rgba(255, 255, 255, 0.95)'
-          : isHovered ? 'radial-gradient(circle at 40% 30%, #262c45 0%, #151827 80%)' : 'radial-gradient(circle at 40% 30%, #1d2133 0%, #121421 80%)',
-        border: isLight
-          ? isHovered ? '1px solid rgba(180, 135, 50, 0.6)' : '1px solid rgba(180, 135, 50, 0.28)'
-          : isHovered ? '1px solid rgba(223, 183, 108, 0.7)' : '1px solid rgba(223, 183, 108, 0.35)',
-        text: isLight
-          ? isHovered ? 'text-[#1f1b16]' : 'text-[#332b21]'
-          : isHovered ? 'text-[#fff9e6]' : 'text-[#ede8dc]',
-        glow: isLight
-          ? isHovered ? '0 4px 14px rgba(180, 135, 50, 0.2)' : '0 2px 6px rgba(180, 135, 50, 0.08)'
-          : isHovered ? '0 0 16px rgba(223, 183, 108, 0.28), 0 0 24px rgba(139, 92, 246, 0.12)' : '0 0 6px rgba(0,0,0,0.4)',
+        bg: isHovered ? '#352044' : '#2B173C',
+        border: isHovered ? '1px solid #A87B2A' : '1px solid #453052',
+        text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+        glow: isHovered ? '0 0 12px rgba(168, 123, 42, 0.2)' : 'none',
       };
     }
 
     if (variant === 'order-status') {
       if (isCompleted) {
         return {
-          bg: 'rgba(16, 185, 129, 0.12)',
-          border: '1px solid rgba(16, 185, 129, 0.45)',
-          text: isLight ? 'text-emerald-700 font-semibold' : 'text-emerald-300 font-semibold',
-          glow: '0 0 8px rgba(16, 185, 129, 0.15)',
+          bg: 'rgba(0, 214, 160, 0.12)',
+          border: '1px solid #00D6A0',
+          text: 'text-[#00D6A0] font-semibold',
+          glow: '0 0 8px rgba(0, 214, 160, 0.2)',
         };
       }
       if (isInProgress) {
         return {
-          bg: isLight ? 'rgba(223, 183, 108, 0.2)' : 'rgba(223, 183, 108, 0.15)',
-          border: isLight ? '1px solid rgba(180, 135, 50, 0.6)' : '1px solid rgba(223, 183, 108, 0.7)',
-          text: isLight ? 'text-[#78500f] font-bold' : 'text-[#fcedc5] font-bold',
-          glow: '0 0 14px rgba(223, 183, 108, 0.35)',
+          bg: 'rgba(231, 183, 67, 0.15)',
+          border: '1px solid #E7B743',
+          text: 'text-[#E7B743] font-bold',
+          glow: '0 0 12px rgba(231, 183, 67, 0.3)',
         };
       }
       return {
-        bg: isLight ? 'rgba(240, 235, 225, 0.7)' : 'rgba(20, 23, 36, 0.6)',
-        border: isLight ? '1px solid rgba(180, 135, 50, 0.2)' : '1px solid rgba(43, 49, 73, 0.6)',
-        text: isLight ? 'text-[#877967]' : 'text-[#7d7667]',
+        bg: '#2B173C',
+        border: '1px solid #453052',
+        text: 'text-[#9685AE]',
         glow: 'none',
       };
     }
@@ -269,57 +261,43 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
     if (variant === 'recharge') {
       if (rechargeStep === 'added') {
         return {
-          bg: 'linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.9) 100%)',
-          border: '1px solid rgba(110, 231, 183, 0.6)',
-          text: isLight ? 'text-white font-bold' : 'text-[#062417] font-bold',
-          glow: '0 0 16px rgba(16, 185, 129, 0.4)',
+          bg: '#00D6A0',
+          border: '1px solid #00D6A0',
+          text: 'text-[#180D2B] font-bold',
+          glow: '0 0 16px rgba(0, 214, 160, 0.4)',
         };
       }
       if (rechargeStep === 'spark') {
         return {
-          bg: 'linear-gradient(135deg, #fcedc5 0%, #dfb76c 100%)',
-          border: isLight ? '1px solid #c49746' : '1px solid #ffffff',
-          text: 'text-[#0e1017] font-bold',
-          glow: '0 0 18px rgba(223, 183, 108, 0.5)',
+          bg: '#FFD76A',
+          border: '1px solid #E7B743',
+          text: 'text-[#180D2B] font-bold',
+          glow: '0 0 18px rgba(255, 215, 106, 0.5)',
         };
       }
       return {
-        bg: isLight
-          ? isHovered ? 'rgba(245, 238, 225, 0.98)' : 'rgba(255, 255, 255, 0.92)'
-          : isHovered ? 'radial-gradient(circle at 50% 0%, #2a3148 0%, #161928 100%)' : 'radial-gradient(circle at 50% 0%, #1c2033 0%, #131624 100%)',
-        border: isLight
-          ? isHovered ? '1px solid rgba(180, 135, 50, 0.6)' : '1px solid rgba(180, 135, 50, 0.3)'
-          : isHovered ? '1px solid rgba(223, 183, 108, 0.65)' : '1px solid rgba(223, 183, 108, 0.35)',
-        text: isLight
-          ? isHovered ? 'text-[#1f1b16]' : 'text-[#42392c]'
-          : isHovered ? 'text-[#fcedc5]' : 'text-[#ede8dc]',
-        glow: isLight ? 'none' : isHovered ? '0 0 12px rgba(223, 183, 108, 0.25)' : 'none',
+        bg: isHovered ? '#352044' : '#2B173C',
+        border: isHovered ? '1px solid #A87B2A' : '1px solid #453052',
+        text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+        glow: isHovered ? '0 0 10px rgba(168, 123, 42, 0.2)' : 'none',
       };
     }
 
     // Default / Prompt / Quick-reply / Language
     if (isSelected) {
       return {
-        bg: isLight
-          ? 'linear-gradient(135deg, rgba(235, 215, 175, 0.9) 0%, rgba(225, 200, 150, 0.8) 100%)'
-          : 'radial-gradient(circle at 50% 0%, #262c44 0%, #161928 100%)',
-        border: isLight ? '1px solid rgba(180, 135, 50, 0.6)' : '1px solid rgba(223, 183, 108, 0.75)',
-        text: isLight ? 'text-[#1f1b16] font-bold' : 'text-[#fcedc5] font-bold',
-        glow: isLight ? '0 2px 10px rgba(180, 135, 50, 0.2)' : '0 0 14px rgba(223, 183, 108, 0.28)',
+        bg: '#E7B743',
+        border: '1px solid #E7B743',
+        text: 'text-[#180D2B] font-bold',
+        glow: '0 0 12px rgba(231, 183, 67, 0.3)',
       };
     }
 
     return {
-      bg: isLight
-        ? isHovered ? 'rgba(245, 238, 225, 0.98)' : 'rgba(255, 255, 255, 0.92)'
-        : isHovered ? 'rgba(26, 30, 46, 0.95)' : 'rgba(19, 22, 34, 0.85)',
-      border: isLight
-        ? isHovered ? '1px solid rgba(180, 135, 50, 0.45)' : '1px solid rgba(180, 135, 50, 0.22)'
-        : isHovered ? '1px solid rgba(223, 183, 108, 0.45)' : '1px solid rgba(40, 46, 68, 0.8)',
-      text: isLight
-        ? isHovered ? 'text-[#1f1b16]' : 'text-[#524637]'
-        : isHovered ? 'text-[#ede8dc]' : 'text-[#cdc7ba]',
-      glow: isLight ? 'none' : isHovered ? '0 0 10px rgba(223, 183, 108, 0.16)' : 'none',
+      bg: isHovered ? '#352044' : '#2B173C',
+      border: isHovered ? '1px solid #A87B2A' : '1px solid #453052',
+      text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+      glow: isHovered ? '0 0 8px rgba(168, 123, 42, 0.2)' : 'none',
     };
   };
 

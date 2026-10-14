@@ -47,42 +47,39 @@ export const CelestialButton: React.FC<CelestialButtonProps> = ({
   }[size];
 
   // Visual variants
+  // Visual variants strictly adhering to official Kismatio palette
   const getVariantStyles = () => {
     switch (variant) {
       case 'primary':
         return {
-          bg: isHovered
-            ? 'linear-gradient(135deg, #ebd092 0%, #dfb76c 50%, #c49746 100%)'
-            : 'linear-gradient(135deg, #dfb76c 0%, #c49746 50%, #996e28 100%)',
-          border: '1px solid rgba(254, 240, 190, 0.4)',
-          text: 'text-[#0e1017] font-bold',
+          bg: isHovered ? '#FFD76A' : '#E7B743',
+          border: '1px solid rgba(255, 215, 106, 0.4)',
+          text: 'text-[#180D2B] font-bold',
           shadow: isHovered
-            ? '0 0 20px rgba(223, 183, 108, 0.35), 0 4px 14px rgba(0, 0, 0, 0.5)'
-            : '0 0 10px rgba(223, 183, 108, 0.15), 0 2px 6px rgba(0, 0, 0, 0.3)',
+            ? '0 0 16px rgba(231, 183, 67, 0.4), 0 4px 12px rgba(18, 9, 31, 0.5)'
+            : '0 0 8px rgba(231, 183, 67, 0.2), 0 2px 6px rgba(18, 9, 31, 0.3)',
         };
       case 'secondary':
         return {
-          bg: isHovered
-            ? 'radial-gradient(circle at 50% 0%, #252b40 0%, #161825 80%)'
-            : 'radial-gradient(circle at 50% 0%, #1e2235 0%, #121420 80%)',
-          border: '1px solid rgba(223, 183, 108, 0.35)',
-          text: 'text-[#ede8dc] font-semibold',
+          bg: isHovered ? '#352044' : 'transparent',
+          border: '1px solid #A87B2A',
+          text: 'text-[#F7F0FF] font-semibold',
           shadow: isHovered
-            ? '0 0 18px rgba(223, 183, 108, 0.22), 0 4px 12px rgba(0, 0, 0, 0.5)'
-            : '0 0 8px rgba(223, 183, 108, 0.08), 0 2px 6px rgba(0, 0, 0, 0.3)',
+            ? '0 0 14px rgba(168, 123, 42, 0.25), 0 4px 12px rgba(18, 9, 31, 0.4)'
+            : '0 2px 6px rgba(18, 9, 31, 0.2)',
         };
       case 'outline':
         return {
-          bg: isHovered ? 'rgba(223, 183, 108, 0.08)' : 'transparent',
-          border: '1px solid rgba(223, 183, 108, 0.5)',
-          text: 'text-[#dfb76c] font-semibold',
-          shadow: isHovered ? '0 0 14px rgba(223, 183, 108, 0.2)' : 'none',
+          bg: isHovered ? '#352044' : 'transparent',
+          border: '1px solid #A87B2A',
+          text: 'text-[#E7B743] font-semibold',
+          shadow: isHovered ? '0 0 12px rgba(168, 123, 42, 0.2)' : 'none',
         };
       case 'ghost':
         return {
-          bg: isHovered ? 'rgba(255, 255, 255, 0.06)' : 'transparent',
+          bg: isHovered ? '#352044' : 'transparent',
           border: '1px solid transparent',
-          text: 'text-[#cdc7ba] hover:text-[#fcedc5]',
+          text: 'text-[#C5B8D9] hover:text-[#F7F0FF]',
           shadow: 'none',
         };
     }

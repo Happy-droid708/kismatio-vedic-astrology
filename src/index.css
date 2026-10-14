@@ -7,37 +7,39 @@
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Plus Jakarta Sans', sans-serif;
 
-    /* Theme tokens - Dark Mode (Default) */
-    --bg-app: #0c0d12;
-    --bg-surface: #0e1019;
-    --bg-card: rgba(18, 20, 29, 0.75);
-    --bg-card-solid: #121524;
-    --bg-card-hover: rgba(26, 29, 41, 0.85);
-    --bg-elevated: #161824;
-    --bg-input: #141724;
-    --border-subtle: rgba(212, 175, 55, 0.15);
-    --border-card: #23293f;
-    --border-gold: rgba(223, 183, 108, 0.3);
-    --border-strong: rgba(223, 183, 108, 0.45);
-    --text-primary: #ede8dc;
-    --text-title: #fcedc5;
-    --text-secondary: #c2baa8;
-    --text-muted: #8e8779;
-    --gold-primary: #dfb76c;
-    --gold-secondary: #c49746;
-    --gold-accent: #fef08a;
-    --nav-bg: rgba(11, 13, 21, 0.95);
+    /* Official Kismatio Palette Tokens */
+    --bg-app: #180D2B;
+    --bg-surface: #24133B;
+    --bg-card: #2B173C;
+    --bg-card-solid: #2B173C;
+    --bg-card-hover: #352044;
+    --bg-elevated: #2B173C;
+    --bg-input: #12091F;
+    --border-subtle: #453052;
+    --border-card: #453052;
+    --border-gold: rgba(168, 123, 42, 0.45);
+    --border-strong: #A87B2A;
+    --text-primary: #F7F0FF;
+    --text-title: #F7F0FF;
+    --text-secondary: #C5B8D9;
+    --text-muted: #9685AE;
+    --gold-primary: #E7B743;
+    --gold-secondary: #A87B2A;
+    --gold-accent: #FFD76A;
+    --nav-bg: #180D2B;
     --scrollbar-track: transparent;
     --scrollbar-thumb: transparent;
     --scrollbar-thumb-hover-area: transparent;
     --scrollbar-thumb-hover: transparent;
     --scrollbar-thumb-active: transparent;
-    --bubble-astro-bg: rgba(18, 20, 32, 0.96);
-    --bubble-astro-border: rgba(223, 183, 108, 0.3);
-    --bubble-astro-text: #f5eedf;
-    --bubble-user-bg: rgba(27, 33, 51, 0.96);
-    --bubble-user-border: #3c4667;
-    --bubble-user-text: #fcedc5;
+    --bubble-astro-bg: #2B173C;
+    --bubble-astro-border: #453052;
+    --bubble-astro-text: #F7F0FF;
+    --bubble-user-bg: #352044;
+    --bubble-user-border: #453052;
+    --bubble-user-text: #F7F0FF;
+    --success-green: #00D6A0;
+    --hover-bg: #352044;
     color-scheme: dark;
   }
 
@@ -195,22 +197,22 @@ body,
 
 /* Gold glow and subtle sacred geometry background */
 .vedic-gold-gradient {
-  background: linear-gradient(135deg, #dfb76c 0%, #c49746 50%, #996e28 100%);
+  background: linear-gradient(135deg, #FFD76A 0%, #E7B743 50%, #A87B2A 100%);
 }
 
 .vedic-gold-text {
-  background: linear-gradient(135deg, #fcedc5 0%, #dfb76c 40%, #c49746 100%);
+  background: linear-gradient(135deg, #F7F0FF 0%, #E7B743 50%, #A87B2A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .vedic-border-subtle {
-  border-color: rgba(212, 175, 55, 0.15);
+  border-color: #453052;
 }
 
 .vedic-card-bg {
-  background: rgba(18, 20, 29, 0.75);
-  backdrop-filter: blur(12px);
+  background: #2B173C;
+  border-color: #453052;
 }
 
 /* ========================================================================= */
@@ -873,6 +875,230 @@ body,
   background: transparent !important;
   opacity: 0 !important;
   visibility: hidden !important;
+}
+
+/* ========================================================================= */
+/* OFFICIAL KISMATIO THEME SYSTEM CLASS MAPPINGS (DARK MODE DEFAULT)        */
+/* Strictly enforces the 12-color official palette across all components     */
+/* ========================================================================= */
+
+:root,
+[data-theme="dark"] {
+  /* Surfaces & Backgrounds */
+  .bg-\[\#07080d\],
+  .bg-\[\#0c0d12\],
+  .bg-\[\#0b0c14\],
+  .bg-\[\#0b0c13\],
+  .bg-\[\#0c0d15\],
+  .bg-\[\#08090e\],
+  .bg-\[\#040c17\],
+  .bg-\[\#0f071a\],
+  .bg-\[\#04130d\],
+  .bg-\[\#07081a\],
+  .bg-\[\#140608\],
+  .bg-\[\#060e18\],
+  .bg-\[\#080b12\],
+  .bg-\[\#12040b\] {
+    background-color: #180D2B !important;
+  }
+
+  /* Secondary Sections, Navigation, Headers, Modals & Dropdowns */
+  .bg-\[\#10121b\],
+  .bg-\[\#0e1017\],
+  .bg-\[\#0e1019\],
+  .bg-\[\#0a0c14\],
+  .bg-\[\#12141f\],
+  .bg-\[\#11131e\],
+  .bg-\[\#11131e\]\/95,
+  .bg-\[\#10121b\]\/98,
+  .bg-\[\#0e1017\]\/95,
+  .bg-\[\#0b0d15\]\/95 {
+    background-color: #24133B !important;
+  }
+
+  /* Cards, Panels, Elevated Components, AI Message Bubbles */
+  .bg-\[\#121524\],
+  .bg-\[\#151825\],
+  .bg-\[\#181a24\],
+  .bg-\[\#161824\],
+  .bg-\[\#1a1d2b\],
+  .bg-\[\#1a1e2d\],
+  .bg-\[\#1d2133\],
+  .bg-\[\#1b2038\],
+  .bg-\[\#171b30\],
+  .bg-\[\#141829\],
+  .bg-\[\#10121d\],
+  .bg-\[\#121420\],
+  .bg-\[\#12141d\],
+  .bg-\[\#14182b\],
+  .bg-\[\#151722\],
+  .bg-\[\#1b1f2e\],
+  .bg-\[\#1c2135\],
+  .bg-\[\#1c2033\],
+  .bg-\[\#131624\],
+  .bg-\[\#121420\]\/96,
+  .bg-\[\#141622\]\/90 {
+    background-color: #2B173C !important;
+  }
+
+  /* Darkest Background: Deeper sections, overlays, input fields */
+  input[type="text"],
+  textarea,
+  .bg-\[\#141724\],
+  .bg-\[\#120a10\],
+  .bg-\[\#091724\]\/90,
+  .bg-\[\#1c120c\]\/90,
+  .bg-\[\#21090d\]\/95 {
+    background-color: #12091F !important;
+  }
+
+  /* Hover backgrounds & User message bubbles */
+  .bg-\[\#1b2133\]\/96,
+  .bg-\[\#1b2133\],
+  .hover\:bg-\[\#141724\]:hover,
+  .hover\:bg-\[\#181a28\]:hover,
+  .hover\:bg-\[\#161a2c\]:hover,
+  .hover\:bg-\[\#1a1d2b\]:hover,
+  .hover\:bg-\[\#1f2438\]:hover,
+  .hover\:bg-\[\#1d2235\]:hover,
+  .hover\:bg-\[\#202538\]:hover,
+  .hover\:bg-\[\#252c48\]:hover,
+  .hover\:bg-\[\#1a203a\]:hover,
+  .active\:bg-\[\#1a1d2b\]:active,
+  .active\:bg-\[\#181b28\]:active,
+  .active\:bg-\[\#1d2235\]:active,
+  .active\:bg-\[\#1f2438\]:active,
+  .active\:bg-\[\#202538\]:active {
+    background-color: #352044 !important;
+  }
+
+  /* Standard Component Borders */
+  .border-\[\#23293f\],
+  .border-\[\#1b1e2c\],
+  .border-\[\#272d42\],
+  .border-\[\#22273d\],
+  .border-\[\#222739\],
+  .border-\[\#2b3145\],
+  .border-\[\#2b334d\],
+  .border-\[\#232940\],
+  .border-\[\#2c3349\],
+  .border-\[\#3c4667\],
+  .border-\[\#394263\],
+  .border-\[\#2e3650\],
+  .border-\[\#1e2336\],
+  .border-\[\#1f2334\],
+  .border-\[\#2d344b\],
+  .border-\[\#2b3350\],
+  .border-\[\#23273a\],
+  .divide-\[\#1b1e2c\] > :not([hidden]) ~ :not([hidden]),
+  .divide-\[\#1b1f2e\] > :not([hidden]) ~ :not([hidden]),
+  .divide-\[\#1f2334\] > :not([hidden]) ~ :not([hidden]) {
+    border-color: #453052 !important;
+  }
+
+  /* Gold Borders (A87B2A with appropriate opacity) */
+  .border-\[\#dfb76c\]\/15,
+  .border-\[\#dfb76c\]\/20,
+  .border-\[\#dfb76c\]\/25,
+  .border-\[\#dfb76c\]\/30,
+  .border-\[\#dfb76c\]\/40,
+  .border-\[\#dfb76c\]\/60 {
+    border-color: rgba(168, 123, 42, 0.45) !important;
+  }
+  .border-\[\#dfb76c\] {
+    border-color: #E7B743 !important;
+  }
+
+  /* Primary Gold Accents (#E7B743) */
+  .text-\[\#dfb76c\],
+  .fill-\[\#dfb76c\],
+  .text-\[\#dfb76c\]\/90 {
+    color: #E7B743 !important;
+    fill: #E7B743 !important;
+  }
+  .bg-\[\#dfb76c\] {
+    background-color: #E7B743 !important;
+    color: #180D2B !important;
+  }
+  .bg-\[\#dfb76c\]\/15,
+  .bg-\[\#dfb76c\]\/10 {
+    background-color: rgba(231, 183, 67, 0.15) !important;
+    color: #E7B743 !important;
+  }
+  .focus\:border-\[\#dfb76c\]:focus,
+  .focus-within\:border-\[\#dfb76c\]:focus-within {
+    border-color: #E7B743 !important;
+  }
+
+  /* Bright Gold (#FFD76A) */
+  .text-\[\#fef08a\] {
+    color: #FFD76A !important;
+  }
+
+  /* Muted Gold (#A87B2A) */
+  .text-\[\#996e28\] {
+    color: #A87B2A !important;
+  }
+
+  /* Primary Text (#F7F0FF) */
+  .text-\[\#ede8dc\],
+  .text-\[\#f5eedf\],
+  .text-\[\#fcedc5\],
+  .text-\[\#fff9e6\],
+  .text-\[\#fff7df\],
+  .text-\[\#fff6e0\],
+  .text-\[\#fff9eb\],
+  .text-\[\#ffffff\] {
+    color: #F7F0FF !important;
+  }
+
+  /* Secondary Text (#C5B8D9) */
+  .text-\[\#c2baa8\],
+  .text-\[\#cdc7ba\],
+  .text-\[\#c4bcae\],
+  .text-\[\#b8b2a3\],
+  .text-\[\#b8b0a1\],
+  .text-\[\#c4bcac\] {
+    color: #C5B8D9 !important;
+  }
+
+  /* Muted Text (#9685AE) */
+  .text-\[\#8e8779\],
+  .text-\[\#8a8374\],
+  .text-\[\#9d9688\],
+  .text-\[\#a8a192\],
+  .text-\[\#7d7768\],
+  .text-\[\#716a5d\],
+  .text-\[\#787163\],
+  .text-\[\#6e685c\],
+  .text-\[\#7d7668\],
+  .text-\[\#857e72\],
+  .text-\[\#9a9385\],
+  .text-\[\#a49d8f\] {
+    color: #9685AE !important;
+  }
+
+  input[type="text"]::placeholder,
+  textarea::placeholder {
+    color: #9685AE !important;
+  }
+
+  /* Success Green (#00D6A0) */
+  .text-emerald-400,
+  .text-emerald-300 {
+    color: #00D6A0 !important;
+  }
+  .bg-emerald-400 {
+    background-color: #00D6A0 !important;
+  }
+  .ring-emerald-500\/50 {
+    --tw-ring-color: rgba(0, 214, 160, 0.5) !important;
+  }
+
+  /* Active indicators */
+  .border-l-\[\#dfb76c\] {
+    border-left-color: #E7B743 !important;
+  }
 }
 
 /* ========================================================================= */

@@ -55,13 +55,13 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs transition-opacity animate-in fade-in"
+        className="fixed inset-0 z-50 bg-[#12091F]/80 backdrop-blur-xs transition-opacity animate-in fade-in"
         onClick={onClose}
       />
 
       {/* Modal / Bottom Sheet */}
       <div
-        className={`fixed z-50 bg-[#121420] border border-[#dfb76c]/40 shadow-2xl overflow-y-auto ${
+        className={`fixed z-50 bg-[#24133B] border border-[#453052] shadow-2xl overflow-y-auto ${
           isMobile
             ? 'inset-x-0 bottom-0 rounded-t-3xl max-h-[85dvh] pb-[max(1rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom duration-200'
             : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90dvh] rounded-2xl animate-in zoom-in-95 duration-150'
@@ -70,38 +70,38 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
         {/* Mobile Swipe / Drag indicator */}
         {isMobile && (
           <div className="w-full pt-3 pb-1 flex justify-center">
-            <div className="w-12 h-1.5 rounded-full bg-[#373e56]" />
+            <div className="w-12 h-1.5 rounded-full bg-[#453052]" />
           </div>
         )}
 
         {/* Modal Header */}
-        <div className="px-5 py-3.5 border-b border-[#222739] flex items-center justify-between">
+        <div className="px-5 py-3.5 border-b border-[#453052] flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-[#dfb76c] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#2B173C] text-[#E7B743] flex items-center justify-center">
               <Clock className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm sm:text-base font-serif-luxury font-bold text-[#f5eedf]">
+              <h3 className="text-sm sm:text-base font-serif-luxury font-bold text-[#F7F0FF]">
                 Recharge Consultation Time
               </h3>
-              <p className="text-[11px] text-[#9d9688]">
+              <p className="text-[11px] text-[#C5B8D9]">
                 Preserve uninterrupted conversation with {astrologerName}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#8e8779] hover:text-[#ede8dc] hover:bg-[#1a1d2d] cursor-pointer"
+            className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] cursor-pointer transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Current Balance Banner */}
-        <div className="px-5 py-2.5 bg-[#0a0b12] border-b border-[#1c2030] flex items-center justify-between">
-          <span className="text-xs text-[#9d9688]">Current Session Timer:</span>
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#181a28] border border-[#dfb76c]/30 text-xs font-mono font-bold text-[#dfb76c]">
-            <Clock className="w-3 h-3 text-[#dfb76c]" />
+        <div className="px-5 py-2.5 bg-[#180D2B] border-b border-[#453052] flex items-center justify-between">
+          <span className="text-xs text-[#9685AE]">Current Session Timer:</span>
+          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#2B173C] border border-[#453052] text-xs font-mono font-bold text-[#E7B743]">
+            <Clock className="w-3 h-3 text-[#E7B743]" />
             <span>{timeFormatted}</span>
           </div>
         </div>
@@ -116,25 +116,25 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
                 onClick={() => onSelectPack(pack)}
                 className={`group relative p-3 sm:p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between min-h-[52px] ${
                   isHighlight
-                    ? 'bg-gradient-to-r from-[#1c1f2e] via-[#1a1f33] to-[#171b2c] border-[#dfb76c] shadow-lg shadow-[#dfb76c]/10'
-                    : 'bg-[#10121c] border-[#252b3e] hover:border-[#dfb76c]/60'
+                    ? 'bg-[#2B173C] border-[#E7B743] shadow-lg shadow-black/40'
+                    : 'bg-[#2B173C] border-[#453052] hover:border-[#A87B2A] hover:bg-[#352044]'
                 }`}
               >
                 {pack.tag && (
-                  <span className="absolute -top-2 right-4 px-2 py-0.5 rounded-full bg-[#dfb76c] text-[#0e1017] text-[9px] font-bold tracking-wider uppercase shadow-sm">
+                  <span className="absolute -top-2 right-4 px-2 py-0.5 rounded-full bg-[#E7B743] text-[#180D2B] text-[9px] font-bold tracking-wider uppercase shadow-sm">
                     {pack.tag}
                   </span>
                 )}
 
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                  <div className="w-9 h-9 rounded-lg bg-[#161826] border border-[#2b3145] flex items-center justify-center font-bold text-sm text-[#f5eedf] group-hover:text-[#dfb76c] shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-[#24133B] border border-[#453052] flex items-center justify-center font-bold text-sm text-[#F7F0FF] group-hover:text-[#E7B743] shrink-0">
                     +{pack.minutes}m
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h4 className="text-xs sm:text-sm font-bold text-[#ede8dc] truncate">
+                    <h4 className="text-xs sm:text-sm font-bold text-[#F7F0FF] truncate">
                       {pack.minutes} Minutes Consultation
                     </h4>
-                    <span className="text-[10px] text-[#8e8779] block truncate">
+                    <span className="text-[10px] text-[#C5B8D9] block truncate">
                       ₹{pack.perMinuteRate.toFixed(1)}/min · Instant activation
                     </span>
                   </div>
@@ -142,14 +142,14 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
 
                 <div className="text-right shrink-0 ml-2">
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-[10px] text-[#6b6455] line-through">
+                    <span className="text-[10px] text-[#9685AE] line-through">
                       ₹{pack.originalPrice}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-[#dfb76c] font-mono">
+                    <span className="text-sm sm:text-base font-bold text-[#E7B743] font-mono">
                       ₹{pack.price}
                     </span>
                   </div>
-                  <span className="text-[9px] text-emerald-400 font-medium block">
+                  <span className="text-[9px] text-[#00D6A0] font-medium block">
                     1-Tap Top-Up
                   </span>
                 </div>
@@ -159,12 +159,12 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
         </div>
 
         {/* Footer Guarantee */}
-        <div className="px-5 py-3 bg-[#0a0b12] border-t border-[#1c2030] flex items-center justify-between text-[11px] text-[#787163]">
+        <div className="px-5 py-3 bg-[#180D2B] border-t border-[#453052] flex items-center justify-between text-[11px] text-[#9685AE]">
           <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#dfb76c]" />
+            <ShieldCheck className="w-3.5 h-3.5 text-[#E7B743]" />
             <span>Unused minutes carry forward indefinitely</span>
           </div>
-          <span className="text-[#a49d8f] font-medium">100% Encrypted</span>
+          <span className="text-[#C5B8D9] font-medium">100% Encrypted</span>
         </div>
       </div>
     </>

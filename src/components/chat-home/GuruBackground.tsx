@@ -28,82 +28,82 @@ export const GuruBackground: React.FC<GuruBackgroundProps> = ({
     switch (backgroundKey) {
       case 'romantic_celestial': // GURU 01: ADIT
         return {
-          baseBg: 'bg-[#12040b]',
-          auraPrimary: 'radial-gradient(circle, rgba(225, 29, 72, 0.22) 0%, rgba(190, 24, 93, 0.1) 45%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(251, 113, 133, 0.18) 0%, rgba(136, 19, 55, 0.12) 50%, transparent 80%)',
-          accentColor: '#fb7185',
-          particleColor: '#f43f5e',
-          gridColor: 'rgba(244, 63, 94, 0.15)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(231, 183, 67, 0.18) 0%, rgba(53, 32, 68, 0.25) 45%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(168, 123, 42, 0.16) 0%, rgba(36, 19, 59, 0.25) 50%, transparent 80%)',
+          accentColor: '#E7B743',
+          particleColor: '#FFD76A',
+          gridColor: 'rgba(231, 183, 67, 0.12)',
         };
 
       case 'cosmic_timeline': // GURU 02: GURU NUPUR
         return {
-          baseBg: 'bg-[#040c17]',
-          auraPrimary: 'radial-gradient(circle, rgba(6, 182, 212, 0.24) 0%, rgba(8, 145, 178, 0.12) 48%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(14, 165, 233, 0.18) 0%, rgba(3, 105, 161, 0.08) 55%, transparent 80%)',
-          accentColor: '#22d3ee',
-          particleColor: '#06b6d4',
-          gridColor: 'rgba(6, 182, 212, 0.16)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(231, 183, 67, 0.15) 0%, rgba(43, 23, 60, 0.3) 48%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(0, 214, 160, 0.12) 0%, rgba(24, 13, 43, 0.2) 55%, transparent 80%)',
+          accentColor: '#E7B743',
+          particleColor: '#00D6A0',
+          gridColor: 'rgba(231, 183, 67, 0.12)',
         };
 
       case 'neural_cosmos': // GURU 03: DR. ADITI
         return {
-          baseBg: 'bg-[#0f071a]',
-          auraPrimary: 'radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, rgba(124, 58, 237, 0.1) 48%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(192, 132, 252, 0.16) 0%, rgba(88, 28, 135, 0.1) 55%, transparent 80%)',
-          accentColor: '#c084fc',
-          particleColor: '#a855f7',
-          gridColor: 'rgba(168, 85, 247, 0.15)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(197, 184, 217, 0.16) 0%, rgba(53, 32, 68, 0.28) 48%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(231, 183, 67, 0.14) 0%, rgba(36, 19, 59, 0.22) 55%, transparent 80%)',
+          accentColor: '#C5B8D9',
+          particleColor: '#E7B743',
+          gridColor: 'rgba(197, 184, 217, 0.12)',
         };
 
       case 'vastu_architecture': // GURU 04: KAVYA
         return {
-          baseBg: 'bg-[#04130d]',
-          auraPrimary: 'radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.1) 48%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(223, 183, 108, 0.18) 0%, rgba(4, 120, 87, 0.08) 55%, transparent 80%)',
-          accentColor: '#10b981',
-          particleColor: '#34d399',
-          gridColor: 'rgba(16, 185, 129, 0.15)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(0, 214, 160, 0.15) 0%, rgba(43, 23, 60, 0.25) 48%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(231, 183, 67, 0.16) 0%, rgba(36, 19, 59, 0.22) 55%, transparent 80%)',
+          accentColor: '#00D6A0',
+          particleColor: '#E7B743',
+          gridColor: 'rgba(0, 214, 160, 0.12)',
         };
 
       case 'indigo_observatory': // GURU 05: ACHARYA VASUDEV
         return {
-          baseBg: 'bg-[#07081a]',
-          auraPrimary: 'radial-gradient(circle, rgba(99, 102, 241, 0.24) 0%, rgba(67, 56, 202, 0.12) 48%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(223, 183, 108, 0.18) 0%, rgba(49, 46, 129, 0.1) 55%, transparent 80%)',
-          accentColor: '#818cf8',
-          particleColor: '#6366f1',
-          gridColor: 'rgba(99, 102, 241, 0.16)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(231, 183, 67, 0.2) 0%, rgba(53, 32, 68, 0.3) 48%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(168, 123, 42, 0.18) 0%, rgba(36, 19, 59, 0.25) 55%, transparent 80%)',
+          accentColor: '#E7B743',
+          particleColor: '#FFD76A',
+          gridColor: 'rgba(231, 183, 67, 0.12)',
         };
 
       case 'kundali_mandala': // GURU 06: ACHARYA GURU (Flagship)
         return {
-          baseBg: 'bg-[#140608]',
-          auraPrimary: 'radial-gradient(circle, rgba(223, 183, 108, 0.3) 0%, rgba(180, 83, 9, 0.15) 45%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(220, 38, 38, 0.18) 0%, rgba(127, 29, 29, 0.12) 55%, transparent 80%)',
-          accentColor: '#dfb76c',
-          particleColor: '#fef08a',
-          gridColor: 'rgba(223, 183, 108, 0.2)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(231, 183, 67, 0.24) 0%, rgba(53, 32, 68, 0.32) 45%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(255, 215, 106, 0.16) 0%, rgba(36, 19, 59, 0.25) 55%, transparent 80%)',
+          accentColor: '#E7B743',
+          particleColor: '#FFD76A',
+          gridColor: 'rgba(231, 183, 67, 0.15)',
         };
 
       case 'stormy_metallic': // GURU 07: KHOJI BABA
         return {
-          baseBg: 'bg-[#060e18]',
-          auraPrimary: 'radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(30, 41, 59, 0.2) 50%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(148, 163, 184, 0.15) 0%, rgba(15, 23, 42, 0.25) 55%, transparent 80%)',
-          accentColor: '#38bdf8',
-          particleColor: '#94a3b8',
-          gridColor: 'rgba(56, 189, 248, 0.14)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(197, 184, 217, 0.18) 0%, rgba(43, 23, 60, 0.3) 50%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(231, 183, 67, 0.14) 0%, rgba(24, 13, 43, 0.25) 55%, transparent 80%)',
+          accentColor: '#C5B8D9',
+          particleColor: '#FFD76A',
+          gridColor: 'rgba(197, 184, 217, 0.12)',
         };
 
       case 'judicial_architecture': // GURU 08: NYAYA GURU
         return {
-          baseBg: 'bg-[#080b12]',
-          auraPrimary: 'radial-gradient(circle, rgba(226, 232, 240, 0.18) 0%, rgba(30, 41, 59, 0.15) 50%, transparent 75%)',
-          auraSecondary: 'radial-gradient(circle, rgba(223, 183, 108, 0.14) 0%, rgba(15, 23, 42, 0.25) 55%, transparent 80%)',
-          accentColor: '#e2e8f0',
-          particleColor: '#cbd5e1',
-          gridColor: 'rgba(226, 232, 240, 0.12)',
+          baseBg: 'bg-[#180D2B]',
+          auraPrimary: 'radial-gradient(circle, rgba(231, 183, 67, 0.16) 0%, rgba(53, 32, 68, 0.26) 50%, transparent 75%)',
+          auraSecondary: 'radial-gradient(circle, rgba(168, 123, 42, 0.14) 0%, rgba(36, 19, 59, 0.22) 55%, transparent 80%)',
+          accentColor: '#E7B743',
+          particleColor: '#A87B2A',
+          gridColor: 'rgba(231, 183, 67, 0.12)',
         };
     }
   }, [backgroundKey]);
@@ -332,14 +332,14 @@ export const GuruBackground: React.FC<GuruBackgroundProps> = ({
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
           isEmpty
-            ? 'bg-gradient-to-b from-[#0c0d15]/55 via-[#0c0d15]/40 to-[#0c0d15]/65'
-            : 'bg-gradient-to-b from-[#0c0d15]/85 via-[#0c0d15]/78 to-[#0c0d15]/90 backdrop-blur-[0.5px]'
+            ? 'bg-gradient-to-b from-[#12091F]/55 via-[#180D2B]/40 to-[#12091F]/65'
+            : 'bg-gradient-to-b from-[#12091F]/85 via-[#180D2B]/78 to-[#12091F]/90 backdrop-blur-[0.5px]'
         }`}
       />
 
       {/* 7. Edge Dissolves under Header and above Input */}
-      <div className="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#0c0d15] to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#0c0d15] to-transparent pointer-events-none" />
+      <div className="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#12091F] to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#12091F] to-transparent pointer-events-none" />
     </div>
   );
 };

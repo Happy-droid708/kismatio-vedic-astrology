@@ -71,16 +71,16 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
       onClick={() => onSelect(conversation)}
       onMouseEnter={() => setShowQuickActions(true)}
       onMouseLeave={() => setShowQuickActions(false)}
-      className={`group relative w-full px-4 py-3 flex items-center gap-3 border-b border-[#1b1e2c] transition-all cursor-pointer select-none ${
+      className={`group relative w-full px-4 py-3 flex items-center gap-3 border-b border-[#453052] transition-all cursor-pointer select-none ${
         isSelected
-          ? 'bg-[#1a1e2d] border-l-4 border-l-[#dfb76c]'
-          : 'bg-[#0f111a] hover:bg-[#141724]'
+          ? 'bg-[#2B173C] border-l-4 border-l-[#E7B743]'
+          : 'bg-[#180D2B] hover:bg-[#352044]'
       }`}
     >
       {/* Left: Avatar with Online indicator */}
       <div className="relative shrink-0">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#996e28] via-[#dfb76c] to-[#fef08a] p-0.5 shadow-sm">
-          <div className="w-full h-full rounded-full bg-[#181a24] flex items-center justify-center overflow-hidden">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#A87B2A] via-[#E7B743] to-[#FFD76A] p-0.5 shadow-sm">
+          <div className="w-full h-full rounded-full bg-[#2B173C] flex items-center justify-center overflow-hidden">
             {conversation.avatarUrl ? (
               <img
                 src={conversation.avatarUrl}
@@ -88,14 +88,14 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
                 className="w-full h-full object-cover rounded-full"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-[#151722] font-display text-base font-bold text-[#dfb76c]">
+              <div className="w-full h-full flex items-center justify-center bg-[#2B173C] font-display text-base font-bold text-[#E7B743]">
                 {conversation.astrologerName.charAt(0)}
               </div>
             )}
           </div>
         </div>
         {conversation.isOnline && (
-          <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0f111a] ring-1 ring-emerald-500/50" />
+          <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#00D6A0] border-2 border-[#180D2B] ring-1 ring-[#00D6A0]/50" />
         )}
       </div>
 
@@ -103,27 +103,27 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
       <div className="flex-1 min-w-0 pr-1">
         <div className="flex items-center justify-between gap-1">
           <div className="flex items-center gap-1.5 truncate">
-            <span className="text-sm font-serif-luxury font-bold text-[#f5eedf] truncate">
+            <span className="text-sm font-serif-luxury font-bold text-[#F7F0FF] truncate">
               {conversation.astrologerName}
             </span>
             {conversation.isVerified && (
-              <span className="w-3.5 h-3.5 rounded-full bg-[#dfb76c]/20 text-[#dfb76c] flex items-center justify-center text-[9px] shrink-0 font-bold" title="Verified Vedic Acharya">
+              <span className="w-3.5 h-3.5 rounded-full bg-[#E7B743]/20 text-[#E7B743] flex items-center justify-center text-[9px] shrink-0 font-bold" title="Verified Vedic Acharya">
                 ✓
               </span>
             )}
           </div>
-          <span className="text-[10px] font-mono text-[#8a8374] shrink-0">
+          <span className="text-[10px] font-mono text-[#9685AE] shrink-0">
             {conversation.lastMessageTimestamp}
           </span>
         </div>
 
-        {/* Status Line: 🟢 Active · 08:42 */}
+        {/* Status Line */}
         <div className="mt-0.5 flex items-center gap-2">
           {renderStatusBadge()}
         </div>
 
         {/* Message preview snippet */}
-        <p className="text-xs text-[#a49d8f] truncate mt-0.5 leading-snug">
+        <p className="text-xs text-[#C5B8D9] truncate mt-0.5 leading-snug">
           {conversation.lastMessage}
         </p>
       </div>
@@ -132,15 +132,15 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
       <div className="flex flex-col items-end justify-between self-stretch shrink-0">
         <div className="flex items-center gap-1.5">
           {conversation.isPinned && (
-            <Pin className="w-3.5 h-3.5 text-[#dfb76c] fill-current -rotate-45" />
+            <Pin className="w-3.5 h-3.5 text-[#E7B743] fill-current -rotate-45" />
           )}
 
           {conversation.unreadCount > 0 ? (
-            <span className="min-w-[18px] h-[18px] px-1 rounded-full bg-[#dfb76c] text-[#0e1017] text-[10px] font-mono font-bold flex items-center justify-center shadow-sm">
+            <span className="min-w-[18px] h-[18px] px-1 rounded-full bg-[#E7B743] text-[#180D2B] text-[10px] font-mono font-bold flex items-center justify-center shadow-sm">
               {conversation.unreadCount}
             </span>
           ) : (
-            <CheckCheck className="w-3.5 h-3.5 text-[#6c7287]" />
+            <CheckCheck className="w-3.5 h-3.5 text-[#9685AE]" />
           )}
         </div>
 

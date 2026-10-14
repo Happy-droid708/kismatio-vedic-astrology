@@ -1066,7 +1066,7 @@ export const KismatioApp: React.FC = () => {
   // RENDER: Left Panel / Chat Home List
   // =========================================================================
   const renderChatHomeListPanel = () => (
-    <div className="w-full h-full flex flex-col bg-[#0f111a] border-r border-[#1e2336] select-none relative">
+    <div className="w-full h-full flex flex-col bg-[#180D2B] border-r border-[#453052] select-none relative">
       {/* 1. Mobile & Desktop Chat Home Header */}
       <ChatHomeHeader
         onOpenSearch={() => setSearchQuery('career')}
@@ -1077,10 +1077,10 @@ export const KismatioApp: React.FC = () => {
       />
 
       {/* Eight Maharajs Central Entry Banner */}
-      <div className="px-3 py-2 bg-gradient-to-r from-[#1c1410] via-[#141220] to-[#0f111a] border-b border-[#dfb76c]/20">
+      <div className="px-3 py-2 bg-[#24133B] border-b border-[#453052]">
         <button
           onClick={handleBackToGurusDiscovery}
-          className="w-full py-2 px-3 rounded-xl bg-[#191624] hover:bg-[#221e33] border border-[#dfb76c]/30 hover:border-[#dfb76c] text-left flex items-center justify-between gap-2 transition-all cursor-pointer group shadow-sm"
+          className="w-full py-2 px-3 rounded-xl bg-[#2B173C] hover:bg-[#352044] border border-[#453052] hover:border-[#A87B2A] text-left flex items-center justify-between gap-2 transition-all cursor-pointer group shadow-sm"
           title="Open The Eight Maharajs Discovery Page"
         >
           <div className="flex items-center gap-2.5 min-w-0">
@@ -1089,14 +1089,14 @@ export const KismatioApp: React.FC = () => {
             </span>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs font-serif-luxury font-bold text-[#fcedc5] group-hover:text-[#dfb76c] transition-colors">
+                <span className="text-xs font-serif-luxury font-bold text-[#F7F0FF] group-hover:text-[#E7B743] transition-colors">
                   The Eight Maharajs
                 </span>
-                <span className="text-[9px] font-mono font-bold px-1.5 rounded-full bg-[#dfb76c]/20 text-[#dfb76c]">
+                <span className="text-[9px] font-mono font-bold px-1.5 rounded-full bg-[#24133B] border border-[#453052] text-[#E7B743]">
                   8 GURUS
                 </span>
               </div>
-              <p className="text-[10px] text-[#9a9385] truncate">
+              <p className="text-[10px] text-[#9685AE] truncate">
                 Discover all specialized Guru chats
               </p>
             </div>
@@ -1334,7 +1334,7 @@ export const KismatioApp: React.FC = () => {
           </div>
 
           {/* Chat Input Bar */}
-          <div className="w-full flex justify-center bg-[#0e1017]/95 relative z-20">
+          <div className="w-full flex justify-center bg-[#180D2B]/95 relative z-20">
             <div className="w-full max-w-[880px]">
               <ChatInput
                 onSendMessage={handleSendMessage}
@@ -1366,9 +1366,9 @@ export const KismatioApp: React.FC = () => {
     }
 
     return (
-      <div className="flex-1 min-h-0 h-full flex flex-col bg-[#0c0d15] relative overflow-hidden">
+      <div className="flex-1 min-h-0 h-full flex flex-col bg-[#180D2B] relative overflow-hidden">
         {/* Active Chat Header */}
-        <header className="shrink-0 sticky top-0 z-30 bg-[#10121b]/98 backdrop-blur-md border-b border-[#dfb76c]/15 px-2.5 sm:px-4 py-1.5 sm:py-2 flex flex-col gap-1.5 sm:gap-0 justify-center min-h-[56px] select-none">
+        <header className="shrink-0 sticky top-0 z-30 bg-[#24133B]/98 backdrop-blur-md border-b border-[#453052] px-2.5 sm:px-4 py-1.5 sm:py-2 flex flex-col gap-1.5 sm:gap-0 justify-center min-h-[56px] select-none">
           {/* Main Top Row */}
           <div className="flex items-center justify-between w-full gap-1.5 sm:gap-2">
             {/* Left: Back button (on mobile or collapsed tablet) + Astrologer Info */}
@@ -1377,11 +1377,11 @@ export const KismatioApp: React.FC = () => {
               {isMobile && (
                 <button
                   onClick={() => setSelectedConvId(null)}
-                  className="p-1 sm:p-1.5 -ml-1 rounded-lg text-[#9a9385] hover:text-[#ede8dc] active:text-[#ede8dc] active:bg-[#181b28] cursor-pointer shrink-0 transition-colors"
+                  className="p-1 sm:p-1.5 -ml-1 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] active:text-[#F7F0FF] active:bg-[#352044] cursor-pointer shrink-0 transition-colors"
                   title="Back to all conversations"
                   aria-label="Back to conversations"
                 >
-                  <ArrowLeft className="w-5 h-5 text-[#dfb76c]" />
+                  <ArrowLeft className="w-5 h-5 text-[#E7B743]" />
                 </button>
               )}
 
@@ -1389,11 +1389,11 @@ export const KismatioApp: React.FC = () => {
               {isTablet && (
                 <button
                   onClick={() => setIsTabletSidebarCollapsed(!isTabletSidebarCollapsed)}
-                  className="p-1.5 rounded-lg text-[#9a9385] hover:text-[#ede8dc] cursor-pointer mr-1 shrink-0"
+                  className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] cursor-pointer mr-1 shrink-0"
                   title={isTabletSidebarCollapsed ? 'Show conversations list' : 'Hide conversations list'}
                 >
                   {isTabletSidebarCollapsed ? (
-                    <PanelLeftOpen className="w-5 h-5 text-[#dfb76c]" />
+                    <PanelLeftOpen className="w-5 h-5 text-[#E7B743]" />
                   ) : (
                     <PanelLeftClose className="w-5 h-5" />
                   )}
@@ -1403,31 +1403,31 @@ export const KismatioApp: React.FC = () => {
               {/* Astrologer Profile Trigger */}
               <button
                 onClick={() => setIsAstrologerInfoOpen(true)}
-                className="flex items-center gap-2 sm:gap-2.5 text-left p-0.5 sm:p-1 rounded-xl hover:bg-[#181b28] active:bg-[#181b28] transition-colors cursor-pointer group min-w-0"
+                className="flex items-center gap-2 sm:gap-2.5 text-left p-0.5 sm:p-1 rounded-xl hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer group min-w-0"
                 title="View Astrologer profile & remedies"
               >
                 <div className="relative shrink-0">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#996e28] via-[#dfb76c] to-[#fef08a] p-0.5 shadow-sm">
-                    <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center font-display text-xs sm:text-sm font-bold text-[#dfb76c]">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] p-0.5 shadow-sm">
+                    <div className="w-full h-full rounded-full bg-[#24133B] flex items-center justify-center font-display text-xs sm:text-sm font-bold text-[#E7B743]">
                       {selectedAstrologer.name.charAt(0)}
                     </div>
                   </div>
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#10121b] animate-pulse" />
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#00D6A0] border-2 border-[#24133B] animate-pulse" />
                 </div>
 
                 <div className="min-w-0">
                   <div className="flex items-center gap-1">
-                    <h3 className="text-xs sm:text-sm font-serif-luxury font-bold text-[#f5eedf] group-hover:text-[#dfb76c] transition-colors truncate max-w-[105px] xs:max-w-[140px] sm:max-w-[200px]">
+                    <h3 className="text-xs sm:text-sm font-serif-luxury font-bold text-[#F7F0FF] group-hover:text-[#E7B743] transition-colors truncate max-w-[105px] xs:max-w-[140px] sm:max-w-[200px]">
                       {selectedAstrologer.name}
                     </h3>
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#dfb76c]/20 text-[#dfb76c] flex items-center justify-center text-[9px] font-bold shrink-0">
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#E7B743]/20 text-[#E7B743] flex items-center justify-center text-[9px] font-bold shrink-0">
                       ✓
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] text-[#9d9688]">
-                    <span className="text-emerald-400 font-semibold shrink-0">🟢 Online</span>
+                  <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] text-[#9685AE]">
+                    <span className="text-[#00D6A0] font-semibold shrink-0">🟢 Online</span>
                     <span className="hidden sm:inline">·</span>
-                    <span className="hidden sm:inline truncate max-w-[140px] md:max-w-[220px] text-[#b8b2a3]">
+                    <span className="hidden sm:inline truncate max-w-[140px] md:max-w-[220px] text-[#C5B8D9]">
                       {selectedAstrologer.title}
                     </span>
                   </div>
@@ -1471,25 +1471,25 @@ export const KismatioApp: React.FC = () => {
                 rechargeAddedText="✓ Top-Up"
                 onSelectAction={handleOpenRecharge}
                 className={`text-[11px] sm:text-xs font-mono min-h-[32px] sm:min-h-[34px] py-1 px-2 sm:px-3 ${
-                  isLowTime ? 'border-amber-500 bg-amber-950/60 text-amber-200' : ''
+                  isLowTime ? 'border-[#E7B743] bg-[#2B173C] text-[#FFD76A]' : ''
                 }`}
                 icon={
                   <Clock
                     className={`w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 ${
-                      isLowTime ? 'text-amber-400' : 'text-[#dfb76c]'
+                      isLowTime ? 'text-[#FFD76A]' : 'text-[#E7B743]'
                     }`}
                   />
                 }
                 title="Consultation Timer · Click to Top-Up"
               >
                 <span className="tabular-nums">{formatTime(remainingSeconds)}</span>
-                {!isMobile && <span className="text-[#a49d8f] font-normal"> · Top-Up</span>}
+                {!isMobile && <span className="text-[#9685AE] font-normal"> · Top-Up</span>}
               </CelestialPill>
 
               {/* Chat Specific Menu 3-dots */}
               <button
                 onClick={() => setIsChatMenuOpen(true)}
-                className="p-1.5 rounded-lg text-[#9a9385] hover:text-[#ede8dc] hover:bg-[#1a1d2b] active:bg-[#1a1d2b] transition-colors cursor-pointer min-h-[32px] min-w-[32px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center shrink-0"
+                className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[32px] min-w-[32px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center shrink-0"
                 title="Chat menu & orders"
               >
                 <MoreVertical className="w-4 h-4" />
@@ -1499,7 +1499,7 @@ export const KismatioApp: React.FC = () => {
 
           {/* Mobile Secondary Action Strip: Guarantees ALL components appear on mobile screen */}
           {isMobile && (
-            <div className="flex items-center gap-1.5 pt-1.5 border-t border-[#dfb76c]/10 w-full overflow-x-auto scrollbar-none">
+            <div className="flex items-center gap-1.5 pt-1.5 border-t border-[#453052] w-full overflow-x-auto scrollbar-none">
               <div className="flex items-center gap-1.5 min-w-max">
                 {/* Search in chat button */}
                 <CelestialPill
@@ -1507,7 +1507,7 @@ export const KismatioApp: React.FC = () => {
                   isSelected={isInChatSearchOpen}
                   onClick={() => setIsInChatSearchOpen(!isInChatSearchOpen)}
                   className="text-[11px] py-1 px-2.5 min-h-[30px]"
-                  icon={<Search className="w-3.5 h-3.5 text-[#dfb76c]" />}
+                  icon={<Search className="w-3.5 h-3.5 text-[#E7B743]" />}
                   title="Search within conversation"
                 >
                   Search
@@ -1519,7 +1519,7 @@ export const KismatioApp: React.FC = () => {
                   isSelected={showKundliHeaderSummary}
                   onClick={() => setShowKundliHeaderSummary(!showKundliHeaderSummary)}
                   className="text-[11px] py-1 px-2.5 min-h-[30px]"
-                  icon={<Compass className="w-3.5 h-3.5 text-[#dfb76c]" />}
+                  icon={<Compass className="w-3.5 h-3.5 text-[#E7B743]" />}
                   title="View Kundli chart summary"
                 >
                   Kundli
@@ -1764,34 +1764,34 @@ export const KismatioApp: React.FC = () => {
     switch (effectiveBreakpoint) {
       case 'mobile':
         return simulationMode === 'mobile'
-          ? 'w-full max-w-[430px] h-full rounded-2xl border border-[#dfb76c]/30 shadow-2xl'
+          ? 'w-full max-w-[430px] h-full rounded-2xl border border-[#453052] shadow-2xl'
           : 'w-full h-full max-w-full rounded-none border-0';
       case 'tablet':
         return simulationMode === 'tablet'
-          ? 'w-full max-w-[860px] h-full rounded-xl border border-[#dfb76c]/25 shadow-2xl'
-          : 'w-full h-full max-w-full rounded-none sm:rounded-xl border-x-0 sm:border border-[#dfb76c]/20';
+          ? 'w-full max-w-[860px] h-full rounded-xl border border-[#453052] shadow-2xl'
+          : 'w-full h-full max-w-full rounded-none sm:rounded-xl border-x-0 sm:border border-[#453052]';
       case 'laptop':
-        return 'w-full h-full max-w-6xl xl:max-w-7xl rounded-xl lg:rounded-2xl border border-[#dfb76c]/25 shadow-2xl';
+        return 'w-full h-full max-w-6xl xl:max-w-7xl rounded-xl lg:rounded-2xl border border-[#453052] shadow-2xl';
       case 'desktop':
-        return 'w-full h-full max-w-[1440px] rounded-2xl border border-[#dfb76c]/25 shadow-2xl';
+        return 'w-full h-full max-w-[1440px] rounded-2xl border border-[#453052] shadow-2xl';
       case 'large_desktop':
-        return 'w-full h-full max-w-[1600px] rounded-2xl border border-[#dfb76c]/25 shadow-2xl';
+        return 'w-full h-full max-w-[1600px] rounded-2xl border border-[#453052] shadow-2xl';
       default:
-        return 'w-full h-full max-w-7xl rounded-2xl border border-[#dfb76c]/25';
+        return 'w-full h-full max-w-7xl rounded-2xl border border-[#453052]';
     }
   };
 
   return (
-    <div className="h-[100dvh] max-h-[100dvh] w-full bg-[#07080d] text-[#ede8dc] flex flex-col selection:bg-[#dfb76c]/30 selection:text-[#fff9e6] relative overflow-hidden">
+    <div className="h-[100dvh] max-h-[100dvh] w-full bg-[#12091F] text-[#F7F0FF] flex flex-col selection:bg-[#E7B743]/30 selection:text-[#F7F0FF] relative overflow-hidden">
       {/* Background Sacred Geometric Aura */}
-      <div className="fixed inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#dfb76c_1px,transparent_1px)] [background-size:28px_28px]" />
+      <div className="fixed inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#E7B743_1px,transparent_1px)] [background-size:28px_28px]" />
 
       {/* ================================================================= */}
       {/* Main Responsive Application Shell                                 */}
       {/* ================================================================= */}
       <div className="flex-1 min-h-0 w-full flex items-center justify-center p-0 sm:p-2 lg:p-3 overflow-hidden">
         <div
-          className={`${getShellWrapperClass()} bg-[#0c0d15] flex overflow-hidden transition-all duration-200`}
+          className={`${getShellWrapperClass()} bg-[#180D2B] flex overflow-hidden transition-all duration-200`}
         >
           {isMobile ? (
             /* ============================================================= */
@@ -1888,24 +1888,24 @@ export const KismatioApp: React.FC = () => {
             /* ============================================================= */
             <div className="w-full h-full min-h-0 flex flex-col overflow-hidden relative">
               {/* Desktop App Header Bar with Tab Switcher & Profile Avatar */}
-              <header className="shrink-0 h-13 bg-[#0a0c14] border-b border-[#dfb76c]/15 px-4 lg:px-6 flex items-center justify-between z-30 select-none">
+              <header className="shrink-0 h-13 bg-[#24133B] border-b border-[#453052] px-4 lg:px-6 flex items-center justify-between z-30 select-none">
                 {/* Logo */}
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#996e28] to-[#dfb76c] p-0.5 flex items-center justify-center shadow-xs">
-                    <div className="w-full h-full rounded-full bg-[#121422] flex items-center justify-center font-display text-xs font-bold text-[#dfb76c]">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] p-0.5 flex items-center justify-center shadow-xs">
+                    <div className="w-full h-full rounded-full bg-[#24133B] flex items-center justify-center font-display text-xs font-bold text-[#E7B743]">
                       ✦
                     </div>
                   </div>
-                  <span className="font-display font-bold text-sm tracking-wider text-[#fcedc5]">
+                  <span className="font-display font-bold text-sm tracking-wider text-[#F7F0FF]">
                     KISMATIO SANCTUM
                   </span>
-                  <span className="hidden sm:inline-block text-[10px] text-[#dfb76c] font-mono uppercase px-2 py-0.5 rounded-full bg-[#dfb76c]/10 border border-[#dfb76c]/20">
+                  <span className="hidden sm:inline-block text-[10px] text-[#E7B743] font-mono uppercase px-2 py-0.5 rounded-full bg-[#2B173C] border border-[#453052]">
                     Vedic Astrology & Gems
                   </span>
                 </div>
 
                 {/* Center Navigation Tabs: EXACTLY 4 TABS (Chats, Explore, Orders, Tools) */}
-                <nav className="flex items-center gap-1.5 p-1 rounded-xl bg-[#121524] border border-[#232940]">
+                <nav className="flex items-center gap-1.5 p-1 rounded-xl bg-[#12091F] border border-[#453052]">
                   {(['chats', 'explore', 'orders', 'tools'] as MobileTab[]).map((tab) => {
                     const isActive = !isProfileOpen && activeMobileTab === tab;
                     const labels: Record<MobileTab, { label: string; icon: string }> = {
@@ -1930,8 +1930,8 @@ export const KismatioApp: React.FC = () => {
                         }}
                         className={`px-3 py-1 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
                           isActive
-                            ? 'bg-[#dfb76c] text-[#0e1017] font-semibold shadow-xs'
-                            : 'text-[#8e8779] hover:text-[#ede8dc]'
+                            ? 'bg-[#E7B743] text-[#180D2B] font-semibold shadow-xs'
+                            : 'text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044]'
                         }`}
                       >
                         <span>{labels[tab].icon}</span>
@@ -1940,8 +1940,8 @@ export const KismatioApp: React.FC = () => {
                           <span
                             className={`px-1.5 rounded-full text-[9px] font-bold ${
                               isActive
-                                ? 'bg-[#0e1017] text-[#dfb76c]'
-                                : 'bg-[#dfb76c] text-[#0e1017]'
+                                ? 'bg-[#180D2B] text-[#E7B743]'
+                                : 'bg-[#E7B743] text-[#180D2B]'
                             }`}
                           >
                             {badgeCount}
@@ -1956,16 +1956,16 @@ export const KismatioApp: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleOpenRecharge}
-                    className="flex items-center gap-2 px-3 py-1 rounded-xl bg-[#14182b] border border-[#dfb76c]/30 text-xs text-[#dfb76c] hover:bg-[#1a203a] cursor-pointer"
+                    className="flex items-center gap-2 px-3 py-1 rounded-xl bg-[#2B173C] border border-[#453052] text-xs text-[#E7B743] hover:bg-[#352044] hover:border-[#A87B2A] cursor-pointer transition-colors"
                   >
-                    <Clock className="w-3.5 h-3.5" />
+                    <Clock className="w-3.5 h-3.5 text-[#E7B743]" />
                     <span className="font-mono font-medium">{formatTime(remainingSeconds)}</span>
-                    <span className="text-[#8e8779] text-[10px] hidden md:inline">+ Recharge</span>
+                    <span className="text-[#9685AE] text-[10px] hidden md:inline">+ Recharge</span>
                   </button>
 
                   <button
                     onClick={() => setIsStateDrawerOpen(true)}
-                    className="px-2.5 py-1 rounded-xl bg-[#161a29] border border-[#2b324c] text-[11px] text-[#cdc7ba] hover:text-[#dfb76c] cursor-pointer"
+                    className="px-2.5 py-1 rounded-xl bg-[#2B173C] border border-[#453052] text-[11px] text-[#C5B8D9] hover:text-[#E7B743] hover:bg-[#352044] cursor-pointer transition-colors"
                     title="Simulate Consultation State"
                   >
                     <span>⚡ Demo States</span>
@@ -1976,13 +1976,13 @@ export const KismatioApp: React.FC = () => {
                     onClick={() => setIsProfileOpen((prev) => !prev)}
                     className={`p-1.5 rounded-xl border transition-all cursor-pointer flex items-center gap-2 ${
                       isProfileOpen
-                        ? 'bg-[#dfb76c]/15 border-[#dfb76c] text-[#dfb76c] ring-1 ring-[#dfb76c]/40'
-                        : 'bg-[#14182b] border-[#2b324c] text-[#cdc7ba] hover:border-[#dfb76c]/40 hover:text-[#ede8dc]'
+                        ? 'bg-[#352044] border-[#E7B743] text-[#E7B743] ring-1 ring-[#E7B743]/40'
+                        : 'bg-[#2B173C] border-[#453052] text-[#C5B8D9] hover:border-[#A87B2A] hover:text-[#F7F0FF]'
                     }`}
                     title="My Profile & Janma Kundli"
                   >
-                    <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#996e28] to-[#dfb76c] p-0.5 flex items-center justify-center">
-                      <div className="w-full h-full rounded-[6px] bg-[#0b0c14] flex items-center justify-center text-[11px] font-bold text-[#fcedc5]">
+                    <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] p-0.5 flex items-center justify-center">
+                      <div className="w-full h-full rounded-[6px] bg-[#24133B] flex items-center justify-center text-[11px] font-bold text-[#E7B743]">
                         👤
                       </div>
                     </div>

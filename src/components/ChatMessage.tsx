@@ -73,7 +73,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
   if (isSystem) {
     return (
       <div className="flex justify-center my-3">
-        <span className="text-[11px] text-[#9d9688] bg-[#141622]/90 border border-[#23273a] px-3.5 py-1.5 rounded-full text-center shadow-xs">
+        <span className="text-[11px] text-[#9685AE] bg-[#24133B] border border-[#453052] px-3.5 py-1.5 rounded-full text-center shadow-xs">
           {message.text}
         </span>
       </div>
@@ -86,7 +86,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
     const parts = text.split(new RegExp(`(${searchHighlight})`, 'gi'));
     return parts.map((part, i) =>
       part.toLowerCase() === searchHighlight.toLowerCase() ? (
-        <mark key={i} className="bg-[#dfb76c] text-[#0e1017] px-0.5 rounded font-bold">
+        <mark key={i} className="bg-[#E7B743] text-[#180D2B] px-0.5 rounded font-bold">
           {part}
         </mark>
       ) : (
@@ -111,8 +111,8 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
       >
         {/* Astrologer Avatar */}
         {isAstrologer && (
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#996e28] to-[#dfb76c] p-0.5 shrink-0 mt-0.5 shadow-sm">
-            <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center overflow-hidden">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] p-0.5 shrink-0 mt-0.5 shadow-sm">
+            <div className="w-full h-full rounded-full bg-[#24133B] flex items-center justify-center overflow-hidden">
               {astrologer.avatarUrl ? (
                 <img
                   src={astrologer.avatarUrl}
@@ -120,7 +120,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
                   className="w-full h-full object-cover rounded-full"
                 />
               ) : (
-                <span className="font-display text-[11px] font-bold text-[#dfb76c]">
+                <span className="font-display text-[11px] font-bold text-[#E7B743]">
                   {astrologer.name.charAt(0)}
                 </span>
               )}
@@ -130,25 +130,25 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
 
         <div className="flex flex-col flex-1 min-w-0">
           {/* Sender Header */}
-          <div className={`flex items-center gap-1.5 mb-1 text-[10px] text-[#8e8779] ${isUser ? 'justify-end' : 'justify-start'}`}>
-            <span className="font-semibold text-[#cdc7ba]">
+          <div className={`flex items-center gap-1.5 mb-1 text-[10px] text-[#9685AE] ${isUser ? 'justify-end' : 'justify-start'}`}>
+            <span className="font-semibold text-[#C5B8D9]">
               {isUser ? kundli.name : astrologer.name}
             </span>
             <span aria-hidden="true">·</span>
             <span>{message.timestamp}</span>
             {isUser && (
               <span title="Read" className="inline-flex items-center">
-                <CheckCheck className="w-3 h-3 text-[#53bdeb] ml-0.5 stroke-[2.5]" />
+                <CheckCheck className="w-3 h-3 text-[#00D6A0] ml-0.5 stroke-[2.5]" />
               </span>
             )}
           </div>
 
           {/* Voice Note Simulation Card if audio message */}
           {isVoiceNote ? (
-            <div className="p-3 rounded-2xl bg-[#1d2133] border border-[#394263] text-xs flex items-center gap-2.5 sm:gap-3 shadow-md max-w-full sm:max-w-sm overflow-hidden">
+            <div className="p-3 rounded-2xl bg-[#2B173C] border border-[#453052] text-xs flex items-center gap-2.5 sm:gap-3 shadow-md max-w-full sm:max-w-sm overflow-hidden">
               <button
                 onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#dfb76c] text-[#0e1017] flex items-center justify-center cursor-pointer shadow-md shrink-0 hover:scale-105 active:scale-95 transition-transform"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#E7B743] text-[#180D2B] flex items-center justify-center cursor-pointer shadow-md shrink-0 hover:scale-105 active:scale-95 transition-transform"
               >
                 {isPlayingAudio ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
               </button>
@@ -159,14 +159,14 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
                       key={idx}
                       className={`w-1 rounded-full transition-all shrink-0 ${
                         isPlayingAudio
-                          ? 'bg-[#dfb76c] animate-pulse'
-                          : 'bg-[#586184]'
+                          ? 'bg-[#E7B743] animate-pulse'
+                          : 'bg-[#453052]'
                       }`}
                       style={{ height: `${h}px` }}
                     />
                   ))}
                 </div>
-                <div className="flex justify-between items-center text-[10px] text-[#9a9385] mt-1">
+                <div className="flex justify-between items-center text-[10px] text-[#9685AE] mt-1">
                   <span>{isPlayingAudio ? 'Playing...' : 'Voice message'}</span>
                   <span className="font-mono">0:24</span>
                 </div>
@@ -178,8 +178,8 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
               <div
                 className={`p-3.5 sm:p-4 rounded-2xl text-xs sm:text-[14.5px] leading-relaxed whitespace-pre-line break-words [overflow-wrap:anywhere] ${
                   isUser
-                    ? 'bg-[#1b2133]/96 backdrop-blur-md border border-[#3c4667] text-[#fcedc5] rounded-tr-xs shadow-xl shadow-black/30'
-                    : 'bg-[#121420]/96 backdrop-blur-md border border-[#dfb76c]/30 text-[#f5eedf] rounded-tl-xs shadow-xl shadow-black/30'
+                    ? 'bg-[#352044] border border-[#453052] text-[#F7F0FF] rounded-tr-xs shadow-xl shadow-black/30'
+                    : 'bg-[#2B173C] border border-[#453052] text-[#F7F0FF] rounded-tl-xs shadow-xl shadow-black/30'
                 }`}
               >
                 {renderHighlightedText(message.text)}
