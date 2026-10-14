@@ -9,21 +9,28 @@ import { ShoppingCartDrawer, CartItem } from './ShoppingCartDrawer';
 import { ShoppingCartPage } from './ShoppingCartPage';
 import { ShoppingCheckoutModal } from './ShoppingCheckoutModal';
 import { OrderDetails } from '../../types/astrology';
+
+// Flipkart-inspired components
 import {
-  ShoppingWorldsNav,
-  ShoppingWorldId,
-} from './shopping-worlds/ShoppingWorldsNav';
-import { NavratriWorld } from './shopping-worlds/NavratriWorld';
-import { MonthEndWorld } from './shopping-worlds/MonthEndWorld';
-import { ExclusiveVaultWorld } from './shopping-worlds/ExclusiveVaultWorld';
-import { ValueForMoneyWorld } from './shopping-worlds/ValueForMoneyWorld';
+  FlipkartCategoryStrip,
+  CategoryFilterId,
+} from './flipkart/FlipkartCategoryStrip';
+import { FlipkartPromoBanner } from './flipkart/FlipkartPromoBanner';
+import { FlipkartShoppingHeader } from './flipkart/FlipkartShoppingHeader';
+import { NavratriDealsSection } from './flipkart/NavratriDealsSection';
+import { MonthEndDealsSection } from './flipkart/MonthEndDealsSection';
+import { TwoDealsSection } from './flipkart/TwoDealsSection';
+import { ValueForMoneySection } from './flipkart/ValueForMoneySection';
+import { MarketplaceProductCard } from './flipkart/MarketplaceProductCard';
+
 import {
-  Search,
-  ShoppingBag,
-  SlidersHorizontal,
-  Sparkles,
-  X,
   Check,
+  X,
+  SlidersHorizontal,
+  ArrowUpDown,
+  Sparkles,
+  ShieldCheck,
+  ChevronRight,
 } from 'lucide-react';
 
 interface ShoppingViewProps {
@@ -37,12 +44,13 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
   onNavigateToOrders,
   initialShowCart = false,
 }) => {
-  // Navigation & Worlds State
-  const [activeWorld, setActiveWorld] = useState<ShoppingWorldId>('all');
+  // Navigation & Category Filtering
+  const [selectedCategory, setSelectedCategory] = useState<CategoryFilterId>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [maxPrice, setMaxPrice] = useState<number>(50000);
   const [selectedPlanetFilter, setSelectedPlanetFilter] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'rating'>('featured');
 
   // Full Cart Page View Toggle
   const [isCartPageOpen, setIsCartPageOpen] = useState<boolean>(initialShowCart);
@@ -77,9 +85,11 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
   // Add to Cart
   const handleAddToCart = (
     product: ShoppingProduct,
+    e?: React.MouseEvent,
     selectedMetal: string = 'Sacred Panchdhatu',
     selectedSize: string = '18'
   ) => {
+    if (e) e.stopPropagation();
     setCartItems((prev) => {
       const existingIdx = prev.findIndex(
         (it) =>
@@ -151,15 +161,35 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
     }
   };
 
-  // Filtered Products
+  // Filtered & Sorted Products
   const filteredProducts = useMemo(() => {
-    return SHOPPING_PRODUCTS.filter((prod) => {
+    const list = SHOPPING_PRODUCTS.filter((prod) => {
       if (prod.price > maxPrice) return false;
+
+      // Category matching
+      if (selectedCategory !== 'all') {
+        if (selectedCategory === 'gemstones' && prod.category !== 'gemstones') return false;
+        if (selectedCategory === 'rudraksha' && prod.category !== 'rudraksha') return false;
+        if (selectedCategory === 'jewellery' && (prod.category !== 'jewellery' || prod.subCategory !== 'rings')) return false;
+        if (selectedCategory === 'malas' && (prod.category !== 'jewellery' || (prod.subCategory !== 'necklaces' && prod.subCategory !== 'bracelets'))) return false;
+        if (selectedCategory === 'crystals' && !prod.intention.toLowerCase().includes('crystal') && !prod.sanskritName.toLowerCase().includes('sphatik')) {
+          // If not explicit crystal, match pearl/sphatik/clear gemstones
+          if (prod.gemType !== 'pearl' && prod.gemType !== 'diamond') return false;
+        }
+        if (selectedCategory === 'vastu' && !prod.intention.toLowerCase().includes('protection') && !prod.planetOrDeity.toLowerCase().includes('vastu') && !prod.benefits.some(b => b.toLowerCase().includes('vastu') || b.toLowerCase().includes('protection'))) {
+          return false;
+        }
+        if (selectedCategory === 'gifting' && prod.price > 8000) return false;
+      }
+
+      // Planet filter
       if (selectedPlanetFilter !== 'all') {
         if (!prod.planetOrDeity.toLowerCase().includes(selectedPlanetFilter.toLowerCase())) {
           return false;
         }
       }
+
+      // Search Query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matchesName = prod.name.toLowerCase().includes(q);
@@ -173,25 +203,19 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
       }
       return true;
     });
-  }, [maxPrice, selectedPlanetFilter, searchQuery]);
+
+    // Sorting
+    return [...list].sort((a, b) => {
+      if (sortBy === 'price-asc') return a.price - b.price;
+      if (sortBy === 'price-desc') return b.price - a.price;
+      if (sortBy === 'rating') return b.rating - a.rating;
+      return 0; // featured default
+    });
+  }, [maxPrice, selectedPlanetFilter, searchQuery, selectedCategory, sortBy]);
 
   const totalCartCount = cartItems.reduce((acc, it) => acc + it.quantity, 0);
 
-  // Smooth scroll to world section
-  const handleSelectWorld = (worldId: ShoppingWorldId) => {
-    setIsCartPageOpen(false);
-    setActiveWorld(worldId);
-    if (worldId === 'all') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    setTimeout(() => {
-      const elem = document.getElementById(worldId);
-      if (elem) {
-        elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 50);
-  };
+  const isSearchOrCategoryActive = searchQuery.trim() !== '' || selectedCategory !== 'all';
 
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-[#12091F] select-none text-[#F7F0FF] relative overflow-y-auto scrollbar-thin">
@@ -204,37 +228,36 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
       )}
 
       {/* =================================================================== */}
-      {/* 1. STICKY LUXURY WORLDS NAVIGATION                                  */}
+      {/* 1. FLIPKART-STYLE STICKY MARKETPLACE HEADER                        */}
       {/* =================================================================== */}
-      <ShoppingWorldsNav
-        activeWorld={isCartPageOpen ? 'all' : activeWorld}
-        onSelectWorld={handleSelectWorld}
-        cartCount={totalCartCount}
-        onOpenCart={() => setIsCartPageOpen(true)}
+      <FlipkartShoppingHeader
         searchQuery={searchQuery}
         onSearchChange={(q) => {
           setIsCartPageOpen(false);
           setSearchQuery(q);
         }}
+        cartCount={totalCartCount}
+        onOpenCart={() => setIsCartPageOpen(true)}
+        onNavigateToOrders={onNavigateToOrders}
+        onOpenFilter={() => setIsFilterModalOpen(true)}
+        isFilterActive={maxPrice < 50000 || selectedPlanetFilter !== 'all'}
       />
 
-      {/* Search match banner if active */}
-      {!isCartPageOpen && searchQuery.trim() && (
-        <div className="bg-[#24133B] border-b border-[#453052]/30 px-4 py-2 flex items-center justify-between text-xs text-[#C5B8D9]">
-          <span>
-            Found <strong className="text-[#FFD76A]">{filteredProducts.length}</strong> sacred items matching "{searchQuery}"
-          </span>
-          <button
-            onClick={() => setSearchQuery('')}
-            className="text-xs text-[#E7B743] hover:underline cursor-pointer"
-          >
-            Clear Search
-          </button>
-        </div>
+      {/* =================================================================== */}
+      {/* 2. HORIZONTAL CATEGORY NAVIGATION STRIP                            */}
+      {/* =================================================================== */}
+      {!isCartPageOpen && (
+        <FlipkartCategoryStrip
+          selectedCategory={selectedCategory}
+          onSelectCategory={(catId) => {
+            setSelectedCategory(catId);
+            setIsCartPageOpen(false);
+          }}
+        />
       )}
 
       {/* =================================================================== */}
-      {/* 2. CART PAGE OR THE FOUR WORLDS                                     */}
+      {/* 3. CART PAGE OR MARKETPLACE SECTIONS                                */}
       {/* =================================================================== */}
       {isCartPageOpen ? (
         <ShoppingCartPage
@@ -247,55 +270,159 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
           }}
           onContinueShopping={() => setIsCartPageOpen(false)}
         />
+      ) : isSearchOrCategoryActive ? (
+        /* ================================================================= */
+        /* CATEGORY FILTERED OR SEARCH RESULTS VIEW                           */
+        /* ================================================================= */
+        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-4 sm:py-6 space-y-4">
+          {/* Header Bar with Breadcrumb, Clear, and Sorting */}
+          <div className="p-3 sm:p-4 rounded-2xl bg-[#1C0E2E] border border-[#3E1F5A]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+            <div>
+              <div className="flex items-center gap-2 text-xs text-[#9685AE] font-mono">
+                <button
+                  onClick={() => {
+                    setSelectedCategory('all');
+                    setSearchQuery('');
+                  }}
+                  className="hover:text-[#FFD76A] cursor-pointer"
+                >
+                  Sanctum Marketplace
+                </button>
+                <ChevronRight className="w-3 h-3 text-[#5A3B78]" />
+                <span className="text-[#FFD76A] font-semibold capitalize">
+                  {searchQuery.trim() ? `Search: "${searchQuery}"` : selectedCategory}
+                </span>
+              </div>
+              <h2 className="font-display font-bold text-lg sm:text-xl text-[#F7F0FF] mt-1">
+                {searchQuery.trim()
+                  ? `Search Results for "${searchQuery}"`
+                  : `${selectedCategory.toUpperCase()} Catalogue`}
+              </h2>
+              <span className="text-xs text-[#C5B8D9]">
+                Showing {filteredProducts.length} authentic consecrated items
+              </span>
+            </div>
+
+            {/* Sort & Reset Controls */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 bg-[#26133C] px-2.5 py-1.5 rounded-xl border border-[#482868]/40 text-xs">
+                <ArrowUpDown className="w-3.5 h-3.5 text-[#E7B743]" />
+                <span className="text-[#9685AE] hidden sm:inline">Sort:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                  className="bg-transparent text-[#F7F0FF] focus:outline-none cursor-pointer text-xs"
+                >
+                  <option value="featured" className="bg-[#1C0E2E]">Featured</option>
+                  <option value="price-asc" className="bg-[#1C0E2E]">Price: Low to High</option>
+                  <option value="price-desc" className="bg-[#1C0E2E]">Price: High to Low</option>
+                  <option value="rating" className="bg-[#1C0E2E]">Highest Rated</option>
+                </select>
+              </div>
+
+              {(selectedCategory !== 'all' || searchQuery.trim() !== '') && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory('all');
+                    setSearchQuery('');
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-[#2D1644] hover:bg-[#3D1E5C] text-[#E7B743] border border-[#E7B743]/30 font-bold text-xs cursor-pointer transition-colors"
+                >
+                  Reset Filters
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Product Grid */}
+          {filteredProducts.length === 0 ? (
+            <div className="py-16 text-center text-[#9685AE] space-y-3 bg-[#1C0E2E]/60 rounded-2xl border border-[#3E1F5A]/30 p-8">
+              <Sparkles className="w-10 h-10 text-[#E7B743] mx-auto opacity-60" />
+              <p className="text-sm">No items found matching your filter criteria.</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedCategory('all');
+                  setSearchQuery('');
+                  setMaxPrice(50000);
+                  setSelectedPlanetFilter('all');
+                }}
+                className="px-4 py-2 rounded-xl bg-[#E7B743] text-[#180C2A] font-bold text-xs cursor-pointer hover:bg-[#FFD76A] transition-colors"
+              >
+                View All Sacred Items
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
+              {filteredProducts.map((product) => (
+                <MarketplaceProductCard
+                  key={product.id}
+                  product={product}
+                  onSelect={(p) => setSelectedProduct(p)}
+                  onAddToCart={(p, e) => handleAddToCart(p, e)}
+                  badgeType="deal"
+                />
+              ))}
+            </div>
+          )}
+        </div>
       ) : (
-        <div className="w-full flex flex-col">
-          {/* WORLD 01: NAVRATRI — The Festival of Extraordinary Finds */}
-          {(activeWorld === 'all' || activeWorld === 'navratri') && (
-            <NavratriWorld
-              products={filteredProducts}
-              onSelectProduct={(p) => setSelectedProduct(p)}
-              onAddToCart={handleAddToCart}
-            />
-          )}
+        /* ================================================================= */
+        /* FULL FLIPKART-INSPIRED HOME MARKETPLACE VIEW                       */
+        /* ================================================================= */
+        <div className="w-full flex flex-col space-y-2 sm:space-y-4 pb-12">
+          {/* Main Promotional Banner Carousel */}
+          <FlipkartPromoBanner
+            onCtaClick={(cat) => {
+              if (cat && (cat === 'gemstones' || cat === 'rudraksha' || cat === 'jewellery')) {
+                setSelectedCategory(cat as CategoryFilterId);
+              }
+            }}
+          />
 
-          {/* WORLD 02: MONTH-END — The Midnight Shopping Rush */}
-          {(activeWorld === 'all' || activeWorld === 'month-end') && (
-            <MonthEndWorld
-              products={filteredProducts}
-              onSelectProduct={(p) => setSelectedProduct(p)}
-              onAddToCart={handleAddToCart}
-            />
-          )}
+          {/* Section 1: Navratri Special Deals (horizontal carousel) */}
+          <NavratriDealsSection
+            products={filteredProducts}
+            onSelectProduct={(p) => setSelectedProduct(p)}
+            onAddToCart={(p, e) => handleAddToCart(p, e)}
+            onViewAll={() => setSelectedCategory('gemstones')}
+          />
 
-          {/* WORLD 03: TWO DEALS, NEVER BEFORE — The Exclusive Vault */}
-          {(activeWorld === 'all' || activeWorld === 'vault') && (
-            <ExclusiveVaultWorld
-              products={filteredProducts}
-              onSelectProduct={(p) => setSelectedProduct(p)}
-              onAddToCart={handleAddToCart}
-            />
-          )}
+          {/* Section 2: Month-End Deals (horizontal carousel) */}
+          <MonthEndDealsSection
+            products={filteredProducts}
+            onSelectProduct={(p) => setSelectedProduct(p)}
+            onAddToCart={(p, e) => handleAddToCart(p, e)}
+            onViewAll={() => setSelectedCategory('rudraksha')}
+          />
 
-          {/* WORLD 04: VALUE FOR MONEY — The Art of Smart Shopping */}
-          {(activeWorld === 'all' || activeWorld === 'value') && (
-            <ValueForMoneyWorld
-              products={filteredProducts}
-              onSelectProduct={(p) => setSelectedProduct(p)}
-              onAddToCart={handleAddToCart}
-            />
-          )}
+          {/* Section 3: Two Deals, Never Before (exactly 2 featured cards side-by-side) */}
+          <TwoDealsSection
+            products={filteredProducts}
+            onSelectProduct={(p) => setSelectedProduct(p)}
+            onAddToCart={(p, e) => handleAddToCart(p, e)}
+            onBuyNow={(p) => handleBuyNow(p)}
+          />
+
+          {/* Section 4: Value for Money (high discoverability responsive grid) */}
+          <ValueForMoneySection
+            products={filteredProducts}
+            onSelectProduct={(p) => setSelectedProduct(p)}
+            onAddToCart={(p, e) => handleAddToCart(p, e)}
+          />
         </div>
       )}
 
       {/* =================================================================== */}
-      {/* 3. MODALS, CART DRAWER & CHECKOUT                                   */}
+      {/* 4. MODALS, CART DRAWER & CHECKOUT                                   */}
       {/* =================================================================== */}
       {/* Product Detail Modal */}
       <ShoppingProductDetailModal
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={(prod, metal, size) => {
-          handleAddToCart(prod, metal, size);
+          handleAddToCart(prod, undefined, metal, size);
         }}
         onBuyNow={(prod, metal, size) => {
           handleBuyNow(prod, metal, size);
@@ -330,14 +457,14 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
       {/* Filter Modal */}
       {isFilterModalOpen && (
         <div
-          className="fixed inset-0 z-50 bg-[#12091F]/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-[#12091F]/80 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setIsFilterModalOpen(false)}
         >
           <div
-            className="w-full max-w-sm rounded-2xl bg-[#24133B] border border-transparent clay-float p-5 space-y-4 shadow-2xl"
+            className="w-full max-w-sm rounded-2xl bg-[#24133B] border border-[#52297A]/50 p-5 space-y-4 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-[#453052]/30 pb-3">
+            <div className="flex items-center justify-between border-b border-[#453052]/40 pb-3">
               <h3 className="font-serif-luxury font-bold text-sm text-[#F7F0FF]">
                 Filter Sacred Items
               </h3>
@@ -369,43 +496,44 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
               />
             </div>
 
-            {/* Planet Filter */}
+            {/* Planetary Energy Filter */}
             <div className="space-y-1.5">
-              <label className="text-xs text-[#C5B8D9] block">Ruling Planet / Deity</label>
+              <label className="text-xs text-[#C5B8D9]">Planetary Affiliation</label>
               <select
                 value={selectedPlanetFilter}
                 onChange={(e) => setSelectedPlanetFilter(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-[#12091F] border border-transparent clay-input text-xs text-[#F7F0FF] outline-none"
+                className="w-full bg-[#1A0B2C] border border-[#482868]/60 rounded-xl px-3 py-2 text-xs text-[#F7F0FF] focus:outline-none focus:border-[#E7B743]"
               >
-                <option value="all">All Planetary Energies</option>
-                <option value="Jupiter">Jupiter (Guru)</option>
-                <option value="Saturn">Saturn (Shani)</option>
-                <option value="Sun">Sun (Surya)</option>
-                <option value="Mercury">Mercury (Budh)</option>
-                <option value="Mars">Mars (Mangal)</option>
-                <option value="Venus">Venus (Shukra)</option>
-                <option value="Moon">Moon (Chandra)</option>
-                <option value="Rahu">Rahu (North Node)</option>
-                <option value="Ketu">Ketu (South Node)</option>
-                <option value="Shiva">Lord Shiva</option>
+                <option value="all">All Planets & Deities</option>
+                <option value="Jupiter">Brihaspati (Jupiter) - Wealth & Wisdom</option>
+                <option value="Sun">Surya (Sun) - Authority & Vitality</option>
+                <option value="Moon">Chandra (Moon) - Mental Peace & Intuition</option>
+                <option value="Mars">Mangal (Mars) - Courage & Protection</option>
+                <option value="Mercury">Budh (Mercury) - Intelligence & Trade</option>
+                <option value="Venus">Shukra (Venus) - Love & Abundance</option>
+                <option value="Saturn">Shani (Saturn) - Karma & Discipline</option>
+                <option value="Rahu">Rahu - Illusion & Worldly Triumph</option>
+                <option value="Ketu">Ketu - Moksha & Spiritual Sight</option>
+                <option value="Shiva">Lord Shiva - Super-Consciousness</option>
               </select>
             </div>
 
-            <div className="pt-2 border-t border-[#453052]/30 flex items-center gap-2">
+            {/* Modal Actions */}
+            <div className="pt-2 flex gap-2">
               <button
                 type="button"
                 onClick={() => {
                   setMaxPrice(50000);
                   setSelectedPlanetFilter('all');
                 }}
-                className="flex-1 py-2 rounded-xl bg-[#2B173C] text-[#9685AE] hover:text-[#F7F0FF] text-xs font-semibold cursor-pointer"
+                className="flex-1 py-2 rounded-xl bg-[#2D1644] text-[#C5B8D9] text-xs font-semibold hover:text-[#F7F0FF] cursor-pointer"
               >
                 Reset
               </button>
               <button
                 type="button"
                 onClick={() => setIsFilterModalOpen(false)}
-                className="flex-1 py-2 rounded-xl clay-button-primary text-[#180D2B] text-xs font-bold cursor-pointer"
+                className="flex-1 py-2 rounded-xl bg-gradient-to-r from-[#E7B743] to-[#C99827] text-[#180C2A] text-xs font-bold shadow-md cursor-pointer"
               >
                 Apply Filters
               </button>
