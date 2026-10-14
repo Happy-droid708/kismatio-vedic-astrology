@@ -26,9 +26,17 @@ export const GuruEmptyState: React.FC<GuruEmptyStateProps> = ({
           }}
         >
           <div className="w-full h-full rounded-[22px] bg-[#0e101a] flex items-center justify-center relative overflow-hidden backdrop-blur-md">
-            <span className="text-4xl sm:text-5xl select-none animate-pulse">
-              {guru.symbol}
-            </span>
+            {guru.avatarUrl ? (
+              <img
+                src={guru.avatarUrl}
+                alt={guru.name}
+                className="w-full h-full object-cover rounded-[20px]"
+              />
+            ) : (
+              <span className="text-4xl sm:text-5xl select-none animate-pulse">
+                {guru.symbol}
+              </span>
+            )}
             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
           </div>
         </div>

@@ -46,6 +46,8 @@ export interface MaharajGuru {
   secondaryColor: string;
   glowColor: string;
   symbol: string;
+  avatarUrl: string;
+  avatarSeed: string;
   experienceYears: number;
   rating: number;
   totalConsultations: number;
@@ -83,6 +85,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#be185d',
     glowColor: 'rgba(244, 63, 94, 0.45)',
     symbol: '❤️',
+    avatarUrl: '/images/gurus/adit.jpg',
+    avatarSeed: 'adit',
     experienceYears: 14,
     rating: 4.96,
     totalConsultations: 18450,
@@ -131,6 +135,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#0891b2',
     glowColor: 'rgba(6, 182, 212, 0.45)',
     symbol: '⏱️',
+    avatarUrl: '/images/gurus/nupur.jpg',
+    avatarSeed: 'nupur',
     experienceYears: 19,
     rating: 4.98,
     totalConsultations: 24100,
@@ -179,6 +185,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#7c3aed',
     glowColor: 'rgba(168, 85, 247, 0.45)',
     symbol: '🧠',
+    avatarUrl: '/images/gurus/dr-aditi.jpg',
+    avatarSeed: 'dr-aditi',
     experienceYears: 17,
     rating: 4.94,
     totalConsultations: 15200,
@@ -227,6 +235,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#059669',
     glowColor: 'rgba(16, 185, 129, 0.45)',
     symbol: '🏛️',
+    avatarUrl: '/images/gurus/kavya.jpg',
+    avatarSeed: 'kavya',
     experienceYears: 15,
     rating: 4.93,
     totalConsultations: 13800,
@@ -275,6 +285,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#4338ca',
     glowColor: 'rgba(99, 102, 241, 0.45)',
     symbol: '📜',
+    avatarUrl: '/images/gurus/acharya-vasudev.jpg',
+    avatarSeed: 'acharya-vasudev',
     experienceYears: 26,
     rating: 4.99,
     totalConsultations: 28900,
@@ -323,6 +335,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#b45309',
     glowColor: 'rgba(223, 183, 108, 0.55)',
     symbol: '👑',
+    avatarUrl: '/images/gurus/acharya-guru.jpg',
+    avatarSeed: 'acharya-guru',
     experienceYears: 30,
     rating: 4.99,
     totalConsultations: 42000,
@@ -371,6 +385,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#0284c7',
     glowColor: 'rgba(56, 189, 248, 0.45)',
     symbol: '🧭',
+    avatarUrl: '/images/gurus/khoji-baba.jpg',
+    avatarSeed: 'khoji-baba',
     experienceYears: 21,
     rating: 4.91,
     totalConsultations: 11600,
@@ -419,6 +435,8 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     secondaryColor: '#94a3b8',
     glowColor: 'rgba(226, 232, 240, 0.4)',
     symbol: '⚖️',
+    avatarUrl: '/images/gurus/nyaya-guru.jpg',
+    avatarSeed: 'nyaya-guru',
     experienceYears: 23,
     rating: 4.95,
     totalConsultations: 14700,
@@ -467,7 +485,9 @@ export function guruToAstrologer(guru: MaharajGuru): Astrologer {
     specializations: [guru.specialization, ...guru.quickActions],
     bio: guru.bio,
     location: guru.location,
-    avatarSeed: guru.id,
+    avatarSeed: guru.avatarSeed || guru.id,
+    avatarUrl: guru.avatarUrl,
+    symbol: guru.symbol,
     accentColor: guru.accentColor,
   };
 }

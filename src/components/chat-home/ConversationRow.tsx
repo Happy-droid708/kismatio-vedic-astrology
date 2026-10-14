@@ -81,9 +81,17 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
       <div className="relative shrink-0">
         <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#996e28] via-[#dfb76c] to-[#fef08a] p-0.5 shadow-sm">
           <div className="w-full h-full rounded-full bg-[#181a24] flex items-center justify-center overflow-hidden">
-            <div className="w-full h-full flex items-center justify-center bg-[#151722] font-display text-base font-bold text-[#dfb76c]">
-              {conversation.astrologerName.charAt(0)}
-            </div>
+            {conversation.avatarUrl ? (
+              <img
+                src={conversation.avatarUrl}
+                alt={conversation.astrologerName}
+                className="w-full h-full object-cover rounded-full"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-[#151722] font-display text-base font-bold text-[#dfb76c]">
+                {conversation.astrologerName.charAt(0)}
+              </div>
+            )}
           </div>
         </div>
         {conversation.isOnline && (

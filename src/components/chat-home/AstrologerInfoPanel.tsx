@@ -58,8 +58,18 @@ export const AstrologerInfoPanel: React.FC<AstrologerInfoPanelProps> = ({
         <div className="p-6 flex flex-col items-center text-center bg-gradient-to-b from-[#181c2c] to-[#11131e] border-b border-[#202538]">
           <div className="relative">
             <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#996e28] via-[#dfb76c] to-[#fef08a] p-1 shadow-xl">
-              <div className="w-full h-full rounded-full bg-[#181a24] flex items-center justify-center font-display text-3xl font-bold text-[#dfb76c]">
-                {astrologer.name.charAt(0)}
+              <div className="w-full h-full rounded-full bg-[#181a24] flex items-center justify-center overflow-hidden">
+                {astrologer.avatarUrl ? (
+                  <img
+                    src={astrologer.avatarUrl}
+                    alt={astrologer.name}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <span className="font-display text-3xl font-bold text-[#dfb76c]">
+                    {astrologer.name.charAt(0)}
+                  </span>
+                )}
               </div>
             </div>
             <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-[#11131e] ring-2 ring-emerald-500/50" />

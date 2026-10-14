@@ -29,6 +29,9 @@ export interface Astrologer {
   bio: string;
   location: string;
   avatarSeed: string;
+  avatarColor?: string;
+  avatarUrl?: string;
+  symbol?: string;
   accentColor: string;
 }
 
@@ -152,6 +155,7 @@ export interface ConversationThread {
   isVerified: boolean;
   avatarSeed: string;
   avatarColor: string;
+  avatarUrl?: string;
   status: ConversationStatus;
   statusLabel?: string;
   remainingSeconds?: number;

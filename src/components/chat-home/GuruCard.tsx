@@ -56,9 +56,18 @@ export const GuruCard: React.FC<GuruCardProps> = ({
               }}
             >
               <div className="w-full h-full rounded-[14px] bg-[#0c0d15] flex items-center justify-center relative overflow-hidden">
-                <span className="text-2xl sm:text-3xl select-none group-hover:scale-110 transition-transform">
-                  {guru.symbol}
-                </span>
+                {guru.avatarUrl ? (
+                  <img
+                    src={guru.avatarUrl}
+                    alt={guru.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="text-2xl sm:text-3xl select-none group-hover:scale-110 transition-transform">
+                    {guru.symbol}
+                  </span>
+                )}
                 {/* Subtle sheen highlight */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
               </div>

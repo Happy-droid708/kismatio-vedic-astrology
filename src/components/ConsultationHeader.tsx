@@ -36,10 +36,17 @@ export const ConsultationHeader: React.FC<ConsultationHeaderProps> = ({
           <div className="relative">
             <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#996e28] via-[#dfb76c] to-[#fef08a] p-0.5">
               <div className="w-full h-full rounded-full bg-[#181a24] flex items-center justify-center overflow-hidden">
-                {/* Stylized Astrologer Icon / Monogram */}
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-b from-[#251e13] to-[#12141c] text-[#dfb76c] font-display font-bold text-lg">
-                  {astrologer.name.charAt(0)}
-                </div>
+                {astrologer.avatarUrl ? (
+                  <img
+                    src={astrologer.avatarUrl}
+                    alt={astrologer.name}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-b from-[#251e13] to-[#12141c] text-[#dfb76c] font-display font-bold text-lg">
+                    {astrologer.name.charAt(0)}
+                  </div>
+                )}
               </div>
             </div>
             <span className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#10121b]" />

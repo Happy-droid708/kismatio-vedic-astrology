@@ -107,28 +107,6 @@ export const KismatioApp: React.FC = () => {
 
   // Message cache across conversations / Gurus
   const [messagesByConv, setMessagesByConv] = useState<Record<string, ChatMessageItem[]>>({
-    'conv-rajiv': [
-      {
-        id: 'm1',
-        sender: 'astrologer',
-        text: 'Hari Om, Devanand ji. I have cast your Janma Kundli based on your birth coordinates in Jaipur (Libra Lagna, Pisces Moon in Uttara Bhadrapada Nakshatra). I see profound planetary movements at play in your chart right now.',
-        timestamp: '10:02 AM',
-        widgetType: 'kundli_summary',
-      },
-      {
-        id: 'm2',
-        sender: 'user',
-        text: 'Pranam Acharya ji. Over the past 9 months, despite putting in 14-hour days, every major deal and promotion in my tech enterprise has gotten stalled at the final signature. I feel an unexplained exhaustion and heavy resistance. What is happening in my Graha dasha?',
-        timestamp: '10:03 AM',
-      },
-      {
-        id: 'm-recom',
-        sender: 'astrologer',
-        text: 'I recommend these stones based on your chart and current planetary transits to dissolve this resistance and unlock your Rajayoga momentum:',
-        timestamp: '10:04 AM',
-        widgetType: 'gemstone_recommendation',
-      },
-    ],
     'conv-acharya-guru': [
       {
         id: 'm1-flagship',

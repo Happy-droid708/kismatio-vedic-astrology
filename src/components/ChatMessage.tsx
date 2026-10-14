@@ -112,8 +112,18 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
         {/* Astrologer Avatar */}
         {isAstrologer && (
           <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#996e28] to-[#dfb76c] p-0.5 shrink-0 mt-0.5 shadow-sm">
-            <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center font-display text-[11px] font-bold text-[#dfb76c]">
-              {astrologer.name.charAt(0)}
+            <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center overflow-hidden">
+              {astrologer.avatarUrl ? (
+                <img
+                  src={astrologer.avatarUrl}
+                  alt={astrologer.name}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <span className="font-display text-[11px] font-bold text-[#dfb76c]">
+                  {astrologer.name.charAt(0)}
+                </span>
+              )}
             </div>
           </div>
         )}

@@ -123,9 +123,17 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
             <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#dfb76c]/15 blur-3xl pointer-events-none group-hover:scale-125 transition-transform" />
 
             <div className="flex items-start sm:items-center gap-4 relative z-10">
-              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl p-1 bg-gradient-to-tr from-[#dfb76c] via-[#fef08a] to-[#996e28] shadow-lg shrink-0 flex items-center justify-center">
-                <div className="w-full h-full rounded-[14px] bg-[#120a10] flex items-center justify-center text-3xl sm:text-4xl">
-                  {flagshipGuru.symbol}
+              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl p-1 bg-gradient-to-tr from-[#dfb76c] via-[#fef08a] to-[#996e28] shadow-lg shrink-0 flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full rounded-[14px] bg-[#120a10] flex items-center justify-center text-3xl sm:text-4xl overflow-hidden">
+                  {flagshipGuru.avatarUrl ? (
+                    <img
+                      src={flagshipGuru.avatarUrl}
+                      alt={flagshipGuru.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  ) : (
+                    flagshipGuru.symbol
+                  )}
                 </div>
               </div>
 

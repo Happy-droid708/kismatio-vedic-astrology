@@ -167,8 +167,18 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
                 {/* Avatar with Online Badge */}
                 <div className="relative shrink-0">
                   <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-tr from-[#996e28] to-[#dfb76c] p-0.5 shadow-sm">
-                    <div className="w-full h-full rounded-full bg-[#181a24] flex items-center justify-center font-display text-base font-bold text-[#dfb76c]">
-                      {astro.name.charAt(0)}
+                    <div className="w-full h-full rounded-full bg-[#181a24] flex items-center justify-center overflow-hidden">
+                      {astro.avatarUrl ? (
+                        <img
+                          src={astro.avatarUrl}
+                          alt={astro.name}
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      ) : (
+                        <span className="font-display text-base font-bold text-[#dfb76c]">
+                          {astro.name.charAt(0)}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#151825]" />

@@ -112,13 +112,21 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="relative shrink-0">
               <div
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 shadow-sm flex items-center justify-center"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 shadow-sm flex items-center justify-center overflow-hidden"
                 style={{
                   background: `linear-gradient(135deg, ${guru.accentColor}, #dfb76c)`,
                 }}
               >
-                <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center text-base sm:text-lg select-none">
-                  {guru.symbol}
+                <div className="w-full h-full rounded-full bg-[#161824] flex items-center justify-center text-base sm:text-lg select-none overflow-hidden">
+                  {guru.avatarUrl ? (
+                    <img
+                      src={guru.avatarUrl}
+                      alt={guru.name}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    guru.symbol
+                  )}
                 </div>
               </div>
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#10121b] animate-pulse" />
