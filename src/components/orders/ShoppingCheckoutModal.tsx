@@ -9,10 +9,8 @@ import {
   CreditCard,
   Smartphone,
   Landmark,
-  Wallet,
   Lock,
   ArrowRight,
-  Sparkles,
   Package,
 } from 'lucide-react';
 
@@ -20,9 +18,12 @@ interface ShoppingCheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   singleProduct?: ShoppingProduct | null;
+  directProduct?: ShoppingProduct | null;
   cartItems?: CartItem[];
   selectedMetal?: string;
+  initialMetal?: string;
   selectedSize?: string;
+  initialRingSize?: string;
   onOrderSuccess: (order: OrderDetails) => void;
 }
 
@@ -30,9 +31,12 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
   isOpen,
   onClose,
   singleProduct,
+  directProduct,
   cartItems = [],
   selectedMetal = 'Sacred Panchdhatu',
+  initialMetal,
   selectedSize = '18',
+  initialRingSize,
   onOrderSuccess,
 }) => {
   if (!isOpen) return null;
@@ -50,21 +54,27 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
   const [state, setState] = useState('Rajasthan');
   const [pincode, setPincode] = useState('302001');
 
+  const resolvedSingleProduct = singleProduct || directProduct || null;
+  const resolvedMetal = initialMetal || selectedMetal || 'Sacred Panchdhatu';
+  const resolvedSize = initialRingSize || selectedSize || '18';
+
   // Calculate items and total
-  const checkoutItems = singleProduct
+  const checkoutItems: CartItem[] = resolvedSingleProduct
     ? [
         {
-          id: singleProduct.id,
-          product: singleProduct,
+          id: resolvedSingleProduct.id,
+          product: resolvedSingleProduct,
           quantity: 1,
-          selectedMetal,
-          selectedSize,
+          selectedMetal: resolvedMetal,
+          selectedSize: resolvedSize,
         },
       ]
-    : cartItems;
+    : cartItems && cartItems.length > 0
+    ? cartItems
+    : [];
 
   const totalAmount = checkoutItems.reduce(
-    (sum, it) => sum + it.product.price * it.quantity,
+    (sum, it) => sum + (it.product ? it.product.price * it.quantity : 0),
     0
   );
 
@@ -72,8 +82,9 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
 
   const handleSubmitPayment = (e: React.FormEvent) => {
     e.preventDefault();
-    setStep('processing');
+    if (!primaryProduct) return;
 
+    setStep('processing');
     const generatedOrderId = `KS${Math.floor(10000 + Math.random() * 90000)}`;
 
     const newOrder: OrderDetails = {
@@ -96,17 +107,17 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
         certificationBody: primaryProduct.certification,
         reportNumber: `IGI-2026-${Math.floor(1000 + Math.random() * 9000)}`,
         benefits: primaryProduct.benefits,
-        idealMetal: selectedMetal,
+        idealMetal: resolvedMetal,
         wearingDay: primaryProduct.wearingGuidance || 'Auspicious Sunrise',
         wearingFinger: 'Prescribed Astrological Placement',
         description: primaryProduct.description,
       },
-      selectedMetal: (selectedMetal.toLowerCase().includes('gold')
+      selectedMetal: (resolvedMetal.toLowerCase().includes('gold')
         ? '18k_gold'
-        : selectedMetal.toLowerCase().includes('silver')
+        : resolvedMetal.toLowerCase().includes('silver')
         ? 'sterling_silver'
         : 'panchdhatu') as any,
-      ringSize: `${selectedSize} (Indian Standard)`,
+      ringSize: `${resolvedSize} (Indian Standard)`,
       sankalpName: fullName,
       sankalpGotra: gotra,
       shippingAddress: {
@@ -143,206 +154,182 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
       setCreatedOrder(newOrder);
       setStep('success');
       onOrderSuccess(newOrder);
-    }, 1300);
+    }, 2000);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 select-none animate-in fade-in duration-200">
-      {/* Backdrop */}
+    <div
+      className="fixed inset-0 z-50 bg-[#12091F]/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 select-none animate-in fade-in duration-200"
+      onClick={onClose}
+    >
       <div
-        className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
-        onClick={() => {
-          if (step !== 'processing') onClose();
-        }}
-      />
-
-      {/* Modal */}
-      <div className="relative w-full max-w-lg bg-[#0e1019] border border-[#dfb76c]/30 rounded-3xl shadow-2xl overflow-hidden max-h-[92dvh] flex flex-col z-10 animate-in zoom-in-95 duration-200">
+        className="relative w-full max-w-lg bg-[#24133B] border border-transparent clay-float rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
-        <div className="p-4 border-b border-[#222739] flex items-center justify-between bg-[#121422]">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#dfb76c]" />
-            <h2 className="font-display font-bold text-sm text-[#fcedc5]">
-              {step === 'success'
-                ? 'Consecration Order Confirmed'
-                : 'Sanctum Checkout & Vedic Sankalp'}
+        <div className="p-4 border-b border-[#453052]/30 flex items-center justify-between bg-[#2B173C]/60 backdrop-blur-xs">
+          <div>
+            <h2 className="font-serif-luxury font-bold text-sm sm:text-base text-[#F7F0FF]">
+              {step === 'success' ? 'Consecration Confirmed' : 'Sacred Gotra Checkout'}
             </h2>
+            <p className="text-[10px] text-[#9685AE] font-mono">
+              Vedic Consecration & Secured Transit
+            </p>
           </div>
 
-          {step !== 'processing' && (
-            <button
-              onClick={onClose}
-              className="p-1.5 rounded-full bg-[#181c2b] text-[#8e8779] hover:text-[#ede8dc] border border-[#2b334d] cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] transition-colors cursor-pointer"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
-        {/* Content Body */}
+        {/* Modal Body */}
         <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5 space-y-4 scrollbar-thin">
           {/* STEP 1: FORM */}
           {step === 'form' && (
             <form id="checkout-form" onSubmit={handleSubmitPayment} className="space-y-4">
-              {/* Order summary banner */}
-              <div className="p-3 rounded-2xl bg-[#141724] border border-[#252c42] flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] text-[#8e8779] font-mono uppercase block">
-                    Total Payable Amount
-                  </span>
-                  <span className="font-display font-bold text-lg text-[#fcedc5]">
-                    ₹{totalAmount.toLocaleString('en-IN')}
-                  </span>
-                </div>
-                <div className="text-right text-[11px] text-[#dfb76c] font-mono">
-                  <span>{checkoutItems.length} item(s)</span>
-                  <span className="block text-[9.5px] text-emerald-400">Armored Delivery</span>
+              {/* Items summary chip */}
+              <div className="p-3 rounded-2xl bg-[#180D2B] border border-transparent clay-surface space-y-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#E7B743] block">
+                  Items In Checkout ({checkoutItems.length})
+                </span>
+                <div className="space-y-1.5 max-h-28 overflow-y-auto scrollbar-none">
+                  {checkoutItems.map((it) => (
+                    <div key={it.id} className="flex justify-between items-center text-xs">
+                      <span className="text-[#F7F0FF] truncate max-w-[240px]">
+                        {it.product.name} (x{it.quantity})
+                      </span>
+                      <span className="font-mono font-bold text-[#FFD76A]">
+                        ₹{(it.product.price * it.quantity).toLocaleString('en-IN')}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Vedic Sankalp Information */}
-              <div className="space-y-2">
-                <span className="text-[11px] font-mono text-[#dfb76c] uppercase tracking-wider block">
-                  ✦ Vedic Sankalp Details (For Peeth Recitation)
+              {/* Vedic Gotra Sankalp Details */}
+              <div className="space-y-2.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#E7B743] block">
+                  1. Sacred Vedic Sankalp Information
                 </span>
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
-                    <label className="text-[10.5px] text-[#8e8779] block mb-1">Devotee Name</label>
+                    <label className="text-[11px] text-[#C5B8D9] block mb-1">Native Full Name</label>
                     <input
                       type="text"
+                      required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      required
-                      className="w-full px-3 py-2 rounded-xl bg-[#131625] border border-[#252c42] text-xs text-[#ede8dc] outline-none focus:border-[#dfb76c]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#180D2B] border border-transparent clay-input text-xs text-[#F7F0FF] outline-none"
                     />
                   </div>
                   <div>
-                    <label className="text-[10.5px] text-[#8e8779] block mb-1">Janma Gotra</label>
+                    <label className="text-[11px] text-[#C5B8D9] block mb-1">Sacred Gotra</label>
                     <input
                       type="text"
+                      required
                       value={gotra}
                       onChange={(e) => setGotra(e.target.value)}
-                      placeholder="e.g. Kashyapa, Bharadwaj"
-                      required
-                      className="w-full px-3 py-2 rounded-xl bg-[#131625] border border-[#252c42] text-xs text-[#ede8dc] outline-none focus:border-[#dfb76c]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#180D2B] border border-transparent clay-input text-xs text-[#F7F0FF] outline-none"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Shipping Address */}
-              <div className="space-y-2">
-                <span className="text-[11px] font-mono text-[#8e8779] uppercase tracking-wider block">
-                  Delivery Destination
+              {/* Insured Delivery Address */}
+              <div className="space-y-2.5">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#E7B743] block">
+                  2. Armored Insured Shipping Address
                 </span>
-                <div>
-                  <label className="text-[10.5px] text-[#8e8779] block mb-1">Street Address</label>
+                <div className="space-y-2">
                   <input
                     type="text"
+                    required
+                    placeholder="Street Address, Flat / House No."
                     value={street}
                     onChange={(e) => setStreet(e.target.value)}
-                    required
-                    className="w-full px-3 py-2 rounded-xl bg-[#131625] border border-[#252c42] text-xs text-[#ede8dc] outline-none focus:border-[#dfb76c]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#180D2B] border border-transparent clay-input text-xs text-[#F7F0FF] outline-none"
                   />
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div>
-                    <label className="text-[10.5px] text-[#8e8779] block mb-1">City</label>
+                  <div className="grid grid-cols-3 gap-2">
                     <input
                       type="text"
+                      required
+                      placeholder="City"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      required
-                      className="w-full px-2.5 py-2 rounded-xl bg-[#131625] border border-[#252c42] text-xs text-[#ede8dc] outline-none focus:border-[#dfb76c]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#180D2B] border border-transparent clay-input text-xs text-[#F7F0FF] outline-none"
                     />
-                  </div>
-                  <div>
-                    <label className="text-[10.5px] text-[#8e8779] block mb-1">State</label>
                     <input
                       type="text"
+                      required
+                      placeholder="State"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
-                      required
-                      className="w-full px-2.5 py-2 rounded-xl bg-[#131625] border border-[#252c42] text-xs text-[#ede8dc] outline-none focus:border-[#dfb76c]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#180D2B] border border-transparent clay-input text-xs text-[#F7F0FF] outline-none"
                     />
-                  </div>
-                  <div>
-                    <label className="text-[10.5px] text-[#8e8779] block mb-1">Pincode</label>
                     <input
                       type="text"
+                      required
+                      placeholder="Pincode"
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value)}
-                      required
-                      className="w-full px-2.5 py-2 rounded-xl bg-[#131625] border border-[#252c42] text-xs text-[#ede8dc] outline-none focus:border-[#dfb76c]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#180D2B] border border-transparent clay-input text-xs text-[#F7F0FF] outline-none"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Payment Methods (Razorpay Integration Simulation) */}
+              {/* Payment Methods */}
               <div className="space-y-2">
-                <span className="text-[11px] font-mono text-[#8e8779] uppercase tracking-wider block">
-                  Select Payment Method
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#E7B743] block">
+                  3. Select Payment Mode
                 </span>
                 <div className="grid grid-cols-3 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod('upi')}
-                    className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                      paymentMethod === 'upi'
-                        ? 'bg-[#1e2438] border-[#dfb76c] text-[#dfb76c]'
-                        : 'bg-[#121524] border-[#252c42] text-[#8e8779] hover:text-[#ede8dc]'
-                    }`}
-                  >
-                    <Smartphone className="w-5 h-5" />
-                    <span className="text-[11px] font-semibold">UPI / GPay</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod('card')}
-                    className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                      paymentMethod === 'card'
-                        ? 'bg-[#1e2438] border-[#dfb76c] text-[#dfb76c]'
-                        : 'bg-[#121524] border-[#252c42] text-[#8e8779] hover:text-[#ede8dc]'
-                    }`}
-                  >
-                    <CreditCard className="w-5 h-5" />
-                    <span className="text-[11px] font-semibold">Card</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod('netbanking')}
-                    className={`p-3 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                      paymentMethod === 'netbanking'
-                        ? 'bg-[#1e2438] border-[#dfb76c] text-[#dfb76c]'
-                        : 'bg-[#121524] border-[#252c42] text-[#8e8779] hover:text-[#ede8dc]'
-                    }`}
-                  >
-                    <Landmark className="w-5 h-5" />
-                    <span className="text-[11px] font-semibold">NetBanking</span>
-                  </button>
+                  {[
+                    { id: 'upi' as const, label: 'UPI (GPay)', icon: Smartphone },
+                    { id: 'card' as const, label: 'Cards', icon: CreditCard },
+                    { id: 'netbanking' as const, label: 'NetBanking', icon: Landmark },
+                  ].map((m) => {
+                    const isSelected = paymentMethod === m.id;
+                    const Icon = m.icon;
+                    return (
+                      <button
+                        key={m.id}
+                        type="button"
+                        onClick={() => setPaymentMethod(m.id)}
+                        className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                          isSelected
+                            ? 'bg-[#2B173C] border-[#E7B743] text-[#FFD76A] shadow-sm'
+                            : 'bg-[#180D2B] border-transparent text-[#9685AE] hover:text-[#F7F0FF]'
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span className="text-[11px] font-medium">{m.label}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </form>
           )}
 
-          {/* STEP 2: PROCESSING (Razorpay Auth) */}
+          {/* STEP 2: PROCESSING */}
           {step === 'processing' && (
             <div className="py-12 flex flex-col items-center justify-center text-center space-y-4 animate-in fade-in">
               <div className="relative w-16 h-16">
-                <div className="w-16 h-16 rounded-full border-4 border-[#252c42] border-t-[#dfb76c] animate-spin" />
-                <div className="absolute inset-0 flex items-center justify-center font-display text-sm font-bold text-[#dfb76c]">
+                <div className="w-16 h-16 rounded-full border-4 border-[#453052] border-t-[#E7B743] animate-spin" />
+                <div className="absolute inset-0 flex items-center justify-center font-display text-sm font-bold text-[#E7B743]">
                   ✦
                 </div>
               </div>
               <div className="space-y-1">
-                <h3 className="font-display font-bold text-base text-[#fcedc5]">
-                  Authorizing Razorpay Gateway...
+                <h3 className="font-serif-luxury font-bold text-base text-[#F7F0FF]">
+                  Connecting to Kashi Sanctum Escrow...
                 </h3>
-                <p className="text-xs text-[#8e8779] max-w-xs">
-                  Connecting with Kashi Vishwanath Sanctum Merchant Escrow. Please do not close or refresh.
+                <p className="text-xs text-[#9685AE] max-w-xs">
+                  Authorizing 256-bit encrypted transaction. Please do not close this window.
                 </p>
               </div>
             </div>
@@ -351,34 +338,34 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
           {/* STEP 3: SUCCESS */}
           {step === 'success' && createdOrder && (
             <div className="py-4 space-y-4 animate-in zoom-in-95 text-center">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/15 border-2 border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center shadow-lg shadow-emerald-500/10">
+              <div className="w-16 h-16 rounded-full bg-emerald-500/15 border-2 border-emerald-500/40 text-[#00D6A0] mx-auto flex items-center justify-center shadow-lg">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
 
               <div className="space-y-1">
-                <span className="text-[11px] font-mono text-[#dfb76c] uppercase tracking-wider">
+                <span className="text-[11px] font-mono text-[#E7B743] uppercase tracking-wider">
                   Payment Verified · Order #{createdOrder.orderId}
                 </span>
-                <h3 className="font-display font-bold text-lg text-[#fcedc5]">
-                  Consecration Scheduled in Varanasi
+                <h3 className="font-serif-luxury font-bold text-lg text-[#F7F0FF]">
+                  Vedic Consecration Scheduled in Varanasi
                 </h3>
-                <p className="text-xs text-[#8e8779] max-w-sm mx-auto">
-                  Sankalp booked for {createdOrder.sankalpName} ({createdOrder.sankalpGotra} Gotra). Your order has been added to your Active Orders list.
+                <p className="text-xs text-[#C5B8D9] max-w-sm mx-auto font-light">
+                  Sankalp registered for {createdOrder.sankalpName} ({createdOrder.sankalpGotra} Gotra).
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-[#141724] border border-[#23293f] text-left text-xs space-y-2">
-                <div className="flex justify-between border-b border-[#1f2438] pb-1.5">
-                  <span className="text-[#8e8779]">Consecration Muhurat</span>
-                  <span className="text-[#dfb76c] font-medium">{createdOrder.muhuratDate}</span>
+              <div className="p-4 rounded-2xl bg-[#180D2B] border border-transparent clay-surface text-left text-xs space-y-2">
+                <div className="flex justify-between border-b border-[#453052]/30 pb-2">
+                  <span className="text-[#9685AE]">Consecration Muhurat</span>
+                  <span className="text-[#FFD76A] font-medium">{createdOrder.muhuratDate}</span>
                 </div>
-                <div className="flex justify-between border-b border-[#1f2438] pb-1.5">
-                  <span className="text-[#8e8779]">Item</span>
-                  <span className="text-[#ede8dc] font-medium">{createdOrder.gemstone.name}</span>
+                <div className="flex justify-between border-b border-[#453052]/30 pb-2">
+                  <span className="text-[#9685AE]">Selected Item</span>
+                  <span className="text-[#F7F0FF] font-medium">{createdOrder.gemstone.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#8e8779]">Total Paid</span>
-                  <span className="text-[#fcedc5] font-bold font-mono">
+                  <span className="text-[#9685AE]">Total Amount Paid</span>
+                  <span className="text-[#FFD76A] font-bold font-mono">
                     ₹{createdOrder.pricing.totalAmount.toLocaleString('en-IN')}
                   </span>
                 </div>
@@ -388,20 +375,20 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-[#222739] bg-[#121422] flex items-center justify-between">
+        <div className="p-4 border-t border-[#453052]/30 bg-[#2B173C]/60 flex items-center justify-between">
           {step === 'form' && (
             <>
-              <div className="flex items-center gap-1.5 text-[10px] text-[#8e8779]">
-                <Lock className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="flex items-center gap-1.5 text-[10px] text-[#9685AE]">
+                <Lock className="w-3.5 h-3.5 text-[#00D6A0]" />
                 <span>256-Bit Escrow Secured</span>
               </div>
               <button
                 type="submit"
                 form="checkout-form"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#dfb76c] to-[#f59e0b] hover:from-[#fcedc5] hover:to-[#dfb76c] text-[#0e1017] font-bold text-xs shadow-md active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl clay-button-primary text-[#180D2B] font-bold text-xs shadow-md active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 <span>Authorize ₹{totalAmount.toLocaleString('en-IN')}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#180D2B]" />
               </button>
             </>
           )}
@@ -410,9 +397,9 @@ export const ShoppingCheckoutModal: React.FC<ShoppingCheckoutModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#dfb76c] to-[#f59e0b] text-[#0e1017] font-bold text-xs shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3 rounded-xl clay-button-primary text-[#180D2B] font-bold text-xs shadow-md active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Package className="w-4 h-4" />
+              <Package className="w-4 h-4 text-[#180D2B]" />
               <span>View in Orders Tab</span>
             </button>
           )}

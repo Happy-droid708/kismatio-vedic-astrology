@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   SHOPPING_PRODUCTS,
   ShoppingProduct,
@@ -6,6 +6,7 @@ import {
 import { ShoppingProductArtwork } from './ShoppingProductArtwork';
 import { ShoppingProductDetailModal } from './ShoppingProductDetailModal';
 import { ShoppingCartDrawer, CartItem } from './ShoppingCartDrawer';
+import { ShoppingCartPage } from './ShoppingCartPage';
 import { ShoppingCheckoutModal } from './ShoppingCheckoutModal';
 import { OrderDetails } from '../../types/astrology';
 import {
@@ -28,11 +29,13 @@ import {
 interface ShoppingViewProps {
   onOrderCreated: (order: OrderDetails) => void;
   onNavigateToOrders: () => void;
+  initialShowCart?: boolean;
 }
 
 export const ShoppingView: React.FC<ShoppingViewProps> = ({
   onOrderCreated,
   onNavigateToOrders,
+  initialShowCart = false,
 }) => {
   // Navigation & Worlds State
   const [activeWorld, setActiveWorld] = useState<ShoppingWorldId>('all');
@@ -40,6 +43,9 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [maxPrice, setMaxPrice] = useState<number>(50000);
   const [selectedPlanetFilter, setSelectedPlanetFilter] = useState<string>('all');
+
+  // Full Cart Page View Toggle
+  const [isCartPageOpen, setIsCartPageOpen] = useState<boolean>(initialShowCart);
 
   // Modals & Drawers
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -173,15 +179,18 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
 
   // Smooth scroll to world section
   const handleSelectWorld = (worldId: ShoppingWorldId) => {
+    setIsCartPageOpen(false);
     setActiveWorld(worldId);
     if (worldId === 'all') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    const elem = document.getElementById(worldId);
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setTimeout(() => {
+      const elem = document.getElementById(worldId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
   };
 
   return (
@@ -198,16 +207,19 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
       {/* 1. STICKY LUXURY WORLDS NAVIGATION                                  */}
       {/* =================================================================== */}
       <ShoppingWorldsNav
-        activeWorld={activeWorld}
+        activeWorld={isCartPageOpen ? 'all' : activeWorld}
         onSelectWorld={handleSelectWorld}
         cartCount={totalCartCount}
-        onOpenCart={() => setIsCartOpen(true)}
+        onOpenCart={() => setIsCartPageOpen(true)}
         searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        onSearchChange={(q) => {
+          setIsCartPageOpen(false);
+          setSearchQuery(q);
+        }}
       />
 
       {/* Search match banner if active */}
-      {searchQuery.trim() && (
+      {!isCartPageOpen && searchQuery.trim() && (
         <div className="bg-[#24133B] border-b border-[#453052]/30 px-4 py-2 flex items-center justify-between text-xs text-[#C5B8D9]">
           <span>
             Found <strong className="text-[#FFD76A]">{filteredProducts.length}</strong> sacred items matching "{searchQuery}"
@@ -222,45 +234,58 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
       )}
 
       {/* =================================================================== */}
-      {/* 2. THE FOUR WORLDS                                                  */}
+      {/* 2. CART PAGE OR THE FOUR WORLDS                                     */}
       {/* =================================================================== */}
-      <div className="w-full flex flex-col">
-        {/* WORLD 01: NAVRATRI — The Festival of Extraordinary Finds */}
-        {(activeWorld === 'all' || activeWorld === 'navratri') && (
-          <NavratriWorld
-            products={filteredProducts}
-            onSelectProduct={(p) => setSelectedProduct(p)}
-            onAddToCart={handleAddToCart}
-          />
-        )}
+      {isCartPageOpen ? (
+        <ShoppingCartPage
+          items={cartItems}
+          onUpdateQuantity={handleUpdateCartQuantity}
+          onRemoveItem={handleRemoveCartItem}
+          onProceedToCheckout={() => {
+            setCheckoutDirectProduct(null);
+            setIsCheckoutOpen(true);
+          }}
+          onContinueShopping={() => setIsCartPageOpen(false)}
+        />
+      ) : (
+        <div className="w-full flex flex-col">
+          {/* WORLD 01: NAVRATRI — The Festival of Extraordinary Finds */}
+          {(activeWorld === 'all' || activeWorld === 'navratri') && (
+            <NavratriWorld
+              products={filteredProducts}
+              onSelectProduct={(p) => setSelectedProduct(p)}
+              onAddToCart={handleAddToCart}
+            />
+          )}
 
-        {/* WORLD 02: MONTH-END — The Midnight Shopping Rush */}
-        {(activeWorld === 'all' || activeWorld === 'month-end') && (
-          <MonthEndWorld
-            products={filteredProducts}
-            onSelectProduct={(p) => setSelectedProduct(p)}
-            onAddToCart={handleAddToCart}
-          />
-        )}
+          {/* WORLD 02: MONTH-END — The Midnight Shopping Rush */}
+          {(activeWorld === 'all' || activeWorld === 'month-end') && (
+            <MonthEndWorld
+              products={filteredProducts}
+              onSelectProduct={(p) => setSelectedProduct(p)}
+              onAddToCart={handleAddToCart}
+            />
+          )}
 
-        {/* WORLD 03: TWO DEALS, NEVER BEFORE — The Exclusive Vault */}
-        {(activeWorld === 'all' || activeWorld === 'vault') && (
-          <ExclusiveVaultWorld
-            products={filteredProducts}
-            onSelectProduct={(p) => setSelectedProduct(p)}
-            onAddToCart={handleAddToCart}
-          />
-        )}
+          {/* WORLD 03: TWO DEALS, NEVER BEFORE — The Exclusive Vault */}
+          {(activeWorld === 'all' || activeWorld === 'vault') && (
+            <ExclusiveVaultWorld
+              products={filteredProducts}
+              onSelectProduct={(p) => setSelectedProduct(p)}
+              onAddToCart={handleAddToCart}
+            />
+          )}
 
-        {/* WORLD 04: VALUE FOR MONEY — The Art of Smart Shopping */}
-        {(activeWorld === 'all' || activeWorld === 'value') && (
-          <ValueForMoneyWorld
-            products={filteredProducts}
-            onSelectProduct={(p) => setSelectedProduct(p)}
-            onAddToCart={handleAddToCart}
-          />
-        )}
-      </div>
+          {/* WORLD 04: VALUE FOR MONEY — The Art of Smart Shopping */}
+          {(activeWorld === 'all' || activeWorld === 'value') && (
+            <ValueForMoneyWorld
+              products={filteredProducts}
+              onSelectProduct={(p) => setSelectedProduct(p)}
+              onAddToCart={handleAddToCart}
+            />
+          )}
+        </div>
+      )}
 
       {/* =================================================================== */}
       {/* 3. MODALS, CART DRAWER & CHECKOUT                                   */}
@@ -281,10 +306,11 @@ export const ShoppingView: React.FC<ShoppingViewProps> = ({
       <ShoppingCartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
+        items={cartItems}
         onUpdateQuantity={handleUpdateCartQuantity}
         onRemoveItem={handleRemoveCartItem}
         onProceedToCheckout={handleProceedToCheckoutFromCart}
+        onOpenFullCart={() => setIsCartPageOpen(true)}
       />
 
       {/* Shopping Checkout Modal */}

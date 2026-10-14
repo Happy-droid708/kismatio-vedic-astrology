@@ -18,7 +18,7 @@ interface OrdersScreenProps {
   onNewOrderCreated?: (order: OrderDetails) => void;
 }
 
-export type OrdersPageTab = 'shopping' | 'all' | 'processing' | 'shipped' | 'delivered';
+export type OrdersPageTab = 'shopping' | 'cart' | 'all' | 'processing' | 'shipped' | 'delivered';
 
 export const OrdersScreen: React.FC<OrdersScreenProps> = ({
   currentOrder,
@@ -212,9 +212,10 @@ export const OrdersScreen: React.FC<OrdersScreenProps> = ({
     onNewOrderCreated?.(formatted);
   };
 
-  // The 5 order pills: Shopping / Products (first & default), All Orders, Processing, Shipped, Delivered
+  // The order pills: Shopping / Products (first & default), Cart / Bag, All Orders, Processing, Shipped, Delivered
   const tabs = [
-    { id: 'shopping' as const, label: 'Shopping / Products' },
+    { id: 'shopping' as const, label: 'Shopping / Worlds' },
+    { id: 'cart' as const, label: 'Cart / Bag' },
     { id: 'all' as const, label: 'All Orders' },
     { id: 'processing' as const, label: 'Processing' },
     { id: 'shipped' as const, label: 'Shipped' },
@@ -285,6 +286,9 @@ export const OrdersScreen: React.FC<OrdersScreenProps> = ({
                 {tab.id === 'shopping' && (
                   <Sparkles className={`w-3 h-3 ${isActive ? 'text-[#0e1017]' : 'text-[#dfb76c]'}`} />
                 )}
+                {tab.id === 'cart' && (
+                  <ShoppingBag className={`w-3 h-3 ${isActive ? 'text-[#0e1017]' : 'text-[#dfb76c]'}`} />
+                )}
                 <span>{tab.label}</span>
               </button>
             );
@@ -297,6 +301,13 @@ export const OrdersScreen: React.FC<OrdersScreenProps> = ({
       {/* =================================================================== */}
       {activeTab === 'shopping' ? (
         <ShoppingView
+          onOrderCreated={handleNewOrderPlaced}
+          onNavigateToOrders={() => setActiveTab('all')}
+        />
+      ) : activeTab === 'cart' ? (
+        <ShoppingView
+          key="cart-view"
+          initialShowCart={true}
           onOrderCreated={handleNewOrderPlaced}
           onNavigateToOrders={() => setActiveTab('all')}
         />
