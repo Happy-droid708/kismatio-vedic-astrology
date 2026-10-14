@@ -57,25 +57,25 @@ export const GuruEmptyState: React.FC<GuruEmptyStateProps> = ({
       </div>
 
       {/* Guru Welcome Message (exact required text per Guru) */}
-      <h2 className="text-lg sm:text-2xl font-serif-luxury font-bold text-[#f5eedf] max-w-lg leading-snug mt-2">
+      <h2 className="text-lg sm:text-2xl font-serif-luxury font-bold text-[#F7F0FF] max-w-lg leading-snug mt-2">
         "{guru.welcomeMessage}"
       </h2>
 
       {/* Specialization Description */}
-      <p className="text-xs sm:text-sm text-[#a8a192] mt-2 max-w-md leading-relaxed">
+      <p className="text-xs sm:text-sm text-[#C5B8D9] mt-2 max-w-md leading-relaxed">
         {guru.shortDescription}
       </p>
 
       {/* Suggested Quick Action Prompts */}
       <div className="mt-6 w-full max-w-lg flex flex-col gap-2">
         <div className="flex items-center justify-between px-1">
-          <span className="text-[11px] text-[#8e8779] font-medium uppercase tracking-wider font-mono">
+          <span className="text-[11px] text-[#9685AE] font-medium uppercase tracking-wider font-mono">
             Suggested Consultations:
           </span>
           {onOpenWorkspace && (
             <button
               onClick={onOpenWorkspace}
-              className="text-[11px] text-[#dfb76c] hover:underline flex items-center gap-1 cursor-pointer"
+              className="text-[11px] text-[#E7B743] hover:underline flex items-center gap-1 cursor-pointer"
             >
               <Sparkles className="w-3 h-3" />
               <span>Open Tools</span>
@@ -88,7 +88,7 @@ export const GuruEmptyState: React.FC<GuruEmptyStateProps> = ({
             <button
               key={i}
               onClick={() => onSendSuggestedPrompt(`Pranam ${guru.name}. I would like guidance regarding ${action.toLowerCase()}.`)}
-              className="px-3.5 py-2.5 rounded-xl bg-[#141829]/90 hover:bg-[#1f2640] border border-[#262e46] hover:border-[#dfb76c]/50 text-left text-xs text-[#cdc7ba] hover:text-[#ede8dc] transition-all cursor-pointer shadow-md flex items-center gap-2.5 group"
+              className="px-3.5 py-2.5 rounded-xl bg-[#2B173C] hover:bg-[#352044] border border-transparent hover:border-[#A87B2A]/40 text-left text-xs text-[#C5B8D9] hover:text-[#F7F0FF] shadow-[0_3px_12px_rgba(18,9,31,0.4),inset_0_1px_1px_rgba(247,240,255,0.04)] hover:-translate-y-0.5 active:scale-[0.98] transition-all cursor-pointer flex items-center gap-2.5 group outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
             >
               <div
                 className="w-5 h-5 rounded-md flex items-center justify-center shrink-0 text-xs"

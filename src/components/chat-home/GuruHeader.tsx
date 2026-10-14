@@ -75,7 +75,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
   };
 
   return (
-    <header className="shrink-0 sticky top-0 z-30 bg-[#24133B] border-b border-[#453052] px-2.5 sm:px-4 py-2 sm:py-2.5 flex flex-col gap-1.5 sm:gap-0 justify-center min-h-[58px] select-none">
+    <header className="shrink-0 sticky top-0 z-30 bg-[#24133B] border-b border-[#453052]/20 px-2.5 sm:px-4 py-2 sm:py-2.5 flex flex-col gap-1.5 sm:gap-0 justify-center min-h-[58px] select-none shadow-md">
       {/* Top Main Controls Bar */}
       <div className="flex items-center justify-between w-full gap-2">
         {/* Left: Back to Discovery + Guru Avatar & Credentials */}
@@ -138,7 +138,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
                   ✓
                 </span>
                 {isFlagship && (
-                  <span className="text-[9px] font-bold text-[#E7B743] bg-[#24133B] border border-[#A87B2A] px-1.5 py-0.2 rounded-full hidden xs:inline shrink-0">
+                  <span className="text-[9px] font-bold text-[#E7B743] bg-[#24133B] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)] px-1.5 py-0.2 rounded-full hidden xs:inline shrink-0">
                     FLAGSHIP
                   </span>
                 )}
@@ -162,7 +162,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
             isSelected={isStructuredWorkspaceOpen}
             onClick={onToggleStructuredWorkspace}
             className="text-[11px] min-h-[32px] sm:min-h-[34px] py-1 px-2.5 hidden sm:flex"
-            icon={<Sparkles className="w-3.5 h-3.5 text-[#dfb76c]" />}
+            icon={<Sparkles className="w-3.5 h-3.5 text-[#E7B743]" />}
             title={`Toggle ${guru.name} workspace & tools`}
           >
             <span>{getWorkspaceButtonLabel()}</span>
@@ -186,25 +186,25 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
             rechargeAddedText="✓ Top-Up"
             onSelectAction={onOpenRecharge}
             className={`text-[11px] sm:text-xs font-mono min-h-[32px] sm:min-h-[34px] py-1 px-2 sm:px-3 ${
-              isLowTime ? 'border-amber-500 bg-amber-950/60 text-amber-200' : ''
+              isLowTime ? 'border-[#E7B743] bg-[#2B173C] text-[#FFD76A]' : ''
             }`}
             icon={
               <Clock
                 className={`w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 ${
-                  isLowTime ? 'text-amber-400' : 'text-[#dfb76c]'
+                  isLowTime ? 'text-[#FFD76A]' : 'text-[#E7B743]'
                 }`}
               />
             }
             title="Consultation Timer · Click to Recharge"
           >
             <span className="tabular-nums">{formatTime(remainingSeconds)}</span>
-            {!isMobile && <span className="text-[#a49d8f] font-normal"> · Top-Up</span>}
+            {!isMobile && <span className="text-[#9685AE] font-normal"> · Top-Up</span>}
           </CelestialPill>
 
           {/* 3-dots Menu */}
           <button
             onClick={onOpenChatMenu}
-            className="p-1.5 rounded-lg text-[#9a9385] hover:text-[#ede8dc] hover:bg-[#1a1d2b] active:bg-[#1a1d2b] transition-colors cursor-pointer min-h-[32px] min-w-[32px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center shrink-0"
+            className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[32px] min-w-[32px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center shrink-0"
             title="Options and consultation details"
           >
             <MoreVertical className="w-4 h-4" />
@@ -214,7 +214,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
 
       {/* Mobile Secondary Action Strip */}
       {isMobile && (
-        <div className="flex items-center gap-1.5 pt-1.5 border-t border-[#dfb76c]/10 w-full overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-1.5 pt-1.5 border-t border-[#453052]/20 w-full overflow-x-auto scrollbar-none">
           <div className="flex items-center gap-1.5 min-w-max">
             {/* Structured Tools / Workspace Toggle */}
             <CelestialPill
@@ -222,7 +222,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
               isSelected={isStructuredWorkspaceOpen}
               onClick={onToggleStructuredWorkspace}
               className="text-[11px] py-1 px-2.5 min-h-[28px]"
-              icon={<Sparkles className="w-3.5 h-3.5 text-[#dfb76c]" />}
+              icon={<Sparkles className="w-3.5 h-3.5 text-[#E7B743]" />}
               title={`View ${getWorkspaceButtonLabel()}`}
             >
               {getWorkspaceButtonLabel()}
@@ -234,14 +234,14 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
               isSelected={isSearchOpen}
               onClick={onToggleSearch}
               className="text-[11px] py-1 px-2.5 min-h-[28px]"
-              icon={<Search className="w-3.5 h-3.5 text-[#dfb76c]" />}
+              icon={<Search className="w-3.5 h-3.5 text-[#E7B743]" />}
               title="Search within conversation"
             >
               Search
             </CelestialPill>
 
             {/* Specialization badge */}
-            <span className="text-[10px] text-[#cdc7ba] bg-[#141829] border border-[#2b334d] px-2.5 py-1 rounded-full">
+            <span className="text-[10px] text-[#C5B8D9] bg-[#24133B] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)] px-2.5 py-1 rounded-full">
               {guru.badgeLabel || guru.title}
             </span>
           </div>

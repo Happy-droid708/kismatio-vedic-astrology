@@ -24,7 +24,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   ];
 
   return (
-    <nav className="w-full bg-[#180D2B]/95 border-t border-[#453052] px-2 sm:px-4 pt-1.5 pb-[max(0.6rem,env(safe-area-inset-bottom))] flex items-center justify-around select-none backdrop-blur-xl z-40 shadow-2xl">
+    <nav className="w-full bg-[#180D2B]/95 border-t border-[#453052]/20 px-2 sm:px-4 pt-1.5 pb-[max(0.6rem,env(safe-area-inset-bottom))] flex items-center justify-around select-none backdrop-blur-xl z-40 shadow-[0_-8px_24px_rgba(18,9,31,0.6)]">
       <div className="flex w-full max-w-md items-center justify-around">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
@@ -32,8 +32,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             <button
               key={tab.id}
               onClick={() => onSelectTab(tab.id)}
-              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 cursor-pointer relative min-h-[48px] flex-1 max-w-[80px] group ${
-                isActive ? 'text-[#E7B743]' : 'text-[#9685AE] hover:text-[#C5B8D9] active:scale-95'
+              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all duration-200 cursor-pointer relative min-h-[48px] flex-1 max-w-[80px] group outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
+                isActive
+                  ? 'text-[#E7B743] bg-[#24133B]/60 shadow-[inset_0_1px_1px_rgba(247,240,255,0.06)]'
+                  : 'text-[#9685AE] hover:text-[#C5B8D9] hover:bg-[#24133B]/30 active:scale-95'
               }`}
             >
               {/* Active Celestial Indicator ✦ with smooth subtle glow */}

@@ -1343,3 +1343,130 @@ body,
   }
 }
 
+/* ========================================================================= */
+/* KISMATIO BORDERLESS-FIRST & INTELLIGENT CLAYMORPHISM DESIGN SYSTEM        */
+/* ========================================================================= */
+
+/* Global focus accessibility without jarring browser-default rings */
+:focus-visible {
+  outline: 2px solid #E7B743 !important;
+  outline-offset: 2px !important;
+}
+
+:focus:not(:focus-visible) {
+  outline: none !important;
+}
+
+/* Base claymorphic surface */
+.clay-surface {
+  background-color: #24133B;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 16px -2px rgba(18, 9, 31, 0.5), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04);
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Claymorphic card: Borderless by default with soft tactile depth */
+.clay-card {
+  background-color: #2B173C;
+  border: 1px solid transparent;
+  box-shadow: 0 6px 20px -2px rgba(18, 9, 31, 0.55), inset 0 1px 1px 0 rgba(247, 240, 255, 0.05), inset 0 -1px 2px 0 rgba(18, 9, 31, 0.4);
+  transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clay-card:hover {
+  background-color: #352044;
+  border-color: rgba(168, 123, 42, 0.35);
+  box-shadow: 0 10px 26px -3px rgba(18, 9, 31, 0.65), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08), inset 0 -1px 2px 0 rgba(18, 9, 31, 0.5);
+  transform: translateY(-1px);
+}
+
+.clay-card:active {
+  transform: scale(0.99) translateY(0);
+}
+
+/* Claymorphic primary button (Rich Gold) */
+.clay-button-primary {
+  background: linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%);
+  color: #12091F;
+  font-weight: 600;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 16px -2px rgba(231, 183, 67, 0.35), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6), inset 0 -1.5px 2px 0 rgba(168, 123, 42, 0.6);
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clay-button-primary:hover:not(:disabled) {
+  border-color: rgba(255, 215, 106, 0.6);
+  box-shadow: 0 6px 22px -1px rgba(255, 215, 106, 0.45), inset 0 1px 2px 0 rgba(255, 255, 255, 0.8), inset 0 -1.5px 2px 0 rgba(168, 123, 42, 0.7);
+  transform: translateY(-0.5px);
+}
+
+.clay-button-primary:active:not(:disabled) {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px -1px rgba(231, 183, 67, 0.25), inset 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Claymorphic secondary button */
+.clay-button-secondary {
+  background-color: #2B173C;
+  color: #F7F0FF;
+  border: 1px solid transparent;
+  box-shadow: 0 3px 12px -2px rgba(18, 9, 31, 0.45), inset 0 1px 1px 0 rgba(247, 240, 255, 0.05), inset 0 -1px 1.5px 0 rgba(18, 9, 31, 0.35);
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clay-button-secondary:hover:not(:disabled) {
+  background-color: #352044;
+  border-color: rgba(168, 123, 42, 0.35);
+  box-shadow: 0 6px 18px -2px rgba(18, 9, 31, 0.55), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08);
+}
+
+.clay-button-secondary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Claymorphic interactive pill */
+.clay-pill {
+  background-color: #24133B;
+  color: #C5B8D9;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px -1px rgba(18, 9, 31, 0.35), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04);
+  transition: all 180ms ease;
+}
+
+.clay-pill:hover {
+  background-color: #352044;
+  color: #F7F0FF;
+  border-color: rgba(168, 123, 42, 0.3);
+}
+
+.clay-pill-active {
+  background: linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%) !important;
+  color: #12091F !important;
+  border-color: transparent !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px -1px rgba(231, 183, 67, 0.35), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 2px 0 rgba(168, 123, 42, 0.5) !important;
+}
+
+/* Claymorphic sunken input */
+.clay-input {
+  background-color: #12091F !important;
+  color: #F7F0FF !important;
+  border: 1px solid transparent !important;
+  box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 1px 0 rgba(247, 240, 255, 0.03) !important;
+  transition: all 180ms ease !important;
+}
+
+.clay-input:focus {
+  border-color: #E7B743 !important;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(231, 183, 67, 0.25) !important;
+  outline: none !important;
+}
+
+/* Claymorphic floating elements (dropdowns, dialogs, sheets) */
+.clay-float {
+  background-color: #24133B;
+  border: 1px solid transparent;
+  box-shadow: 0 16px 36px -6px rgba(18, 9, 31, 0.8), 0 6px 14px -3px rgba(18, 9, 31, 0.5), inset 0 1px 1.5px 0 rgba(247, 240, 255, 0.07), inset 0 -1px 2px 0 rgba(18, 9, 31, 0.45);
+}
+
+

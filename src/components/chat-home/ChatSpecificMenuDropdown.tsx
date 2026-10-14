@@ -58,13 +58,13 @@ export const ChatSpecificMenuDropdown: React.FC<ChatSpecificMenuDropdownProps> =
 
       {isMobile ? (
         /* Mobile: Native Bottom Sheet */
-        <div className="fixed inset-x-0 bottom-0 z-50 bg-[#24133B] border-t border-[#453052] rounded-t-3xl max-h-[85dvh] overflow-y-auto pb-[max(1rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom duration-200 shadow-2xl">
+        <div className="fixed inset-x-0 bottom-0 z-50 bg-[#24133B] border-t border-transparent clay-float rounded-t-3xl max-h-[85dvh] overflow-y-auto pb-[max(1rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom duration-200">
           {/* Sheet Handle */}
           <div className="w-full pt-3 pb-1 flex justify-center">
-            <div className="w-12 h-1.5 rounded-full bg-[#453052]" />
+            <div className="w-12 h-1.5 rounded-full bg-[#453052]/50" />
           </div>
 
-          <div className="px-5 py-3 border-b border-[#453052] flex items-center justify-between">
+          <div className="px-5 py-3 border-b border-[#453052]/20 flex items-center justify-between">
             <div>
               <span className="text-xs font-serif-luxury font-bold text-[#F7F0FF]">
                 {astrologerName}
@@ -76,7 +76,7 @@ export const ChatSpecificMenuDropdown: React.FC<ChatSpecificMenuDropdownProps> =
             </button>
           </div>
 
-          <div className="px-2 py-2 divide-y divide-[#453052]">
+          <div className="px-2 py-2 divide-y divide-[#453052]/20">
             {chatMenuItems.map((item) => (
               <button
                 key={item.id}
@@ -91,14 +91,14 @@ export const ChatSpecificMenuDropdown: React.FC<ChatSpecificMenuDropdownProps> =
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="p-1.5 rounded-lg bg-[#2B173C] border border-[#453052]">
+                  <span className="p-1.5 rounded-lg bg-[#2B173C] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)]">
                     {item.icon}
                   </span>
                   <span className="font-semibold text-sm">{item.label}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   {item.badge && (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#2B173C] text-[#E7B743] border border-[#453052]">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#2B173C] text-[#E7B743] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)]">
                       {item.badge}
                     </span>
                   )}
@@ -110,8 +110,8 @@ export const ChatSpecificMenuDropdown: React.FC<ChatSpecificMenuDropdownProps> =
         </div>
       ) : (
         /* Desktop: Anchored Dropdown */
-        <div className="fixed top-14 right-4 z-50 w-72 bg-[#24133B] border border-[#453052] rounded-2xl shadow-2xl overflow-hidden py-1.5 animate-in fade-in zoom-in-95 duration-150">
-          <div className="px-3.5 py-2 border-b border-[#453052] flex items-center justify-between">
+        <div className="fixed top-14 right-4 z-50 w-72 bg-[#24133B] border border-transparent clay-float rounded-2xl overflow-hidden py-1.5 animate-in fade-in zoom-in-95 duration-150">
+          <div className="px-3.5 py-2 border-b border-[#453052]/20 flex items-center justify-between">
             <span className="text-xs font-semibold text-[#F7F0FF] tracking-wide">
               {astrologerName}
             </span>
@@ -139,7 +139,7 @@ export const ChatSpecificMenuDropdown: React.FC<ChatSpecificMenuDropdownProps> =
                   <span className="font-medium">{item.label}</span>
                 </div>
                 {item.badge && (
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-[#2B173C] text-[#E7B743] font-bold border border-[#453052]">
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-[#2B173C] text-[#E7B743] font-bold border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)]">
                     {item.badge}
                   </span>
                 )}

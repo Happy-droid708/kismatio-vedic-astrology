@@ -26,7 +26,7 @@ export const ChatSearchBar: React.FC<ChatSearchBarProps> = ({
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-9 pr-8 py-2 rounded-xl bg-[#12091F] border border-[#453052] text-xs text-[#F7F0FF] placeholder-[#9685AE] focus:outline-none focus:border-[#E7B743] transition-colors min-h-[38px]"
+          className="w-full pl-9 pr-8 py-2 rounded-xl clay-input text-xs text-[#F7F0FF] placeholder-[#9685AE] transition-all min-h-[38px]"
         />
 
         {searchQuery ? (
@@ -50,7 +50,7 @@ export const ChatSearchBar: React.FC<ChatSearchBarProps> = ({
             <button
               key={term}
               onClick={() => onSearchChange(term)}
-              className="px-2 py-0.5 rounded-full bg-[#2B173C] border border-[#453052] text-[#C5B8D9] hover:border-[#A87B2A] hover:bg-[#352044] hover:text-[#F7F0FF] shrink-0 cursor-pointer transition-colors"
+              className="px-2.5 py-1 rounded-full clay-pill text-[10px] shrink-0 cursor-pointer"
             >
               {term}
             </button>

@@ -1066,7 +1066,7 @@ export const KismatioApp: React.FC = () => {
   // RENDER: Left Panel / Chat Home List
   // =========================================================================
   const renderChatHomeListPanel = () => (
-    <div className="w-full h-full flex flex-col bg-[#180D2B] border-r border-[#453052] select-none relative">
+    <div className="w-full h-full flex flex-col bg-[#180D2B] border-r border-[#453052]/20 select-none relative">
       {/* 1. Mobile & Desktop Chat Home Header */}
       <ChatHomeHeader
         onOpenSearch={() => setSearchQuery('career')}
@@ -1077,10 +1077,10 @@ export const KismatioApp: React.FC = () => {
       />
 
       {/* Eight Maharajs Central Entry Banner */}
-      <div className="px-3 py-2 bg-[#24133B] border-b border-[#453052]">
+      <div className="px-3 py-2 bg-[#24133B] border-b border-[#453052]/20">
         <button
           onClick={handleBackToGurusDiscovery}
-          className="w-full py-2 px-3 rounded-xl bg-[#2B173C] hover:bg-[#352044] border border-[#453052] hover:border-[#A87B2A] text-left flex items-center justify-between gap-2 transition-all cursor-pointer group shadow-sm"
+          className="w-full py-2 px-3 rounded-xl bg-[#2B173C] hover:bg-[#352044] border border-transparent hover:border-[#A87B2A]/40 text-left flex items-center justify-between gap-2 transition-all cursor-pointer group shadow-[0_2px_8px_rgba(18,9,31,0.35),inset_0_1px_1px_rgba(247,240,255,0.04)] active:scale-[0.99] outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
           title="Open The Eight Maharajs Discovery Page"
         >
           <div className="flex items-center gap-2.5 min-w-0">
@@ -1092,7 +1092,7 @@ export const KismatioApp: React.FC = () => {
                 <span className="text-xs font-serif-luxury font-bold text-[#F7F0FF] group-hover:text-[#E7B743] transition-colors">
                   The Eight Maharajs
                 </span>
-                <span className="text-[9px] font-mono font-bold px-1.5 rounded-full bg-[#24133B] border border-[#453052] text-[#E7B743]">
+                <span className="text-[9px] font-mono font-bold px-1.5 rounded-full bg-[#24133B] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)] text-[#E7B743]">
                   8 GURUS
                 </span>
               </div>
@@ -1101,7 +1101,7 @@ export const KismatioApp: React.FC = () => {
               </p>
             </div>
           </div>
-          <span className="text-xs text-[#dfb76c] font-bold group-hover:translate-x-0.5 transition-transform shrink-0">
+          <span className="text-xs text-[#E7B743] font-bold group-hover:translate-x-0.5 transition-transform shrink-0">
             ✦ Explore
           </span>
         </button>
@@ -1147,7 +1147,7 @@ export const KismatioApp: React.FC = () => {
         <div className="absolute bottom-16 right-4 z-20">
           <button
             onClick={() => setIsNewChatModalOpen(true)}
-            className="w-14 h-14 rounded-full bg-gradient-to-tr from-[#dfb76c] to-[#fef08a] text-[#0e1017] flex items-center justify-center shadow-xl shadow-[#dfb76c]/30 hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+            className="w-14 h-14 rounded-full clay-button-primary flex items-center justify-center cursor-pointer group"
             title="Start new consultation"
           >
             <span className="text-2xl font-bold font-display group-hover:rotate-45 transition-transform">✦</span>
@@ -1246,7 +1246,7 @@ export const KismatioApp: React.FC = () => {
                   <>
                     {/* Vedic Date Separator */}
                     <div className="flex justify-center my-1 select-none">
-                      <span className="text-[10px] uppercase font-mono font-medium tracking-wider text-[#dfb76c]/90 bg-[#141624]/90 border border-[#dfb76c]/25 px-3.5 py-1 rounded-full shadow-md backdrop-blur-md">
+                      <span className="text-[10px] uppercase font-mono font-medium tracking-wider text-[#E7B743] bg-[#24133B] border border-transparent shadow-[0_2px_8px_rgba(18,9,31,0.4),inset_0_1px_1px_rgba(247,240,255,0.05)] px-3.5 py-1 rounded-full">
                         Today · Shukla Navami, Ashwini Nakshatra
                       </span>
                     </div>
@@ -1301,11 +1301,11 @@ export const KismatioApp: React.FC = () => {
 
                     {/* TYPING meditating indicator */}
                     {currentState === 'TYPING' && !isStreaming && (
-                      <div className="flex items-center gap-2 text-xs text-[#a69e90] p-2 pl-10 italic">
+                      <div className="flex items-center gap-2 text-xs text-[#9685AE] p-2 pl-10 italic">
                         <div className="flex gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-bounce" />
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-bounce [animation-delay:0.2s]" />
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#dfb76c] animate-bounce [animation-delay:0.4s]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E7B743] animate-bounce" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E7B743] animate-bounce [animation-delay:0.2s]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E7B743] animate-bounce [animation-delay:0.4s]" />
                         </div>
                         <span>{selectedAstrologer.name} is contemplating your chart...</span>
                       </div>
@@ -1321,7 +1321,7 @@ export const KismatioApp: React.FC = () => {
                 <div className="sticky bottom-4 w-full flex justify-center pointer-events-none z-20">
                   <button
                     onClick={() => scrollToBottom('smooth')}
-                    className="pointer-events-auto px-4 py-2 rounded-full bg-gradient-to-r from-[#dfb76c] to-[#fef08a] text-[#0e1017] text-xs font-bold shadow-xl shadow-[#dfb76c]/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer animate-progressive-glow"
+                    className="pointer-events-auto px-4 py-2 rounded-full clay-button-primary text-xs font-bold flex items-center gap-1.5 cursor-pointer animate-progressive-glow"
                     title="Scroll to latest stream"
                   >
                     <span className="text-sm font-bold">✦</span>
@@ -1768,16 +1768,16 @@ export const KismatioApp: React.FC = () => {
           : 'w-full h-full max-w-full rounded-none border-0';
       case 'tablet':
         return simulationMode === 'tablet'
-          ? 'w-full max-w-[860px] h-full rounded-xl border border-[#453052] shadow-2xl'
-          : 'w-full h-full max-w-full rounded-none sm:rounded-xl border-x-0 sm:border border-[#453052]';
+          ? 'w-full max-w-[860px] h-full rounded-xl border border-transparent shadow-[0_20px_50px_rgba(18,9,31,0.8)]'
+          : 'w-full h-full max-w-full rounded-none sm:rounded-xl border-x-0 sm:border border-transparent';
       case 'laptop':
-        return 'w-full h-full max-w-6xl xl:max-w-7xl rounded-xl lg:rounded-2xl border border-[#453052] shadow-2xl';
+        return 'w-full h-full max-w-6xl xl:max-w-7xl rounded-xl lg:rounded-2xl border border-transparent shadow-[0_20px_50px_rgba(18,9,31,0.8),inset_0_1px_1.5px_rgba(247,240,255,0.06)]';
       case 'desktop':
-        return 'w-full h-full max-w-[1440px] rounded-2xl border border-[#453052] shadow-2xl';
+        return 'w-full h-full max-w-[1440px] rounded-2xl border border-transparent shadow-[0_20px_50px_rgba(18,9,31,0.8),inset_0_1px_1.5px_rgba(247,240,255,0.06)]';
       case 'large_desktop':
-        return 'w-full h-full max-w-[1600px] rounded-2xl border border-[#453052] shadow-2xl';
+        return 'w-full h-full max-w-[1600px] rounded-2xl border border-transparent shadow-[0_20px_50px_rgba(18,9,31,0.8),inset_0_1px_1.5px_rgba(247,240,255,0.06)]';
       default:
-        return 'w-full h-full max-w-7xl rounded-2xl border border-[#453052]';
+        return 'w-full h-full max-w-7xl rounded-2xl border border-transparent';
     }
   };
 

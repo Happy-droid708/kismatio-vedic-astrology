@@ -46,40 +46,41 @@ export const CelestialButton: React.FC<CelestialButtonProps> = ({
     lg: 'px-6 py-3 text-sm sm:text-base min-h-[48px] rounded-2xl gap-2.5',
   }[size];
 
-  // Visual variants
-  // Visual variants strictly adhering to official Kismatio palette
+  // Visual variants strictly adhering to borderless-first & claymorphism
   const getVariantStyles = () => {
     switch (variant) {
       case 'primary':
         return {
-          bg: isHovered ? '#FFD76A' : '#E7B743',
-          border: '1px solid rgba(255, 215, 106, 0.4)',
-          text: 'text-[#180D2B] font-bold',
+          bg: isHovered
+            ? 'linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%)'
+            : 'linear-gradient(135deg, #FFD76A 0%, #E7B743 50%, #A87B2A 100%)',
+          border: isHovered ? '1px solid rgba(255, 215, 106, 0.6)' : '1px solid transparent',
+          text: 'text-[#12091F] font-bold',
           shadow: isHovered
-            ? '0 0 16px rgba(231, 183, 67, 0.4), 0 4px 12px rgba(18, 9, 31, 0.5)'
-            : '0 0 8px rgba(231, 183, 67, 0.2), 0 2px 6px rgba(18, 9, 31, 0.3)',
+            ? '0 6px 22px -1px rgba(255, 215, 106, 0.45), inset 0 1px 2px 0 rgba(255, 255, 255, 0.8), inset 0 -1.5px 2px 0 rgba(168, 123, 42, 0.7)'
+            : '0 4px 16px -2px rgba(231, 183, 67, 0.35), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6), inset 0 -1.5px 2px 0 rgba(168, 123, 42, 0.6)',
         };
       case 'secondary':
         return {
-          bg: isHovered ? '#352044' : 'transparent',
-          border: '1px solid #A87B2A',
+          bg: isHovered ? '#352044' : '#2B173C',
+          border: isHovered ? '1px solid rgba(168, 123, 42, 0.4)' : '1px solid transparent',
           text: 'text-[#F7F0FF] font-semibold',
           shadow: isHovered
-            ? '0 0 14px rgba(168, 123, 42, 0.25), 0 4px 12px rgba(18, 9, 31, 0.4)'
-            : '0 2px 6px rgba(18, 9, 31, 0.2)',
+            ? '0 6px 18px -2px rgba(18, 9, 31, 0.55), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08)'
+            : '0 3px 12px -2px rgba(18, 9, 31, 0.45), inset 0 1px 1px 0 rgba(247, 240, 255, 0.05), inset 0 -1px 1.5px 0 rgba(18, 9, 31, 0.35)',
         };
       case 'outline':
         return {
           bg: isHovered ? '#352044' : 'transparent',
-          border: '1px solid #A87B2A',
+          border: isHovered ? '1px solid #E7B743' : '1px solid rgba(168, 123, 42, 0.35)',
           text: 'text-[#E7B743] font-semibold',
-          shadow: isHovered ? '0 0 12px rgba(168, 123, 42, 0.2)' : 'none',
+          shadow: isHovered ? '0 4px 14px -2px rgba(231, 183, 67, 0.25)' : 'none',
         };
       case 'ghost':
         return {
           bg: isHovered ? '#352044' : 'transparent',
-          border: '1px solid transparent',
-          text: 'text-[#C5B8D9] hover:text-[#F7F0FF]',
+          border: isHovered ? '1px solid rgba(168, 123, 42, 0.25)' : '1px solid transparent',
+          text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
           shadow: 'none',
         };
     }
@@ -97,13 +98,13 @@ export const CelestialButton: React.FC<CelestialButtonProps> = ({
         setIsHovered(false);
         setIsPressed(false);
       }}
-      className={`relative inline-flex items-center justify-center font-medium transition-all duration-200 select-none cursor-pointer outline-none focus:ring-2 focus:ring-[#dfb76c]/40 disabled:cursor-not-allowed disabled:opacity-40 overflow-hidden ${
+      className={`relative inline-flex items-center justify-center font-medium transition-all duration-200 select-none cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] focus-visible:ring-offset-2 focus-visible:ring-offset-[#180D2B] disabled:cursor-not-allowed disabled:opacity-40 overflow-hidden ${
         sizeClasses
       } ${
         isPressed
-          ? 'scale-[0.94] duration-75'
+          ? 'scale-[0.98] duration-75'
           : isHovered && !disabled
-          ? 'scale-[1.02] duration-200 ease-out'
+          ? 'scale-[1.01] duration-150 ease-out'
           : 'scale-100 duration-200'
       } ${currentStyles.text} ${className}`}
       style={{

@@ -49,7 +49,7 @@ export const EmptyConversationState: React.FC<EmptyConversationStateProps> = ({
             <button
               key={i}
               onClick={() => onSendSuggestedPrompt(s.text)}
-              className="px-3.5 py-2.5 rounded-xl bg-[#2B173C] hover:bg-[#352044] border border-[#453052] hover:border-[#A87B2A] text-left text-xs text-[#C5B8D9] hover:text-[#F7F0FF] transition-all cursor-pointer shadow-md flex items-center gap-2 group"
+              className="px-3.5 py-2.5 rounded-xl bg-[#2B173C] hover:bg-[#352044] border border-transparent hover:border-[#A87B2A]/40 text-left text-xs text-[#C5B8D9] hover:text-[#F7F0FF] shadow-[0_3px_12px_rgba(18,9,31,0.4),inset_0_1px_1px_rgba(247,240,255,0.04)] hover:-translate-y-0.5 active:scale-[0.98] transition-all cursor-pointer flex items-center gap-2 group outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
             >
               <MessageSquare className="w-3.5 h-3.5 text-[#E7B743] shrink-0 group-hover:scale-110 transition-transform" />
               <span className="truncate">{s.label}</span>

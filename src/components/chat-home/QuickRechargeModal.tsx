@@ -61,7 +61,7 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
 
       {/* Modal / Bottom Sheet */}
       <div
-        className={`fixed z-50 bg-[#24133B] border border-[#453052] shadow-2xl overflow-y-auto ${
+        className={`fixed z-50 bg-[#24133B] border border-transparent clay-float overflow-y-auto ${
           isMobile
             ? 'inset-x-0 bottom-0 rounded-t-3xl max-h-[85dvh] pb-[max(1rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom duration-200'
             : 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90dvh] rounded-2xl animate-in zoom-in-95 duration-150'
@@ -70,12 +70,12 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
         {/* Mobile Swipe / Drag indicator */}
         {isMobile && (
           <div className="w-full pt-3 pb-1 flex justify-center">
-            <div className="w-12 h-1.5 rounded-full bg-[#453052]" />
+            <div className="w-12 h-1.5 rounded-full bg-[#453052]/50" />
           </div>
         )}
 
         {/* Modal Header */}
-        <div className="px-5 py-3.5 border-b border-[#453052] flex items-center justify-between">
+        <div className="px-5 py-3.5 border-b border-[#453052]/20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-[#2B173C] text-[#E7B743] flex items-center justify-center">
               <Clock className="w-4 h-4" />
@@ -98,9 +98,9 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
         </div>
 
         {/* Current Balance Banner */}
-        <div className="px-5 py-2.5 bg-[#180D2B] border-b border-[#453052] flex items-center justify-between">
+        <div className="px-5 py-2.5 bg-[#180D2B] border-b border-[#453052]/20 flex items-center justify-between">
           <span className="text-xs text-[#9685AE]">Current Session Timer:</span>
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#2B173C] border border-[#453052] text-xs font-mono font-bold text-[#E7B743]">
+          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#2B173C] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)] text-xs font-mono font-bold text-[#E7B743]">
             <Clock className="w-3 h-3 text-[#E7B743]" />
             <span>{timeFormatted}</span>
           </div>
@@ -114,10 +114,10 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
               <div
                 key={pack.id}
                 onClick={() => onSelectPack(pack)}
-                className={`group relative p-3 sm:p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between min-h-[52px] ${
+                className={`group relative p-3 sm:p-3.5 rounded-xl border transition-all duration-150 cursor-pointer flex items-center justify-between min-h-[52px] active:scale-[0.99] ${
                   isHighlight
-                    ? 'bg-[#2B173C] border-[#E7B743] shadow-lg shadow-black/40'
-                    : 'bg-[#2B173C] border-[#453052] hover:border-[#A87B2A] hover:bg-[#352044]'
+                    ? 'bg-[#2B173C] border-[#E7B743]/50 shadow-[0_6px_20px_-2px_rgba(231,183,67,0.25),inset_0_1px_1px_rgba(247,240,255,0.06)]'
+                    : 'bg-[#2B173C] border-transparent hover:border-[#A87B2A]/40 hover:bg-[#352044] shadow-[0_3px_12px_rgba(18,9,31,0.4),inset_0_1px_1px_rgba(247,240,255,0.04)]'
                 }`}
               >
                 {pack.tag && (
@@ -127,7 +127,7 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
                 )}
 
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                  <div className="w-9 h-9 rounded-lg bg-[#24133B] border border-[#453052] flex items-center justify-center font-bold text-sm text-[#F7F0FF] group-hover:text-[#E7B743] shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-[#24133B] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)] flex items-center justify-center font-bold text-sm text-[#F7F0FF] group-hover:text-[#E7B743] shrink-0">
                     +{pack.minutes}m
                   </div>
                   <div className="min-w-0 flex-1">
@@ -159,7 +159,7 @@ export const QuickRechargeModal: React.FC<QuickRechargeModalProps> = ({
         </div>
 
         {/* Footer Guarantee */}
-        <div className="px-5 py-3 bg-[#180D2B] border-t border-[#453052] flex items-center justify-between text-[11px] text-[#9685AE]">
+        <div className="px-5 py-3 bg-[#180D2B] border-t border-[#453052]/20 flex items-center justify-between text-[11px] text-[#9685AE]">
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-[#E7B743]" />
             <span>Unused minutes carry forward indefinitely</span>

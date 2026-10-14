@@ -17,7 +17,7 @@ export const ChatHomeHeader: React.FC<ChatHomeHeaderProps> = ({
   onOpenProfile,
 }) => {
   return (
-    <div className="w-full bg-[#24133B] border-b border-[#453052] px-4 py-3 flex items-center justify-between select-none">
+    <div className="w-full bg-[#24133B] border-b border-[#453052]/20 px-4 py-3 flex items-center justify-between select-none">
       {/* Brand Title with Celestial Symbol */}
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#A87B2A] via-[#E7B743] to-[#FFD76A] p-0.5 flex items-center justify-center shadow-sm">
@@ -44,7 +44,7 @@ export const ChatHomeHeader: React.FC<ChatHomeHeaderProps> = ({
       <div className="flex items-center gap-1">
         <button
           onClick={onOpenSearch}
-          className="p-2 rounded-xl text-[#C5B8D9] hover:text-[#F7F0FF] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
+          className="p-2 rounded-xl text-[#C5B8D9] hover:text-[#F7F0FF] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
           title="Search conversations"
         >
           <Search className="w-4 h-4" />
@@ -52,7 +52,7 @@ export const ChatHomeHeader: React.FC<ChatHomeHeaderProps> = ({
 
         <button
           onClick={onOpenNewChat}
-          className="p-2 rounded-xl text-[#E7B743] hover:text-[#FFD76A] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
+          className="p-2 rounded-xl text-[#E7B743] hover:text-[#FFD76A] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
           title="Start new consultation"
         >
           <Plus className="w-5 h-5" />
@@ -60,7 +60,7 @@ export const ChatHomeHeader: React.FC<ChatHomeHeaderProps> = ({
 
         <button
           onClick={onToggleMenu}
-          className="p-2 rounded-xl text-[#C5B8D9] hover:text-[#F7F0FF] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
+          className="p-2 rounded-xl text-[#C5B8D9] hover:text-[#F7F0FF] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
           title="Main app menu"
         >
           <MoreVertical className="w-4 h-4" />
@@ -69,7 +69,7 @@ export const ChatHomeHeader: React.FC<ChatHomeHeaderProps> = ({
         {onOpenProfile && (
           <button
             onClick={onOpenProfile}
-            className="p-1 rounded-xl bg-[#2B173C] border border-[#A87B2A]/40 hover:border-[#E7B743] hover:bg-[#352044] active:scale-95 transition-all cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center ml-0.5"
+            className="p-1 rounded-xl bg-[#2B173C] border border-transparent shadow-[0_2px_8px_rgba(18,9,31,0.35),inset_0_1px_1px_rgba(247,240,255,0.04)] hover:border-[#A87B2A]/40 hover:bg-[#352044] active:scale-95 transition-all cursor-pointer min-h-[38px] min-w-[38px] flex items-center justify-center ml-0.5 outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
             title="My Profile & Kundli"
           >
             <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] p-0.5 flex items-center justify-center">

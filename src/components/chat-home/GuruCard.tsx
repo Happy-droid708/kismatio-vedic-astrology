@@ -27,7 +27,7 @@ export const GuruCard: React.FC<GuruCardProps> = ({
           onOpenChat(guru);
         }
       }}
-      className="group relative rounded-2xl p-4 sm:p-5 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between border border-[#453052] hover:border-[#A87B2A] bg-[#2B173C] hover:bg-[#352044] shadow-md hover:shadow-xl hover:-translate-y-1 text-left outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
+      className="group relative rounded-2xl p-4 sm:p-5 transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between border border-transparent hover:border-[#A87B2A]/40 bg-[#2B173C] hover:bg-[#352044] shadow-[0_6px_20px_-2px_rgba(18,9,31,0.55),inset_0_1px_1px_0_rgba(247,240,255,0.05),inset_0_-1px_2px_0_rgba(18,9,31,0.4)] hover:shadow-[0_10px_26px_-3px_rgba(18,9,31,0.65),inset_0_1px_1px_0_rgba(247,240,255,0.08),inset_0_-1px_2px_0_rgba(18,9,31,0.5)] hover:-translate-y-0.5 active:scale-[0.99] active:translate-y-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
     >
       {/* Background Accent Atmospheric Glow */}
       <div
@@ -72,13 +72,13 @@ export const GuruCard: React.FC<GuruCardProps> = ({
                 GURU {guru.num}
               </span>
               {isFlagship && (
-                <span className="text-[10px] font-bold text-[#E7B743] bg-[#24133B] border border-[#A87B2A] px-2 py-0.5 rounded-full flex items-center gap-1">
+                <span className="text-[10px] font-bold text-[#E7B743] bg-[#24133B] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.05)] px-2 py-0.5 rounded-full flex items-center gap-1">
                   <Sparkles className="w-2.5 h-2.5" />
                   FLAGSHIP
                 </span>
               )}
               {isPreferred && (
-                <span className="text-[10px] font-bold text-[#FFD76A] bg-[#24133B] border border-[#A87B2A] px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold text-[#FFD76A] bg-[#24133B] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.05)] px-2 py-0.5 rounded-full">
                   PREFERRED
                 </span>
               )}
@@ -118,7 +118,7 @@ export const GuruCard: React.FC<GuruCardProps> = ({
         {guru.quickActions.slice(0, 3).map((action, i) => (
           <span
             key={i}
-            className="text-[10px] px-2.5 py-1 rounded-lg bg-[#24133B] text-[#C5B8D9] border border-[#453052] group-hover:border-[#A87B2A] transition-colors"
+            className="text-[10px] px-2.5 py-1 rounded-lg bg-[#24133B] text-[#C5B8D9] border border-transparent hover:border-[#A87B2A]/35 shadow-[0_1px_4px_rgba(18,9,31,0.3)] transition-colors"
           >
             {action}
           </span>
@@ -126,7 +126,7 @@ export const GuruCard: React.FC<GuruCardProps> = ({
       </div>
 
       {/* Bottom Action Strip: Consultation entry button */}
-      <div className="pt-3 border-t border-[#453052] flex items-center justify-between relative z-10">
+      <div className="pt-3 border-t border-[#453052]/30 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-1.5 text-[11px] text-[#9685AE]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00D6A0]" />
           <span>Active now</span>
@@ -139,7 +139,7 @@ export const GuruCard: React.FC<GuruCardProps> = ({
             e.stopPropagation();
             onOpenChat(guru);
           }}
-          className="px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-sm bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B]"
+          className="clay-button-primary px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
         >
           <span>Open Chat</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

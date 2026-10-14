@@ -55,12 +55,12 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
 
       {isMobile ? (
         /* Mobile Bottom Sheet */
-        <div className="fixed inset-x-0 bottom-0 z-50 bg-[#24133B] border-t border-[#453052] rounded-t-3xl max-h-[85dvh] overflow-y-auto pb-[max(1rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom duration-200 shadow-2xl">
+        <div className="fixed inset-x-0 bottom-0 z-50 bg-[#24133B] border-t border-transparent clay-float rounded-t-3xl max-h-[85dvh] overflow-y-auto pb-[max(1rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom duration-200">
           <div className="w-full pt-3 pb-1 flex justify-center">
-            <div className="w-12 h-1.5 rounded-full bg-[#453052]" />
+            <div className="w-12 h-1.5 rounded-full bg-[#453052]/50" />
           </div>
 
-          <div className="px-5 py-3 border-b border-[#453052] flex items-center justify-between">
+          <div className="px-5 py-3 border-b border-[#453052]/20 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-[#E7B743] font-bold text-sm">✦</span>
               <span className="text-sm font-display font-bold text-[#F7F0FF]">Kismatio Menu</span>
@@ -70,7 +70,7 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
             </button>
           </div>
 
-          <div className="px-2 py-2 divide-y divide-[#453052]">
+          <div className="px-2 py-2 divide-y divide-[#453052]/20">
             {menuItems.map((item) => (
               <button
                 key={item.id}
@@ -81,14 +81,14 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
                 className="w-full px-4 py-3 flex items-center justify-between text-left text-xs text-[#C5B8D9] active:bg-[#352044] active:text-[#F7F0FF] transition-colors cursor-pointer min-h-[44px]"
               >
                 <div className="flex items-center gap-3">
-                  <span className="p-1.5 rounded-lg bg-[#2B173C] border border-[#453052]">
+                  <span className="p-1.5 rounded-lg bg-[#2B173C] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)]">
                     {item.icon}
                   </span>
                   <span className="font-semibold text-sm">{item.label}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   {item.badge && (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#2B173C] text-[#E7B743] font-bold border border-[#453052]">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-[#2B173C] text-[#E7B743] font-bold border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)]">
                       {item.badge}
                     </span>
                   )}
@@ -99,9 +99,9 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
           </div>
 
           {/* Quick Theme Switcher */}
-          <div className="px-4 py-3 border-t border-[#453052] flex items-center justify-between">
+          <div className="px-4 py-3 border-t border-[#453052]/20 flex items-center justify-between">
             <div className="flex items-center gap-2.5 text-xs text-[#C5B8D9]">
-              <span className="p-1.5 rounded-lg bg-[#2B173C] border border-[#453052] text-[#E7B743]">
+              <span className="p-1.5 rounded-lg bg-[#2B173C] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)] text-[#E7B743]">
                 {theme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
               </span>
               <span className="font-semibold text-sm">Theme Appearance</span>
@@ -109,7 +109,7 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
             <button
               type="button"
               onClick={toggleTheme}
-              className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#2B173C] border border-[#453052] text-[#E7B743] hover:border-[#A87B2A] active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+              className="clay-button-secondary px-3 py-1.5 rounded-xl text-xs font-semibold text-[#E7B743] hover:text-[#FFD76A] cursor-pointer flex items-center gap-1.5"
             >
               {theme === 'light' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
               <span>{theme === 'light' ? 'Light Mode' : 'Dark Mode'}</span>
@@ -118,8 +118,8 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
         </div>
       ) : (
         /* Desktop Dropdown */
-        <div className="fixed top-14 left-4 sm:left-4 z-50 w-64 bg-[#24133B] border border-[#453052] rounded-2xl shadow-2xl overflow-hidden py-1.5 animate-in fade-in zoom-in-95 duration-150">
-          <div className="px-3.5 py-2 border-b border-[#453052] flex items-center justify-between">
+        <div className="fixed top-14 left-4 sm:left-4 z-50 w-64 bg-[#24133B] border border-transparent clay-float rounded-2xl overflow-hidden py-1.5 animate-in fade-in zoom-in-95 duration-150">
+          <div className="px-3.5 py-2 border-b border-[#453052]/20 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-[#E7B743]" />
               <span className="text-xs font-semibold text-[#F7F0FF]">Kismatio Menu</span>
@@ -144,7 +144,7 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
                   <span className="font-medium">{item.label}</span>
                 </div>
                 {item.badge && (
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-[#2B173C] text-[#E7B743] font-bold border border-[#453052]">
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-[#2B173C] text-[#E7B743] font-bold border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)]">
                     {item.badge}
                   </span>
                 )}
@@ -153,7 +153,7 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
           </div>
 
           {/* Quick Theme Switcher */}
-          <div className="px-3.5 py-2 border-t border-[#453052] flex items-center justify-between">
+          <div className="px-3.5 py-2 border-t border-[#453052]/20 flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs text-[#C5B8D9]">
               {theme === 'light' ? <Sun className="w-3.5 h-3.5 text-[#E7B743]" /> : <Moon className="w-3.5 h-3.5 text-[#E7B743]" />}
               <span className="font-medium">Theme</span>
@@ -161,7 +161,7 @@ export const MainAppMenuDropdown: React.FC<MainAppMenuDropdownProps> = ({
             <button
               type="button"
               onClick={toggleTheme}
-              className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#2B173C] border border-[#453052] text-[#E7B743] hover:border-[#A87B2A] active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+              className="clay-button-secondary px-2.5 py-1 rounded-lg text-xs font-semibold text-[#E7B743] hover:text-[#FFD76A] cursor-pointer flex items-center gap-1.5"
             >
               {theme === 'light' ? '☀ Light' : '◐ Dark'}
             </button>

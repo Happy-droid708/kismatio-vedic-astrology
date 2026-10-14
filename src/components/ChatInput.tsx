@@ -158,7 +158,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             <button
               type="button"
               onClick={onRegenerate}
-              className="text-[11px] py-1 px-2.5 min-h-[30px] rounded-full border border-[#A87B2A]/50 text-[#E7B743] hover:bg-[#352044] hover:border-[#E7B743] active:scale-95 transition-all flex items-center gap-1 shrink-0 cursor-pointer shadow-xs"
+              className="text-[11px] py-1 px-2.5 min-h-[30px] rounded-full clay-button-secondary text-[#E7B743] hover:text-[#FFD76A] flex items-center gap-1 shrink-0 cursor-pointer"
               title="Regenerate last response"
             >
               <RotateCcw className="w-3 h-3 stroke-[2.2]" />
@@ -177,7 +177,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                 variant="quick-reply"
                 onSelectAction={() => handleSelectSuggestion(qr.text)}
                 disabled={disabled || isStreaming}
-                className="text-[11px] py-1 px-3 min-h-[30px] border-[#453052] text-[#F7F0FF] bg-[#2B173C] hover:bg-[#352044]"
+                className="text-[11px] py-1 px-3 min-h-[30px]"
               >
                 {qr.label}
               </CelestialPill>
@@ -214,7 +214,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
       {/* Input Bar or Active Voice Recording Bar */}
       {isRecording ? (
-        <div className="flex items-center justify-between gap-3 p-2 rounded-2xl bg-[#2B173C] border border-[#453052] text-xs text-[#F7F0FF] animate-in fade-in">
+        <div className="flex items-center justify-between gap-3 p-2 rounded-2xl bg-[#2B173C] border border-transparent shadow-[0_4px_16px_rgba(18,9,31,0.5),inset_0_1px_1px_rgba(247,240,255,0.06)] text-xs text-[#F7F0FF] animate-in fade-in">
           <div className="flex items-center gap-2 pl-2">
             <span className="w-3 h-3 rounded-full bg-[#E7B743] animate-ping" />
             <span className="font-semibold text-[#E7B743]">Recording Voice Note...</span>
@@ -232,7 +232,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             </button>
             <button
               onClick={handleToggleRecording}
-              className="px-3 py-1.5 rounded-xl bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B] font-bold flex items-center gap-1.5 cursor-pointer shadow-md"
+              className="px-3 py-1.5 rounded-xl clay-button-primary text-xs font-bold flex items-center gap-1.5 cursor-pointer"
             >
               <Square className="w-3 h-3 fill-current" />
               <span>Send Voice</span>
@@ -256,7 +256,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                   ? 'Acharya meditating on query...'
                   : 'Ask your astrologer anything...'
               }
-              className="w-full pl-4 pr-12 py-2.5 sm:py-3 rounded-2xl bg-[#12091F] border border-[#453052] text-xs sm:text-sm text-[#F7F0FF] placeholder-[#9685AE] focus:outline-none focus:border-[#E7B743] transition-colors disabled:opacity-60 min-h-[44px]"
+              className="w-full pl-4 pr-12 py-2.5 sm:py-3 rounded-2xl clay-input text-xs sm:text-sm text-[#F7F0FF] placeholder-[#9685AE] transition-all disabled:opacity-60 min-h-[44px]"
             />
 
             {/* Voice recording button inside input */}
@@ -276,7 +276,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             <button
               type="button"
               onClick={onStopStreaming}
-              className="h-10 sm:h-11 px-3 sm:px-4 rounded-2xl bg-[#2B173C] hover:bg-[#352044] border border-[#A87B2A]/60 text-[#F7F0FF] text-xs sm:text-sm font-semibold flex items-center gap-1.5 shadow-lg shadow-black/40 cursor-pointer active:scale-95 transition-all shrink-0 animate-in fade-in"
+              className="h-10 sm:h-11 px-3 sm:px-4 rounded-2xl clay-button-secondary text-xs sm:text-sm font-semibold flex items-center gap-1.5 cursor-pointer active:scale-95 transition-all shrink-0 animate-in fade-in"
               title="Stop generating"
             >
               <Square className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#E7B743] text-[#E7B743]" />

@@ -36,8 +36,8 @@ export const InChatSearchBar: React.FC<InChatSearchBarProps> = ({
   };
 
   return (
-    <div className="bg-[#24133B] border-b border-[#453052] px-3 py-2 flex items-center justify-between gap-2 animate-in slide-in-from-top-2 duration-150 z-20">
-      <div className="flex-1 flex items-center gap-2 bg-[#12091F] border border-[#453052] rounded-xl px-2.5 py-1.5 focus-within:border-[#E7B743]">
+    <div className="bg-[#24133B] border-b border-[#453052]/20 px-3 py-2 flex items-center justify-between gap-2 animate-in slide-in-from-top-2 duration-150 z-20 shadow-md">
+      <div className="clay-input flex-1 flex items-center gap-2 rounded-xl px-2.5 py-1.5">
         <Search className="w-3.5 h-3.5 text-[#E7B743] shrink-0" />
         <input
           type="text"
@@ -82,7 +82,7 @@ export const InChatSearchBar: React.FC<InChatSearchBarProps> = ({
             handleClear();
             onClose();
           }}
-          className="p-1 rounded-lg hover:bg-[#1a1d2c] text-[#a8a192] hover:text-[#ede8dc] cursor-pointer ml-1"
+          className="p-1 rounded-lg hover:bg-[#352044] text-[#9685AE] hover:text-[#F7F0FF] cursor-pointer ml-1"
           title="Close search"
         >
           <X className="w-4 h-4" />

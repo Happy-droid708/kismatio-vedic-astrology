@@ -71,10 +71,10 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
       onClick={() => onSelect(conversation)}
       onMouseEnter={() => setShowQuickActions(true)}
       onMouseLeave={() => setShowQuickActions(false)}
-      className={`group relative w-full px-4 py-3 flex items-center gap-3 border-b border-[#453052] transition-all cursor-pointer select-none ${
+      className={`group relative w-full px-4 py-3 flex items-center gap-3 border-b border-[#453052]/20 transition-all duration-150 cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
         isSelected
-          ? 'bg-[#2B173C] border-l-4 border-l-[#E7B743]'
-          : 'bg-[#180D2B] hover:bg-[#352044]'
+          ? 'bg-[#2B173C] border-l-2 border-l-[#E7B743] shadow-[inset_0_1px_1px_rgba(247,240,255,0.06),inset_0_-1px_1px_rgba(18,9,31,0.3)]'
+          : 'bg-[#180D2B] hover:bg-[#352044] hover:shadow-[0_2px_8px_rgba(18,9,31,0.3)] active:scale-[0.995]'
       }`}
     >
       {/* Left: Avatar with Online indicator */}
@@ -148,21 +148,21 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
         <div className={`flex items-center gap-1 transition-opacity ${showQuickActions ? 'opacity-100' : 'opacity-0'}`}>
           <button
             onClick={(e) => onTogglePin(conversation.id, e)}
-            className="p-1 rounded text-[#8e8779] hover:text-[#dfb76c] hover:bg-[#202538] transition-colors cursor-pointer"
+            className="p-1 rounded text-[#9685AE] hover:text-[#FFD76A] hover:bg-[#352044] transition-colors cursor-pointer"
             title={conversation.isPinned ? 'Unpin chat' : 'Pin chat'}
           >
             <Pin className="w-3 h-3" />
           </button>
           <button
             onClick={(e) => onToggleRead(conversation.id, e)}
-            className="p-1 rounded text-[#8e8779] hover:text-[#ede8dc] hover:bg-[#202538] transition-colors cursor-pointer"
+            className="p-1 rounded text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] transition-colors cursor-pointer"
             title={conversation.unreadCount > 0 ? 'Mark as read' : 'Mark as unread'}
           >
             <Check className="w-3 h-3" />
           </button>
           <button
             onClick={(e) => onToggleArchive(conversation.id, e)}
-            className="p-1 rounded text-[#8e8779] hover:text-[#ede8dc] hover:bg-[#202538] transition-colors cursor-pointer"
+            className="p-1 rounded text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] transition-colors cursor-pointer"
             title="Archive conversation"
           >
             <Archive className="w-3 h-3" />

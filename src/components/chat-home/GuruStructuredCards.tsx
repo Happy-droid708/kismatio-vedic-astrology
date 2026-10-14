@@ -22,24 +22,24 @@ export const GuruStructuredCards: React.FC<GuruStructuredCardsProps> = ({
   const renderIcon = () => {
     switch (structuredData.type) {
       case 'timeline':
-        return <Clock className="w-4 h-4 text-[#06b6d4]" />;
+        return <Clock className="w-4 h-4 text-[#FFD76A]" />;
       case 'vastu':
-        return <Compass className="w-4 h-4 text-[#10b981]" />;
+        return <Compass className="w-4 h-4 text-[#00D6A0]" />;
       case 'chart':
-        return <FileText className="w-4 h-4 text-[#818cf8]" />;
+        return <FileText className="w-4 h-4 text-[#FFD76A]" />;
       case 'kundali':
-        return <Sparkles className="w-4 h-4 text-[#dfb76c]" />;
+        return <Sparkles className="w-4 h-4 text-[#E7B743]" />;
       case 'search_clues':
-        return <Search className="w-4 h-4 text-[#38bdf8]" />;
+        return <Search className="w-4 h-4 text-[#C5B8D9]" />;
       case 'legal_case':
-        return <Scale className="w-4 h-4 text-[#e2e8f0]" />;
+        return <Scale className="w-4 h-4 text-[#F7F0FF]" />;
       default:
-        return <Sparkles className="w-4 h-4 text-[#dfb76c]" />;
+        return <Sparkles className="w-4 h-4 text-[#E7B743]" />;
     }
   };
 
   return (
-    <div className="w-full mb-3 rounded-2xl bg-[#111422]/95 border border-[#dfb76c]/30 shadow-2xl p-4 sm:p-5 relative overflow-hidden backdrop-blur-md animate-in fade-in duration-200">
+    <div className="w-full mb-3 rounded-2xl bg-[#24133B] border border-transparent shadow-[0_12px_36px_rgba(18,9,31,0.7),inset_0_1px_1px_rgba(247,240,255,0.06),inset_0_-1px_2px_rgba(18,9,31,0.5)] p-4 sm:p-5 relative overflow-hidden backdrop-blur-md animate-in fade-in duration-200">
       {/* Background Soft Aura */}
       <div
         className="absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-20"
@@ -47,24 +47,24 @@ export const GuruStructuredCards: React.FC<GuruStructuredCardsProps> = ({
       />
 
       {/* Header Row */}
-      <div className="flex items-start justify-between gap-3 relative z-10 border-b border-[#252b42] pb-3 mb-3.5">
+      <div className="flex items-start justify-between gap-3 relative z-10 border-b border-[#453052]/30 pb-3 mb-3.5">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-[#171b2d] border border-[#2e3754]">
+          <div className="p-2 rounded-xl bg-[#2B173C] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.08),inset_0_-1px_2px_rgba(18,9,31,0.5)]">
             {renderIcon()}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#dfb76c]/15 text-[#dfb76c] border border-[#dfb76c]/25 font-bold">
+              <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#E7B743]/15 text-[#FFD76A] border border-transparent font-bold">
                 {structuredData.badge}
               </span>
-              <span className="text-xs text-[#8e8779] font-mono">
+              <span className="text-xs text-[#9685AE] font-mono">
                 {guru.name} Consultation Workspace
               </span>
             </div>
-            <h4 className="text-sm sm:text-base font-serif-luxury font-bold text-[#f5eedf] mt-0.5">
+            <h4 className="text-sm sm:text-base font-serif-luxury font-bold text-[#F7F0FF] mt-0.5">
               {structuredData.title}
             </h4>
-            <p className="text-[11px] text-[#9f988b]">
+            <p className="text-[11px] text-[#C5B8D9]">
               {structuredData.subtitle}
             </p>
           </div>
@@ -72,7 +72,7 @@ export const GuruStructuredCards: React.FC<GuruStructuredCardsProps> = ({
 
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg text-[#8a8374] hover:text-[#ede8dc] hover:bg-[#1a1f33] transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] border border-transparent hover:border-[#A87B2A]/40 transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
           title="Close workspace preview"
         >
           <X className="w-4 h-4" />
@@ -84,10 +84,10 @@ export const GuruStructuredCards: React.FC<GuruStructuredCardsProps> = ({
         {structuredData.items.map((item, idx) => {
           const statusBg =
             item.status === 'favorable'
-              ? 'border-emerald-500/30 bg-emerald-950/20'
+              ? 'border-[#00D6A0]/25 bg-[#00D6A0]/10 shadow-[inset_0_1px_1px_rgba(0,214,160,0.1)]'
               : item.status === 'caution'
-              ? 'border-amber-500/30 bg-amber-950/20'
-              : 'border-[#272f48] bg-[#141829]/80';
+              ? 'border-[#E7B743]/25 bg-[#E7B743]/10 shadow-[inset_0_1px_1px_rgba(231,183,67,0.1)]'
+              : 'border-transparent bg-[#2B173C] shadow-[0_4px_12px_rgba(18,9,31,0.4),inset_0_1px_1px_rgba(247,240,255,0.04),inset_0_-1px_2px_rgba(18,9,31,0.4)]';
 
           return (
             <div
@@ -95,21 +95,21 @@ export const GuruStructuredCards: React.FC<GuruStructuredCardsProps> = ({
               className={`p-3 rounded-xl border ${statusBg} flex flex-col justify-between transition-all`}
             >
               <div>
-                <span className="text-[10px] font-mono text-[#8a8374] uppercase tracking-wide">
+                <span className="text-[10px] font-mono text-[#9685AE] uppercase tracking-wide">
                   {item.label}
                 </span>
-                <div className="text-xs sm:text-sm font-semibold text-[#ede8dc] mt-0.5 flex items-center gap-1.5">
+                <div className="text-xs sm:text-sm font-semibold text-[#F7F0FF] mt-0.5 flex items-center gap-1.5">
                   {item.status === 'favorable' && (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00D6A0] shrink-0" />
                   )}
                   {item.status === 'caution' && (
-                    <ShieldAlert className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <ShieldAlert className="w-3.5 h-3.5 text-[#FFD76A] shrink-0" />
                   )}
                   <span>{item.value}</span>
                 </div>
               </div>
               {item.detail && (
-                <p className="text-[11px] text-[#a49d8f] mt-1.5 leading-snug">
+                <p className="text-[11px] text-[#C5B8D9] mt-1.5 leading-snug">
                   {item.detail}
                 </p>
               )}
@@ -120,21 +120,21 @@ export const GuruStructuredCards: React.FC<GuruStructuredCardsProps> = ({
 
       {/* Disclaimer / Regulatory Note */}
       {structuredData.disclaimer && (
-        <div className="p-2.5 rounded-xl bg-[#0e101b] border border-[#23293e] text-[10px] text-[#857f72] leading-relaxed relative z-10 mb-3">
-          <span className="font-semibold text-[#a8a192]">Note: </span>
+        <div className="p-2.5 rounded-xl bg-[#12091F] border border-transparent shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)] text-[10px] text-[#9685AE] leading-relaxed relative z-10 mb-3">
+          <span className="font-semibold text-[#FFD76A]">Note: </span>
           {structuredData.disclaimer}
         </div>
       )}
 
       {/* Quick Action Buttons Row */}
       {onSendQuickAction && (
-        <div className="flex flex-wrap items-center gap-2 relative z-10 pt-2 border-t border-[#23293e]">
-          <span className="text-[10px] text-[#7d7768] font-mono">Suggested Questions:</span>
+        <div className="flex flex-wrap items-center gap-2 relative z-10 pt-2 border-t border-[#453052]/30">
+          <span className="text-[10px] text-[#9685AE] font-mono">Suggested Questions:</span>
           {guru.quickActions.map((action, i) => (
             <button
               key={i}
               onClick={() => onSendQuickAction(`Can you guide me on ${action.toLowerCase()}?`)}
-              className="px-2.5 py-1 rounded-lg bg-[#181d30] hover:bg-[#252c48] border border-[#2e3752] hover:border-[#dfb76c]/40 text-[11px] text-[#cdc7ba] hover:text-[#ede8dc] transition-all cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-[#2B173C] hover:bg-[#352044] border border-transparent hover:border-[#A87B2A]/40 text-[11px] text-[#C5B8D9] hover:text-[#F7F0FF] shadow-[0_2px_8px_rgba(18,9,31,0.4),inset_0_1px_1px_rgba(247,240,255,0.05)] active:scale-[0.98] transition-all cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
             >
               ✦ {action}
             </button>

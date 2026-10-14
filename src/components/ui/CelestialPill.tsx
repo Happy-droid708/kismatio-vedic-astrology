@@ -174,87 +174,64 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
     const isInProgress = activeStatus === 'in_progress';
     const isLight = currentTheme === 'light';
 
-    if (variant === 'filter') {
+    if (variant === 'filter' || variant === 'category') {
       if (isSelected) {
         return {
           bg: isLight
             ? 'linear-gradient(135deg, rgba(223, 183, 108, 0.95) 0%, rgba(196, 151, 70, 0.95) 100%)'
-            : '#E7B743',
-          border: isLight ? '1px solid rgba(180, 135, 50, 0.6)' : '1px solid #E7B743',
-          text: 'text-[#180D2B] font-bold',
-          glow: '0 0 12px rgba(231, 183, 67, 0.3)',
+            : 'linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%)',
+          border: '1px solid transparent',
+          text: 'text-[#12091F] font-bold',
+          glow: '0 4px 14px -1px rgba(231, 183, 67, 0.35), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 2px 0 rgba(168, 123, 42, 0.5)',
         };
       }
       return {
         bg: isLight
           ? isHovered ? 'rgba(245, 238, 225, 0.98)' : 'rgba(255, 255, 255, 0.92)'
-          : isHovered ? '#352044' : '#2B173C',
-        border: isLight
-          ? isHovered ? '1px solid rgba(180, 135, 50, 0.45)' : '1px solid rgba(180, 135, 50, 0.22)'
-          : isHovered ? '1px solid #A87B2A' : '1px solid #453052',
+          : isHovered ? '#352044' : '#24133B',
+        border: isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
         text: isLight
           ? isHovered ? 'text-[#1f1b16]' : 'text-[#6b5f4f]'
           : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-        glow: isHovered ? '0 0 8px rgba(168, 123, 42, 0.2)' : 'none',
-      };
-    }
-
-    if (variant === 'category') {
-      if (isSelected) {
-        return {
-          bg: isLight
-            ? 'linear-gradient(135deg, rgba(235, 215, 175, 0.9) 0%, rgba(225, 200, 150, 0.8) 100%)'
-            : '#E7B743',
-          border: isLight ? '1px solid rgba(180, 135, 50, 0.7)' : '1px solid #E7B743',
-          text: 'text-[#180D2B] font-bold',
-          glow: '0 0 14px rgba(231, 183, 67, 0.35)',
-        };
-      }
-      return {
-        bg: isLight
-          ? isHovered ? 'rgba(245, 238, 225, 0.98)' : 'rgba(255, 255, 255, 0.92)'
-          : isHovered ? '#352044' : '#2B173C',
-        border: isLight
-          ? isHovered ? '1px solid rgba(180, 135, 50, 0.4)' : '1px solid rgba(180, 135, 50, 0.22)'
-          : isHovered ? '1px solid #A87B2A' : '1px solid #453052',
-        text: isLight
-          ? isHovered ? 'text-[#1f1b16]' : 'text-[#6b5f4f]'
-          : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-        glow: isHovered ? '0 0 8px rgba(168, 123, 42, 0.15)' : 'none',
+        glow: isHovered
+          ? '0 4px 12px -2px rgba(18, 9, 31, 0.5), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08)'
+          : '0 2px 8px -1px rgba(18, 9, 31, 0.35), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04)',
       };
     }
 
     if (variant === 'gemstone') {
       return {
         bg: isHovered ? '#352044' : '#2B173C',
-        border: isHovered ? '1px solid #A87B2A' : '1px solid #453052',
+        border: isHovered ? '1px solid rgba(168, 123, 42, 0.4)' : '1px solid transparent',
         text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-        glow: isHovered ? '0 0 12px rgba(168, 123, 42, 0.2)' : 'none',
+        glow: isHovered
+          ? '0 6px 16px -2px rgba(18, 9, 31, 0.55), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08)'
+          : '0 3px 10px -2px rgba(18, 9, 31, 0.4), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04)',
       };
     }
 
     if (variant === 'order-status') {
       if (isCompleted) {
         return {
-          bg: 'rgba(0, 214, 160, 0.12)',
-          border: '1px solid #00D6A0',
+          bg: 'rgba(0, 214, 160, 0.15)',
+          border: '1px solid rgba(0, 214, 160, 0.3)',
           text: 'text-[#00D6A0] font-semibold',
-          glow: '0 0 8px rgba(0, 214, 160, 0.2)',
+          glow: '0 2px 8px rgba(0, 214, 160, 0.2), inset 0 1px 1px rgba(0, 214, 160, 0.2)',
         };
       }
       if (isInProgress) {
         return {
           bg: 'rgba(231, 183, 67, 0.15)',
-          border: '1px solid #E7B743',
+          border: '1px solid rgba(231, 183, 67, 0.35)',
           text: 'text-[#E7B743] font-bold',
-          glow: '0 0 12px rgba(231, 183, 67, 0.3)',
+          glow: '0 2px 8px rgba(231, 183, 67, 0.25), inset 0 1px 1px rgba(231, 183, 67, 0.2)',
         };
       }
       return {
         bg: '#2B173C',
-        border: '1px solid #453052',
+        border: '1px solid transparent',
         text: 'text-[#9685AE]',
-        glow: 'none',
+        glow: '0 2px 6px rgba(18, 9, 31, 0.3)',
       };
     }
 
@@ -262,42 +239,46 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
       if (rechargeStep === 'added') {
         return {
           bg: '#00D6A0',
-          border: '1px solid #00D6A0',
-          text: 'text-[#180D2B] font-bold',
-          glow: '0 0 16px rgba(0, 214, 160, 0.4)',
+          border: '1px solid transparent',
+          text: 'text-[#12091F] font-bold',
+          glow: '0 4px 14px rgba(0, 214, 160, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.6)',
         };
       }
       if (rechargeStep === 'spark') {
         return {
           bg: '#FFD76A',
-          border: '1px solid #E7B743',
-          text: 'text-[#180D2B] font-bold',
-          glow: '0 0 18px rgba(255, 215, 106, 0.5)',
+          border: '1px solid transparent',
+          text: 'text-[#12091F] font-bold',
+          glow: '0 6px 18px rgba(255, 215, 106, 0.5), inset 0 1px 1.5px rgba(255, 255, 255, 0.8)',
         };
       }
       return {
-        bg: isHovered ? '#352044' : '#2B173C',
-        border: isHovered ? '1px solid #A87B2A' : '1px solid #453052',
+        bg: isHovered ? '#352044' : '#24133B',
+        border: isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
         text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-        glow: isHovered ? '0 0 10px rgba(168, 123, 42, 0.2)' : 'none',
+        glow: isHovered
+          ? '0 4px 14px -2px rgba(18, 9, 31, 0.5), inset 0 1px 1px rgba(247, 240, 255, 0.08)'
+          : '0 2px 8px -1px rgba(18, 9, 31, 0.35), inset 0 1px 1px rgba(247, 240, 255, 0.04)',
       };
     }
 
     // Default / Prompt / Quick-reply / Language
     if (isSelected) {
       return {
-        bg: '#E7B743',
-        border: '1px solid #E7B743',
-        text: 'text-[#180D2B] font-bold',
-        glow: '0 0 12px rgba(231, 183, 67, 0.3)',
+        bg: 'linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%)',
+        border: '1px solid transparent',
+        text: 'text-[#12091F] font-bold',
+        glow: '0 4px 14px -1px rgba(231, 183, 67, 0.35), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 2px 0 rgba(168, 123, 42, 0.5)',
       };
     }
 
     return {
-      bg: isHovered ? '#352044' : '#2B173C',
-      border: isHovered ? '1px solid #A87B2A' : '1px solid #453052',
+      bg: isHovered ? '#352044' : '#24133B',
+      border: isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
       text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-      glow: isHovered ? '0 0 8px rgba(168, 123, 42, 0.2)' : 'none',
+      glow: isHovered
+        ? '0 4px 12px -2px rgba(18, 9, 31, 0.5), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08)'
+        : '0 2px 8px -1px rgba(18, 9, 31, 0.35), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04)',
     };
   };
 
@@ -351,11 +332,11 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
           setIsPressed(false);
         }}
         disabled={disabled}
-        className={`group relative rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 outline-none focus:ring-2 focus:ring-[#dfb76c]/40 disabled:cursor-not-allowed disabled:opacity-40 overflow-hidden whitespace-nowrap shrink-0 min-h-[34px] px-3.5 py-1.5 text-xs ${
+        className={`group relative rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] focus-visible:ring-offset-2 focus-visible:ring-offset-[#180D2B] disabled:cursor-not-allowed disabled:opacity-40 overflow-hidden whitespace-nowrap shrink-0 min-h-[34px] px-3.5 py-1.5 text-xs ${
           isPressed
-            ? 'scale-[0.94] duration-75'
+            ? 'scale-[0.98] duration-75'
             : isHovered && !disabled
-            ? 'scale-[1.03] -translate-y-[1px] duration-200 ease-out'
+            ? 'scale-[1.01] -translate-y-[0.5px] duration-150 ease-out'
             : 'scale-100 translate-y-0 duration-200'
         } ${currentStyles.text} ${className}`}
         style={{

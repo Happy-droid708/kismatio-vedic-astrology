@@ -21,7 +21,7 @@ export const DesktopEmptyState: React.FC<DesktopEmptyStateProps> = ({ onStartNew
             <span className="text-3xl sm:text-4xl text-[#E7B743] font-display font-bold">✦</span>
           </div>
         </div>
-        <div className="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full bg-[#2B173C] border border-[#453052] text-[10px] font-mono font-bold text-[#E7B743] flex items-center gap-1 shadow-md">
+        <div className="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full bg-[#2B173C] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.04),0_2px_6px_rgba(18,9,31,0.4)] text-[10px] font-mono font-bold text-[#E7B743] flex items-center gap-1">
           <Sparkles className="w-2.5 h-2.5 text-[#E7B743]" />
           <span>Kismatio Sanctum</span>
         </div>
@@ -39,7 +39,7 @@ export const DesktopEmptyState: React.FC<DesktopEmptyStateProps> = ({ onStartNew
       <div className="mt-4 sm:mt-6 flex flex-col items-center gap-3">
         <button
           onClick={onStartNewChat}
-          className="px-6 py-3 rounded-2xl bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B] text-xs sm:text-sm font-bold tracking-wide transition-all shadow-xl shadow-black/40 cursor-pointer flex items-center gap-2"
+          className="clay-button-primary px-6 py-3 rounded-2xl text-xs sm:text-sm font-bold tracking-wide flex items-center gap-2 cursor-pointer"
         >
           <span className="text-base font-bold">✦</span>
           <span>Start a Conversation</span>

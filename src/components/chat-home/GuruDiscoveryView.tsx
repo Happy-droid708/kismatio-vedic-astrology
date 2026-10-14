@@ -85,7 +85,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
         {/* ================================================================= */}
         {/* 1. HERO HEADER: Kismatio Chats — The Eight Maharaj Experience   */}
         {/* ================================================================= */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#453052] pb-5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#453052]/25 pb-5">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-1.5">
               <span className="w-2 h-2 rounded-full bg-[#E7B743] animate-pulse" />
@@ -104,7 +104,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
 
           {/* Quick Active Consultation Timer Pill */}
           <div className="flex items-center gap-2 self-start md:self-auto shrink-0">
-            <div className="px-3.5 py-1.5 rounded-xl bg-[#24133B] border border-[#A87B2A]/40 flex items-center gap-2 text-xs text-[#E7B743]">
+            <div className="px-3.5 py-1.5 rounded-xl bg-[#24133B] border border-transparent shadow-[inset_0_1px_1px_rgba(247,240,255,0.05),0_2px_8px_rgba(18,9,31,0.3)] flex items-center gap-2 text-xs text-[#E7B743]">
               <Clock className="w-3.5 h-3.5" />
               <span className="font-mono font-medium">{formatTime(liveRemainingSeconds)} remaining</span>
             </div>
@@ -117,7 +117,15 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
         {selectedCategory === 'all' && !searchQuery.trim() && (
           <div
             onClick={() => onSelectGuru(flagshipGuru)}
-            className="w-full rounded-2xl p-5 sm:p-6 bg-[#24133B] hover:bg-[#352044] border border-[#A87B2A]/40 hover:border-[#E7B743] shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onSelectGuru(flagshipGuru);
+              }
+            }}
+            className="w-full rounded-2xl p-5 sm:p-6 bg-[#24133B] hover:bg-[#352044] border border-transparent hover:border-[#A87B2A]/40 shadow-[0_8px_28px_-4px_rgba(18,9,31,0.6),inset_0_1px_1.5px_0_rgba(247,240,255,0.06),inset_0_-1px_2px_0_rgba(18,9,31,0.4)] hover:shadow-[0_12px_32px_-4px_rgba(18,9,31,0.7),inset_0_1px_1.5px_0_rgba(247,240,255,0.08)] hover:-translate-y-0.5 active:scale-[0.99] transition-all duration-200 cursor-pointer group relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
           >
             {/* Background radiant aura */}
             <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#E7B743]/10 blur-3xl pointer-events-none group-hover:scale-125 transition-transform" />
@@ -160,7 +168,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
                 e.stopPropagation();
                 onSelectGuru(flagshipGuru);
               }}
-              className="px-5 py-2.5 rounded-xl bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B] text-xs font-bold flex items-center gap-2 shadow-lg shadow-[#E7B743]/20 hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer self-stretch sm:self-auto justify-center"
+              className="clay-button-primary px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shrink-0 cursor-pointer self-stretch sm:self-auto justify-center"
             >
               <span>Begin Flagship Reading</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -180,7 +188,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search Guru by name, topic, or question (e.g. Love, Vastu, Lost, Legal)..."
-              className="w-full bg-[#12091F] text-xs text-[#F7F0FF] placeholder-[#9685AE] rounded-xl pl-10 pr-4 py-2.5 border border-[#453052] focus:border-[#E7B743] focus:outline-none transition-all"
+              className="w-full clay-input text-xs text-[#F7F0FF] placeholder-[#9685AE] rounded-xl pl-10 pr-4 py-2.5 transition-all"
             />
             {searchQuery && (
               <button
@@ -206,10 +214,10 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-medium flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
                   isSelected
-                    ? 'bg-[#E7B743] text-[#180D2B] font-semibold shadow-xs'
-                    : 'bg-[#2B173C] text-[#C5B8D9] hover:text-[#F7F0FF] hover:bg-[#352044] border border-[#453052] hover:border-[#A87B2A]'
+                    ? 'clay-pill-active'
+                    : 'clay-pill'
                 }`}
               >
                 <span>{cat.icon}</span>
@@ -223,12 +231,12 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
         {/* 4. RESPONSIVE GRID: EIGHT GURU CARDS                             */}
         {/* ================================================================= */}
         {filteredGurus.length === 0 ? (
-          <div className="w-full py-16 text-center rounded-2xl bg-[#121524]/60 border border-[#232940]">
-            <Compass className="w-8 h-8 text-[#8a8374] mx-auto mb-2" />
-            <h4 className="text-base font-serif-luxury font-bold text-[#ede8dc]">
+          <div className="w-full py-16 text-center rounded-2xl bg-[#2B173C] border border-transparent shadow-[0_4px_16px_rgba(18,9,31,0.5)]">
+            <Compass className="w-8 h-8 text-[#9685AE] mx-auto mb-2" />
+            <h4 className="text-base font-serif-luxury font-bold text-[#F7F0FF]">
               No Gurus found for "{searchQuery}"
             </h4>
-            <p className="text-xs text-[#8a8374] mt-1">
+            <p className="text-xs text-[#C5B8D9] mt-1">
               Try searching for "love", "timeline", "charts", "vastu", "lost", or "legal".
             </p>
             <button
@@ -236,7 +244,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
                 setSearchQuery('');
                 setSelectedCategory('all');
               }}
-              className="mt-3 px-4 py-1.5 rounded-xl bg-[#1d2238] text-xs text-[#dfb76c] hover:bg-[#252c48] cursor-pointer"
+              className="mt-3 px-4 py-1.5 rounded-xl clay-button-secondary text-xs cursor-pointer"
             >
               Reset filters
             </button>
@@ -258,10 +266,10 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
         {/* 5. RECENT CONVERSATIONS SHORTCUT STRIP (If available)             */}
         {/* ================================================================= */}
         {recentConversations.length > 0 && onSelectRecentConversation && (
-          <div className="mt-4 pt-6 border-t border-[#dfb76c]/15">
+          <div className="mt-4 pt-6 border-t border-[#453052]/20">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-[#9a9385] flex items-center gap-1.5">
-                <MessageSquare className="w-3.5 h-3.5 text-[#dfb76c]" />
+              <h3 className="text-xs font-mono uppercase tracking-wider text-[#9685AE] flex items-center gap-1.5">
+                <MessageSquare className="w-3.5 h-3.5 text-[#E7B743]" />
                 <span>Recent Consultations ({recentConversations.length})</span>
               </h3>
             </div>
@@ -271,17 +279,25 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
                 <div
                   key={conv.id}
                   onClick={() => onSelectRecentConversation(conv)}
-                  className="p-3.5 rounded-xl bg-[#121524]/80 hover:bg-[#181d33] border border-[#232940] hover:border-[#dfb76c]/30 cursor-pointer transition-all flex items-center justify-between gap-3 group"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSelectRecentConversation(conv);
+                    }
+                  }}
+                  className="p-3.5 rounded-xl bg-[#2B173C] hover:bg-[#352044] border border-transparent hover:border-[#A87B2A]/30 shadow-[0_2px_10px_rgba(18,9,31,0.4)] cursor-pointer transition-all flex items-center justify-between gap-3 group active:scale-[0.99] outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
                 >
                   <div className="min-w-0">
-                    <h5 className="text-xs font-serif-luxury font-bold text-[#ede8dc] truncate group-hover:text-[#dfb76c]">
+                    <h5 className="text-xs font-serif-luxury font-bold text-[#F7F0FF] truncate group-hover:text-[#E7B743]">
                       {conv.astrologerName}
                     </h5>
-                    <p className="text-[11px] text-[#8a8374] truncate mt-0.5">
+                    <p className="text-[11px] text-[#9685AE] truncate mt-0.5">
                       {conv.lastMessage}
                     </p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-[#8a8374] group-hover:text-[#dfb76c] group-hover:translate-x-0.5 transition-all shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-[#9685AE] group-hover:text-[#E7B743] group-hover:translate-x-0.5 transition-all shrink-0" />
                 </div>
               ))}
             </div>

@@ -79,9 +79,9 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-[#12091F]/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full max-w-2xl bg-[#24133B] border border-[#453052] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90dvh]">
+      <div className="w-full max-w-2xl bg-[#24133B] border border-transparent rounded-2xl sm:rounded-3xl clay-float overflow-hidden flex flex-col max-h-[90dvh]">
         {/* Header */}
-        <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-[#453052] bg-[#24133B] flex items-center justify-between shrink-0">
+        <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-[#453052]/20 bg-[#24133B] flex items-center justify-between shrink-0">
           <div>
             <div className="flex items-center gap-1.5 text-xs text-[#E7B743] font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
@@ -100,7 +100,7 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
         </div>
 
         {/* Search Bar */}
-        <div className="px-4 py-2.5 bg-[#180D2B] border-b border-[#453052] shrink-0">
+        <div className="px-4 py-2.5 bg-[#180D2B] border-b border-[#453052]/20 shrink-0">
           <div className="relative flex items-center">
             <Search className="w-4 h-4 text-[#9685AE] absolute left-3 pointer-events-none" />
             <input
@@ -108,13 +108,13 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name, expertise (e.g. Career, Vivah, Kundli)..."
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#12091F] border border-[#453052] text-xs text-[#F7F0FF] placeholder-[#9685AE] focus:outline-none focus:border-[#E7B743] min-h-[38px] transition-colors"
+              className="w-full pl-9 pr-4 py-2 rounded-xl clay-input text-xs text-[#F7F0FF] placeholder-[#9685AE] min-h-[38px] transition-all"
             />
           </div>
         </div>
 
         {/* Section 8: Astrology Category Pills with 1-turn Orbit Ring animation */}
-        <div className="px-4 py-2 bg-[#180D2B] border-b border-[#453052] overflow-x-auto scrollbar-none shrink-0">
+        <div className="px-4 py-2 bg-[#180D2B] border-b border-[#453052]/20 overflow-x-auto scrollbar-none shrink-0">
           <div className="flex items-center gap-1.5 min-w-max">
             {ASTROLOGY_CATEGORIES.map((cat) => {
               const isSelected = selectedCategory === cat.id;
@@ -134,7 +134,7 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
         </div>
 
         {/* Section 13: Language Pills */}
-        <div className="px-4 py-1.5 bg-[#180D2B] border-b border-[#453052] overflow-x-auto scrollbar-none shrink-0">
+        <div className="px-4 py-1.5 bg-[#180D2B] border-b border-[#453052]/20 overflow-x-auto scrollbar-none shrink-0">
           <div className="flex items-center gap-1.5 min-w-max">
             <span className="text-[10px] text-[#9685AE] uppercase tracking-wider font-semibold mr-1">
               Language:
@@ -161,7 +161,7 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
           {filteredAstrologers.map((astro) => (
             <div
               key={astro.id}
-              className="p-3 sm:p-3.5 rounded-2xl bg-[#2B173C] border border-[#453052] hover:border-[#A87B2A] hover:bg-[#352044] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md"
+              className="p-3 sm:p-3.5 rounded-2xl bg-[#2B173C] border border-transparent shadow-[0_4px_16px_rgba(18,9,31,0.5),inset_0_1px_1px_rgba(247,240,255,0.05)] hover:border-[#A87B2A]/40 hover:bg-[#352044] hover:-translate-y-0.5 active:scale-[0.99] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
             >
               <div className="flex items-start gap-2.5 sm:gap-3 min-w-0 flex-1">
                 {/* Avatar with Online Badge */}
@@ -212,7 +212,7 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
               </div>
 
               {/* Price & CTA */}
-              <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#453052] shrink-0">
+              <div className="flex sm:flex-col items-center sm:items-end justify-between gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#453052]/20 shrink-0">
                 <div className="text-left sm:text-right">
                   <span className="text-[10px] text-[#9685AE] block">Rate</span>
                   <span className="text-sm font-mono font-bold text-[#E7B743]">
@@ -225,7 +225,7 @@ export const NewConversationModal: React.FC<NewConversationModalProps> = ({
                     onSelectAstrologer(astro);
                     onClose();
                   }}
-                  className="px-4 py-2 rounded-xl bg-[#E7B743] hover:bg-[#FFD76A] text-[#180D2B] text-xs font-bold transition-all shadow-md cursor-pointer flex items-center gap-1.5 min-h-[40px]"
+                  className="clay-button-primary px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 min-h-[40px]"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>Start Chat</span>
