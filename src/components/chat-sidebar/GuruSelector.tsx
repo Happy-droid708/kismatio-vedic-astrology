@@ -84,9 +84,9 @@ export const GuruSelector: React.FC<GuruSelectorProps> = ({
             <div key={guru.id} className="relative group flex flex-col items-center">
               <button
                 onClick={() => onSelectGuru(guru)}
-                className={`w-full flex flex-col items-center p-1.5 rounded-xl border border-transparent transition-all cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
+                className={`guru-selector-item w-full flex flex-col items-center p-1.5 rounded-xl border border-transparent transition-all cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
                   isSelected
-                    ? 'bg-[#2B173C] shadow-[0_4px_12px_rgba(18,9,31,0.5),inset_0_1px_1px_rgba(255,215,106,0.3)] ring-1 ring-[#E7B743]'
+                    ? 'guru-selector-selected bg-[#2B173C] shadow-[0_4px_12px_rgba(18,9,31,0.5),inset_0_1px_1px_rgba(255,215,106,0.3)] ring-1 ring-[#E7B743]'
                     : 'hover:bg-[#352044] hover:border-[#A87B2A]/30 opacity-80 hover:opacity-100'
                 }`}
                 title={`${guru.name} · ${guru.title}`}

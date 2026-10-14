@@ -91,7 +91,7 @@ export const CelestialRainBackground: React.FC<CelestialRainBackgroundProps> = (
       className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
     >
       {/* 1. Deep Midnight & Warm-Black Base Canvas */}
-      <div className="absolute inset-0 bg-[#0c0d15]" />
+      <div className="absolute inset-0 bg-[#0c0d15] celestial-rain-canvas" />
 
       {/* 2. Soft Ambient Cosmic & Champagne Gold Radial Auras */}
       <div
@@ -150,7 +150,7 @@ export const CelestialRainBackground: React.FC<CelestialRainBackgroundProps> = (
       {/* 5. Readability Overlay Layer (Section: MESSAGE READABILITY) */}
       {/* Translucent warm/dark veil ensuring 100% crisp message contrast */}
       <div
-        className={`absolute inset-0 pointer-events-none transition-opacity duration-700 ${
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-700 celestial-rain-overlay ${
           isEmpty
             ? 'bg-gradient-to-b from-[#0c0d15]/55 via-[#0c0d15]/40 to-[#0c0d15]/65'
             : 'bg-gradient-to-b from-[#0c0d15]/85 via-[#0c0d15]/75 to-[#0c0d15]/90 backdrop-blur-[0.3px]'
@@ -158,8 +158,8 @@ export const CelestialRainBackground: React.FC<CelestialRainBackgroundProps> = (
       />
 
       {/* 6. Edge Dissolves (Ensures seamless boundary under header & above input) */}
-      <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-[#0c0d15] to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#0c0d15] to-transparent pointer-events-none" />
+      <div className="absolute top-0 inset-x-0 h-12 bg-gradient-to-b from-[#0c0d15] to-transparent pointer-events-none celestial-rain-edge-top" />
+      <div className="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#0c0d15] to-transparent pointer-events-none celestial-rain-edge-bottom" />
     </div>
   );
 };

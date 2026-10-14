@@ -99,7 +99,7 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
       onClick={() => onSelect(conversation)}
       className={`group relative flex items-start gap-2.5 px-3 py-2.5 rounded-xl border border-transparent transition-all duration-150 cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
         isActive
-          ? 'bg-[#2B173C] border-transparent shadow-[0_4px_16px_rgba(18,9,31,0.5),inset_0_1px_1px_rgba(255,215,106,0.2)] ring-1 ring-[#E7B743]/60'
+          ? 'chat-history-active bg-[#2B173C] border-transparent shadow-[0_4px_16px_rgba(18,9,31,0.5),inset_0_1px_1px_rgba(255,215,106,0.2)] ring-1 ring-[#E7B743]/60'
           : 'hover:bg-[#24133B] hover:border-[#A87B2A]/30 active:scale-[0.99]'
       }`}
     >

@@ -177,23 +177,25 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
     if (variant === 'filter' || variant === 'category') {
       if (isSelected) {
         return {
-          bg: isLight
-            ? 'linear-gradient(135deg, rgba(223, 183, 108, 0.95) 0%, rgba(196, 151, 70, 0.95) 100%)'
-            : 'linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%)',
+          bg: 'linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%)',
           border: '1px solid transparent',
-          text: 'text-[#12091F] font-bold',
+          text: 'text-[#180D2B] font-bold',
           glow: '0 4px 14px -1px rgba(231, 183, 67, 0.35), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 2px 0 rgba(168, 123, 42, 0.5)',
         };
       }
       return {
         bg: isLight
-          ? isHovered ? 'rgba(245, 238, 225, 0.98)' : 'rgba(255, 255, 255, 0.92)'
+          ? isHovered ? '#F1EBF8' : '#FFFFFF'
           : isHovered ? '#352044' : '#24133B',
-        border: isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
+        border: isLight
+          ? isHovered ? '1px solid #D7B45A' : '1px solid #E6DFEE'
+          : isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
         text: isLight
-          ? isHovered ? 'text-[#1f1b16]' : 'text-[#6b5f4f]'
+          ? isHovered ? 'text-[#24133B]' : 'text-[#514263]'
           : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-        glow: isHovered
+        glow: isLight
+          ? '0 2px 6px rgba(36, 19, 59, 0.05)'
+          : isHovered
           ? '0 4px 12px -2px rgba(18, 9, 31, 0.5), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08)'
           : '0 2px 8px -1px rgba(18, 9, 31, 0.35), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04)',
       };
@@ -201,10 +203,18 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
 
     if (variant === 'gemstone') {
       return {
-        bg: isHovered ? '#352044' : '#2B173C',
-        border: isHovered ? '1px solid rgba(168, 123, 42, 0.4)' : '1px solid transparent',
-        text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-        glow: isHovered
+        bg: isLight
+          ? isHovered ? '#F1EBF8' : '#FFFFFF'
+          : isHovered ? '#352044' : '#2B173C',
+        border: isLight
+          ? isHovered ? '1px solid #D7B45A' : '1px solid #E6DFEE'
+          : isHovered ? '1px solid rgba(168, 123, 42, 0.4)' : '1px solid transparent',
+        text: isLight
+          ? isHovered ? 'text-[#24133B]' : 'text-[#514263]'
+          : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+        glow: isLight
+          ? '0 2px 6px rgba(36, 19, 59, 0.06)'
+          : isHovered
           ? '0 6px 16px -2px rgba(18, 9, 31, 0.55), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08)'
           : '0 3px 10px -2px rgba(18, 9, 31, 0.4), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04)',
       };
@@ -214,24 +224,24 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
       if (isCompleted) {
         return {
           bg: 'rgba(0, 214, 160, 0.15)',
-          border: '1px solid rgba(0, 214, 160, 0.3)',
+          border: '1px solid rgba(0, 214, 160, 0.35)',
           text: 'text-[#00D6A0] font-semibold',
-          glow: '0 2px 8px rgba(0, 214, 160, 0.2), inset 0 1px 1px rgba(0, 214, 160, 0.2)',
+          glow: '0 2px 8px rgba(0, 214, 160, 0.2)',
         };
       }
       if (isInProgress) {
         return {
-          bg: 'rgba(231, 183, 67, 0.15)',
-          border: '1px solid rgba(231, 183, 67, 0.35)',
-          text: 'text-[#E7B743] font-bold',
-          glow: '0 2px 8px rgba(231, 183, 67, 0.25), inset 0 1px 1px rgba(231, 183, 67, 0.2)',
+          bg: isLight ? 'rgba(231, 183, 67, 0.18)' : 'rgba(231, 183, 67, 0.15)',
+          border: '1px solid #D7B45A',
+          text: isLight ? 'text-[#A87B2A] font-bold' : 'text-[#E7B743] font-bold',
+          glow: '0 2px 8px rgba(231, 183, 67, 0.25)',
         };
       }
       return {
-        bg: '#2B173C',
-        border: '1px solid transparent',
-        text: 'text-[#9685AE]',
-        glow: '0 2px 6px rgba(18, 9, 31, 0.3)',
+        bg: isLight ? '#F7F3FB' : '#2B173C',
+        border: isLight ? '1px solid #E6DFEE' : '1px solid transparent',
+        text: isLight ? 'text-[#756887]' : 'text-[#9685AE]',
+        glow: '0 2px 6px rgba(18, 9, 31, 0.08)',
       };
     }
 
@@ -240,7 +250,7 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
         return {
           bg: '#00D6A0',
           border: '1px solid transparent',
-          text: 'text-[#12091F] font-bold',
+          text: 'text-[#180D2B] font-bold',
           glow: '0 4px 14px rgba(0, 214, 160, 0.4), inset 0 1px 1.5px rgba(255, 255, 255, 0.6)',
         };
       }
@@ -248,15 +258,23 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
         return {
           bg: '#FFD76A',
           border: '1px solid transparent',
-          text: 'text-[#12091F] font-bold',
+          text: 'text-[#180D2B] font-bold',
           glow: '0 6px 18px rgba(255, 215, 106, 0.5), inset 0 1px 1.5px rgba(255, 255, 255, 0.8)',
         };
       }
       return {
-        bg: isHovered ? '#352044' : '#24133B',
-        border: isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
-        text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-        glow: isHovered
+        bg: isLight
+          ? isHovered ? '#F1EBF8' : '#FFFFFF'
+          : isHovered ? '#352044' : '#24133B',
+        border: isLight
+          ? isHovered ? '1px solid #D7B45A' : '1px solid #E6DFEE'
+          : isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
+        text: isLight
+          ? isHovered ? 'text-[#24133B]' : 'text-[#514263]'
+          : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+        glow: isLight
+          ? '0 2px 6px rgba(36, 19, 59, 0.05)'
+          : isHovered
           ? '0 4px 14px -2px rgba(18, 9, 31, 0.5), inset 0 1px 1px rgba(247, 240, 255, 0.08)'
           : '0 2px 8px -1px rgba(18, 9, 31, 0.35), inset 0 1px 1px rgba(247, 240, 255, 0.04)',
       };
@@ -267,16 +285,24 @@ export const CelestialPill: React.FC<CelestialPillProps> = ({
       return {
         bg: 'linear-gradient(135deg, #FFD76A 0%, #E7B743 60%, #A87B2A 100%)',
         border: '1px solid transparent',
-        text: 'text-[#12091F] font-bold',
+        text: 'text-[#180D2B] font-bold',
         glow: '0 4px 14px -1px rgba(231, 183, 67, 0.35), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 2px 0 rgba(168, 123, 42, 0.5)',
       };
     }
 
     return {
-      bg: isHovered ? '#352044' : '#24133B',
-      border: isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
-      text: isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
-      glow: isHovered
+      bg: isLight
+        ? isHovered ? '#F1EBF8' : '#F7F3FB'
+        : isHovered ? '#352044' : '#24133B',
+      border: isLight
+        ? isHovered ? '1px solid #D7B45A' : '1px solid #E6DFEE'
+        : isHovered ? '1px solid rgba(168, 123, 42, 0.35)' : '1px solid transparent',
+      text: isLight
+        ? isHovered ? 'text-[#24133B]' : 'text-[#514263]'
+        : isHovered ? 'text-[#F7F0FF]' : 'text-[#C5B8D9]',
+      glow: isLight
+        ? '0 1px 4px rgba(36, 19, 59, 0.05)'
+        : isHovered
         ? '0 4px 12px -2px rgba(18, 9, 31, 0.5), inset 0 1px 1px 0 rgba(247, 240, 255, 0.08)'
         : '0 2px 8px -1px rgba(18, 9, 31, 0.35), inset 0 1px 1px 0 rgba(247, 240, 255, 0.04)',
     };

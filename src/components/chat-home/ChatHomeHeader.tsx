@@ -1,5 +1,6 @@
 import React from 'react';
-import { Search, Sparkles, MoreVertical, Plus } from 'lucide-react';
+import { Search, Sparkles, MoreVertical, Plus, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 interface ChatHomeHeaderProps {
   onOpenSearch: () => void;
@@ -16,6 +17,7 @@ export const ChatHomeHeader: React.FC<ChatHomeHeaderProps> = ({
   unreadCountTotal,
   onOpenProfile,
 }) => {
+  const { theme, toggleTheme } = useTheme();
   return (
     <div className="w-full bg-[#24133B] border-b border-[#453052]/20 px-4 py-3 flex items-center justify-between select-none">
       {/* Brand Title with Celestial Symbol */}
@@ -56,6 +58,15 @@ export const ChatHomeHeader: React.FC<ChatHomeHeaderProps> = ({
           title="Start new consultation"
         >
           <Plus className="w-5 h-5" />
+        </button>
+
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-xl text-[#C5B8D9] hover:text-[#E7B743] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
+          title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+          aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+        >
+          {theme === 'light' ? <Moon className="w-4 h-4 text-[#24133B]" /> : <Sun className="w-4 h-4 text-[#E7B743]" />}
         </button>
 
         <button

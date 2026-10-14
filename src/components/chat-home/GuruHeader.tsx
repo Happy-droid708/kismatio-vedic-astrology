@@ -12,8 +12,11 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Info,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { CelestialPill } from '../ui/CelestialPill';
+import { useTheme } from '../../context/ThemeContext';
 
 interface GuruHeaderProps {
   guru: MaharajGuru;
@@ -54,6 +57,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
   isStructuredWorkspaceOpen,
   onOpenProfile,
 }) => {
+  const { theme, toggleTheme } = useTheme();
   const formatTime = (secs: number) => {
     const mins = Math.floor(secs / 60);
     const s = secs % 60;
@@ -247,6 +251,17 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
             <span className="tabular-nums">{formatTime(remainingSeconds)}</span>
             {!isMobile && <span className="text-[#9685AE] font-normal"> · Top-Up</span>}
           </CelestialPill>
+
+          {/* Theme Toggle Button */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#E7B743] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[32px] min-w-[32px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center shrink-0"
+            title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+          >
+            {theme === 'light' ? <Moon className="w-4 h-4 text-[#24133B]" /> : <Sun className="w-4 h-4 text-[#E7B743]" />}
+          </button>
 
           {/* 3-dots Menu */}
           <button

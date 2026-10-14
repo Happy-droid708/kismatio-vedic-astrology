@@ -43,38 +43,49 @@
     color-scheme: dark;
   }
 
-  [data-theme="light"] {
-    /* Theme tokens - Warm Celestial Light Mode (Warm Ivory, Sandalwood & Luminous Gold) */
-    --bg-app: #f8f5ee;
-    --bg-surface: #f1ecdf;
-    --bg-card: rgba(255, 255, 255, 0.92);
-    --bg-card-solid: #ffffff;
-    --bg-card-hover: #f5eee0;
-    --bg-elevated: #ece3d2;
-    --bg-input: #fcfbfa;
-    --border-subtle: rgba(180, 135, 50, 0.2);
-    --border-card: rgba(180, 135, 50, 0.22);
-    --border-gold: rgba(180, 135, 50, 0.38);
-    --border-strong: rgba(160, 115, 30, 0.55);
-    --text-primary: #1f1b16;
-    --text-title: #2a2014;
-    --text-secondary: #574d3f;
-    --text-muted: #877967;
-    --gold-primary: #9d7224;
-    --gold-secondary: #805814;
-    --gold-accent: #b4842b;
-    --nav-bg: rgba(247, 243, 235, 0.96);
-    --scrollbar-track: transparent;
-    --scrollbar-thumb: transparent;
-    --scrollbar-thumb-hover-area: transparent;
-    --scrollbar-thumb-hover: transparent;
-    --scrollbar-thumb-active: transparent;
-    --bubble-astro-bg: #ffffff;
-    --bubble-astro-border: rgba(180, 135, 50, 0.28);
-    --bubble-astro-text: #1f1b16;
-    --bubble-user-bg: linear-gradient(135deg, rgba(235, 215, 175, 0.55) 0%, rgba(225, 200, 150, 0.4) 100%);
-    --bubble-user-border: rgba(180, 135, 50, 0.35);
-    --bubble-user-text: #1f1b16;
+  [data-theme="light"],
+  .light {
+    /* Official Kismatio Brand Light Mode Tokens */
+    --bg-app: #FCFAFE;
+    --bg-surface: #FFFFFF;
+    --bg-surface-secondary: #F7F3FB;
+    --bg-card: #FFFFFF;
+    --bg-card-solid: #FFFFFF;
+    --bg-card-hover: #F1EBF8;
+    --bg-elevated: #FFFFFF;
+    --bg-input: #FFFFFF;
+    --bg-chat-workspace: #F8F5FC;
+    --bg-hover: #F1EBF8;
+    --bg-selected: #F5EDDA;
+    --bg-subtle-purple: #EEE7F6;
+    --bg-modal: #FFFFFF;
+    --bg-disabled: #F3EFF7;
+
+    --border-subtle: #E6DFEE;
+    --border-standard: #E6DFEE;
+    --border-card: #E6DFEE;
+    --border-gold: #D7B45A;
+    --border-strong: #D6CBDF;
+
+    --text-primary: #24133B;
+    --text-title: #24133B;
+    --text-secondary: #514263;
+    --text-muted: #756887;
+
+    --gold-primary: #E7B743;
+    --gold-secondary: #A87B2A;
+    --gold-accent: #FFD76A;
+
+    --nav-bg: #FFFFFF;
+    --bubble-astro-bg: #FFFFFF;
+    --bubble-astro-border: #E6DFEE;
+    --bubble-astro-text: #24133B;
+    --bubble-user-bg: #EEE7F6;
+    --bubble-user-border: #D6CBDF;
+    --bubble-user-text: #24133B;
+
+    --success-green: #00D6A0;
+    --hover-bg: #F1EBF8;
     color-scheme: light;
   }
 
@@ -1468,5 +1479,392 @@ body,
   border: 1px solid transparent;
   box-shadow: 0 16px 36px -6px rgba(18, 9, 31, 0.8), 0 6px 14px -3px rgba(18, 9, 31, 0.5), inset 0 1px 1.5px 0 rgba(247, 240, 255, 0.07), inset 0 -1px 2px 0 rgba(18, 9, 31, 0.45);
 }
+
+/* ========================================================================= */
+/* KISMATIO PRODUCTION-GRADE LIGHT MODE SYSTEM RULES                        */
+/* Seamlessly themes application surfaces, text, borders, cards, and chats   */
+/* without breaking Dark Mode or touching image assets.                      */
+/* ========================================================================= */
+
+[data-theme="light"],
+.light {
+  background-color: #FCFAFE !important;
+  color: #24133B !important;
+}
+
+[data-theme="light"] body,
+.light body {
+  background-color: #FCFAFE !important;
+  color: #24133B !important;
+}
+
+/* 1. Global Application Shells & Backgrounds */
+[data-theme="light"] .bg-\[\#12091F\],
+[data-theme="light"] .bg-\[\#180D2B\],
+[data-theme="light"] .bg-\[\#0c0d15\],
+[data-theme="light"] .bg-\[\#0b0c10\],
+[data-theme="light"] .bg-\[\#0b0c14\],
+.light .bg-\[\#12091F\],
+.light .bg-\[\#180D2B\],
+.light .bg-\[\#0c0d15\],
+.light .bg-\[\#0b0c10\],
+.light .bg-\[\#0b0c14\] {
+  background-color: #FCFAFE !important;
+}
+
+/* 2. Primary Header, Navigation, Toolbars, Sidebars & Surfaces */
+[data-theme="light"] .bg-\[\#24133B\],
+[data-theme="light"] .bg-\[\#180C2A\],
+[data-theme="light"] .bg-\[\#0e1019\],
+[data-theme="light"] [class*="bg-[#24133B]"],
+[data-theme="light"] [class*="bg-[#180B28]"],
+[data-theme="light"] [class*="bg-[#0e1019]"],
+.light .bg-\[\#24133B\],
+.light .bg-\[\#180C2A\],
+.light .bg-\[\#0e1019\],
+.light [class*="bg-[#24133B]"],
+.light [class*="bg-[#180B28]"],
+.light [class*="bg-[#0e1019]"] {
+  background-color: #FFFFFF !important;
+}
+
+/* 3. Elevated Cards & Panels */
+[data-theme="light"] .bg-\[\#2B173C\],
+[data-theme="light"] [class*="bg-[#2B173C]"],
+[data-theme="light"] .bg-\[\#121524\],
+[data-theme="light"] .bg-\[\#161D3A\],
+[data-theme="light"] .bg-\[\#1F1033\],
+[data-theme="light"] [class*="bg-[#1F1033]"],
+[data-theme="light"] .bg-\[\#1C0E2E\],
+[data-theme="light"] [class*="bg-[#1C0E2E]"],
+[data-theme="light"] .bg-\[\#211136\],
+[data-theme="light"] .bg-\[\#1F1035\],
+[data-theme="light"] .bg-\[\#251037\],
+[data-theme="light"] .bg-\[\#17213D\],
+[data-theme="light"] .bg-\[\#1E294B\],
+[data-theme="light"] .bg-\[\#1A0B2C\],
+[data-theme="light"] .bg-\[\#26133C\],
+[data-theme="light"] .bg-\[\#26123D\],
+.light .bg-\[\#2B173C\],
+.light [class*="bg-[#2B173C]"],
+.light .bg-\[\#121524\],
+.light .bg-\[\#161D3A\],
+.light .bg-\[\#1F1033\],
+.light [class*="bg-[#1F1033]"],
+.light .bg-\[\#1C0E2E\],
+.light [class*="bg-[#1C0E2E]"],
+.light .bg-\[\#211136\],
+.light .bg-\[\#1F1035\],
+.light .bg-\[\#251037\],
+.light .bg-\[\#17213D\],
+.light .bg-\[\#1E294B\],
+.light .bg-\[\#1A0B2C\],
+.light .bg-\[\#26133C\],
+.light .bg-\[\#26123D\] {
+  background-color: #FFFFFF !important;
+}
+
+/* 4. Hover & Interactive Subtle Surfaces */
+[data-theme="light"] .bg-\[\#352044\],
+[data-theme="light"] .bg-\[\#2D1644\],
+[data-theme="light"] .bg-\[\#341B50\],
+[data-theme="light"] .bg-\[\#2A1645\],
+[data-theme="light"] .bg-\[\#2E1848\],
+[data-theme="light"] .hover\:bg-\[\#352044\]:hover,
+[data-theme="light"] .hover\:bg-\[\#24133B\]:hover,
+[data-theme="light"] .hover\:bg-\[\#341852\]:hover,
+[data-theme="light"] .hover\:bg-\[\#25133B\]:hover,
+[data-theme="light"] .hover\:bg-\[\#3D1E5C\]:hover,
+.light .bg-\[\#352044\],
+.light .bg-\[\#2D1644\],
+.light .bg-\[\#341B50\],
+.light .bg-\[\#2A1645\],
+.light .bg-\[\#2E1848\],
+.light .hover\:bg-\[\#352044\]:hover,
+.light .hover\:bg-\[\#24133B\]:hover,
+.light .hover\:bg-\[\#341852\]:hover,
+.light .hover\:bg-\[\#25133B\]:hover,
+.light .hover\:bg-\[\#3D1E5C\]:hover {
+  background-color: #F1EBF8 !important;
+}
+
+/* 4b. Selected Surfaces */
+[data-theme="light"] .conversation-row-active,
+.light .conversation-row-active,
+[data-theme="light"] .chat-history-active,
+.light .chat-history-active,
+[data-theme="light"] .guru-selector-selected,
+.light .guru-selector-selected {
+  background-color: #F5EDDA !important;
+  border-color: rgba(215, 180, 90, 0.45) !important;
+  color: #24133B !important;
+}
+
+/* 5. Chat Bubbles */
+[data-theme="light"] .celestial-message-entry .bg-\[\#352044\],
+.light .celestial-message-entry .bg-\[\#352044\] {
+  background-color: #EEE7F6 !important;
+  color: #24133B !important;
+  border-color: #D6CBDF !important;
+}
+
+[data-theme="light"] .celestial-message-entry .bg-\[\#2B173C\],
+.light .celestial-message-entry .bg-\[\#2B173C\] {
+  background-color: #FFFFFF !important;
+  color: #24133B !important;
+  border-color: #E6DFEE !important;
+  box-shadow: 0 4px 16px -2px rgba(36, 19, 59, 0.08) !important;
+}
+
+/* 6. Primary Headings & High-Contrast Titles */
+[data-theme="light"] .text-\[\#F7F0FF\],
+[data-theme="light"] .text-\[\#ede8dc\],
+[data-theme="light"] .text-\[\#fcedc5\],
+[data-theme="light"] .text-\[\#FFF2D8\],
+[data-theme="light"] .text-\[\#E2D9F3\],
+.light .text-\[\#F7F0FF\],
+.light .text-\[\#ede8dc\],
+.light .text-\[\#fcedc5\],
+.light .text-\[\#FFF2D8\],
+.light .text-\[\#E2D9F3\] {
+  color: #24133B !important;
+}
+
+/* 7. Secondary Information & Descriptions */
+[data-theme="light"] .text-\[\#C5B8D9\],
+[data-theme="light"] .text-\[\#9a9385\],
+[data-theme="light"] .text-\[\#94A3B8\],
+[data-theme="light"] .text-\[\#CBD5E1\],
+.light .text-\[\#C5B8D9\],
+.light .text-\[\#9a9385\],
+.light .text-\[\#94A3B8\],
+.light .text-\[\#CBD5E1\] {
+  color: #514263 !important;
+}
+
+/* 8. Muted Metadata & Microcopy */
+[data-theme="light"] .text-\[\#9685AE\],
+[data-theme="light"] .text-\[\#8e8779\],
+[data-theme="light"] .text-\[\#7A6B8E\],
+[data-theme="light"] .text-\[\#877967\],
+[data-theme="light"] .text-\[\#8E7EAA\],
+.light .text-\[\#9685AE\],
+.light .text-\[\#8e8779\],
+.light .text-\[\#7A6B8E\],
+.light .text-\[\#877967\],
+.light .text-\[\#8E7EAA\] {
+  color: #756887 !important;
+}
+
+/* 9. Standard Borders */
+[data-theme="light"] [class*="border-[#453052]"],
+[data-theme="light"] [class*="border-[#3D2554]"],
+[data-theme="light"] [class*="border-[#482868]"],
+[data-theme="light"] [class*="border-[#52297A]"],
+[data-theme="light"] [class*="border-[#3B1F58]"],
+[data-theme="light"] [class*="border-[#23293f]"],
+[data-theme="light"] [class*="border-[#272d42]"],
+[data-theme="light"] [class*="border-[#3E1F5A]"],
+[data-theme="light"] [class*="border-[#442266]"],
+[data-theme="light"] [class*="border-[#2B3968]"],
+[data-theme="light"] [class*="border-[#232F54]"],
+[data-theme="light"] [class*="border-[#592E82]"],
+[data-theme="light"] [class*="border-[#462366]"],
+[data-theme="light"] [class*="border-[#dfb76c]/15"],
+[data-theme="light"] [class*="border-[#dfb76c]/20"],
+[data-theme="light"] [class*="border-[#dfb76c]/30"],
+.light [class*="border-[#453052]"],
+.light [class*="border-[#3D2554]"],
+.light [class*="border-[#482868]"],
+.light [class*="border-[#52297A]"],
+.light [class*="border-[#3B1F58]"],
+.light [class*="border-[#23293f]"],
+.light [class*="border-[#272d42]"],
+.light [class*="border-[#3E1F5A]"],
+.light [class*="border-[#442266]"],
+.light [class*="border-[#2B3968]"],
+.light [class*="border-[#232F54]"],
+.light [class*="border-[#592E82]"],
+.light [class*="border-[#462366]"],
+.light [class*="border-[#dfb76c]/15"],
+.light [class*="border-[#dfb76c]/20"],
+.light [class*="border-[#dfb76c]/30"] {
+  border-color: #E6DFEE !important;
+}
+
+/* 10. Dividers */
+[data-theme="light"] [class*="divide-[#453052]"] > * + *,
+[data-theme="light"] [class*="divide-[#3B1F58]"] > * + *,
+[data-theme="light"] [class*="divide-[#1b2034]"] > * + *,
+.light [class*="divide-[#453052]"] > * + *,
+.light [class*="divide-[#3B1F58]"] > * + *,
+.light [class*="divide-[#1b2034]"] > * + * {
+  border-color: #E6DFEE !important;
+}
+
+/* 11. Inputs, Textareas and Dropdowns in Light Mode */
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+[data-theme="light"] textarea,
+[data-theme="light"] select,
+.light input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.light textarea,
+.light select {
+  background-color: #FFFFFF !important;
+  color: #24133B !important;
+  border-color: #D6CBDF !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder,
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #756887 !important;
+}
+
+/* 12. Claymorphic Overrides for Light Mode */
+[data-theme="light"] .clay-surface,
+.light .clay-surface {
+  background-color: #FFFFFF !important;
+  border-color: #E6DFEE !important;
+  box-shadow: 0 4px 16px -2px rgba(36, 19, 59, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="light"] .clay-card,
+.light .clay-card {
+  background-color: #FFFFFF !important;
+  border-color: #E6DFEE !important;
+  box-shadow: 0 4px 16px -2px rgba(36, 19, 59, 0.06), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="light"] .clay-card:hover,
+.light .clay-card:hover {
+  background-color: #F1EBF8 !important;
+  border-color: #D7B45A !important;
+  box-shadow: 0 8px 24px -2px rgba(36, 19, 59, 0.1), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme="light"] .clay-button-secondary,
+.light .clay-button-secondary {
+  background-color: #FFFFFF !important;
+  color: #24133B !important;
+  border-color: #D6CBDF !important;
+  box-shadow: 0 2px 8px -1px rgba(36, 19, 59, 0.06) !important;
+}
+
+[data-theme="light"] .clay-button-secondary:hover:not(:disabled),
+.light .clay-button-secondary:hover:not(:disabled) {
+  background-color: #F1EBF8 !important;
+  color: #24133B !important;
+  border-color: #A87B2A !important;
+}
+
+[data-theme="light"] .clay-pill,
+.light .clay-pill {
+  background-color: #F7F3FB !important;
+  color: #514263 !important;
+  border-color: #E6DFEE !important;
+  box-shadow: 0 1px 4px rgba(36, 19, 59, 0.04) !important;
+}
+
+[data-theme="light"] .clay-pill:hover,
+.light .clay-pill:hover {
+  background-color: #F1EBF8 !important;
+  color: #24133B !important;
+  border-color: #D7B45A !important;
+}
+
+[data-theme="light"] .clay-input,
+.light .clay-input {
+  background-color: #FFFFFF !important;
+  color: #24133B !important;
+  border-color: #D6CBDF !important;
+  box-shadow: inset 0 1px 3px 0 rgba(36, 19, 59, 0.06) !important;
+}
+
+[data-theme="light"] .clay-input:focus,
+.light .clay-input:focus {
+  border-color: #E7B743 !important;
+  box-shadow: inset 0 1px 2px 0 rgba(36, 19, 59, 0.04), 0 0 0 2px rgba(231, 183, 67, 0.25) !important;
+}
+
+[data-theme="light"] .clay-float,
+.light .clay-float {
+  background-color: #FFFFFF !important;
+  border-color: #E6DFEE !important;
+  box-shadow: 0 16px 36px -6px rgba(36, 19, 59, 0.12), 0 6px 14px -3px rgba(36, 19, 59, 0.08) !important;
+}
+
+/* 13. Guru Background & Celestial Rain Overrides */
+[data-theme="light"] .guru-background-canvas,
+.light .guru-background-canvas {
+  background-color: #F8F5FC !important;
+}
+
+[data-theme="light"] .guru-readability-overlay,
+.light .guru-readability-overlay {
+  background: linear-gradient(180deg, rgba(248, 245, 252, 0.82) 0%, rgba(252, 250, 254, 0.78) 50%, rgba(248, 245, 252, 0.88) 100%) !important;
+}
+
+[data-theme="light"] .guru-edge-dissolve-top,
+.light .guru-edge-dissolve-top {
+  background: linear-gradient(to bottom, #FCFAFE, transparent) !important;
+}
+
+[data-theme="light"] .guru-edge-dissolve-bottom,
+.light .guru-edge-dissolve-bottom {
+  background: linear-gradient(to top, #FCFAFE, transparent) !important;
+}
+
+[data-theme="light"] .celestial-rain-canvas,
+.light .celestial-rain-canvas {
+  background-color: #FCFAFE !important;
+}
+
+[data-theme="light"] .celestial-rain-overlay,
+.light .celestial-rain-overlay {
+  background: linear-gradient(180deg, rgba(252, 250, 254, 0.85) 0%, rgba(248, 245, 252, 0.75) 50%, rgba(252, 250, 254, 0.9) 100%) !important;
+}
+
+[data-theme="light"] .celestial-rain-edge-top,
+.light .celestial-rain-edge-top {
+  background: linear-gradient(to bottom, #FCFAFE, transparent) !important;
+}
+
+[data-theme="light"] .celestial-rain-edge-bottom,
+.light .celestial-rain-edge-bottom {
+  background: linear-gradient(to top, #FCFAFE, transparent) !important;
+}
+
+/* 14. Modals & Dialog Backdrop */
+[data-theme="light"] .fixed.inset-0.bg-\[\#12091F\]\/70,
+[data-theme="light"] .fixed.inset-0.bg-\[\#12091F\]\/80,
+[data-theme="light"] .fixed.inset-0.bg-black\/75,
+[data-theme="light"] .fixed.inset-0.bg-black\/60,
+.light .fixed.inset-0.bg-\[\#12091F\]\/70,
+.light .fixed.inset-0.bg-\[\#12091F\]\/80,
+.light .fixed.inset-0.bg-black\/75,
+.light .fixed.inset-0.bg-black\/60 {
+  background-color: rgba(24, 13, 43, 0.45) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* 15. Strict Accessibility: Text on Gold Buttons Must Always Be Dark Brand Color */
+.clay-button-primary,
+button.bg-gradient-to-r.from-\[\#E7B743\],
+[data-theme="light"] .clay-button-primary,
+[data-theme="light"] button.bg-gradient-to-r.from-\[\#E7B743\],
+.light .clay-button-primary,
+.light button.bg-gradient-to-r.from-\[\#E7B743\] {
+  color: #180D2B !important;
+}
+
+/* 16. Protect Images, SVGs and Artwork from Unwanted Color Changes */
+img,
+video,
+canvas,
+picture {
+  filter: none !important;
+}
+
 
 

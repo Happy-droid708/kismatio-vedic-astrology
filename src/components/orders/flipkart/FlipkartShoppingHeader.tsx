@@ -6,7 +6,10 @@ import {
   Sparkles,
   PackageCheck,
   X,
+  Sun,
+  Moon,
 } from 'lucide-react';
+import { useTheme } from '../../../context/ThemeContext';
 
 interface FlipkartShoppingHeaderProps {
   searchQuery: string;
@@ -27,6 +30,7 @@ export const FlipkartShoppingHeader: React.FC<FlipkartShoppingHeaderProps> = ({
   onOpenFilter,
   isFilterActive = false,
 }) => {
+  const { theme, toggleTheme } = useTheme();
   return (
     <header className="sticky top-0 z-30 w-full bg-[#180B28]/95 backdrop-blur-md border-b border-[#3E1F5A]/50 px-2 sm:px-6 py-2.5 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
@@ -94,6 +98,17 @@ export const FlipkartShoppingHeader: React.FC<FlipkartShoppingHeaderProps> = ({
           >
             <PackageCheck className="w-4 h-4 text-[#A78BFA]" />
             <span className="hidden md:inline">Orders</span>
+          </button>
+
+          {/* Theme Toggle Button */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            className="p-2 rounded-xl bg-[#26123D] border border-[#482868]/50 text-[#C5B8D9] hover:text-[#E7B743] hover:bg-[#341852] text-xs font-semibold flex items-center justify-center transition-colors cursor-pointer"
+          >
+            {theme === 'light' ? <Moon className="w-4 h-4 text-[#24133B]" /> : <Sun className="w-4 h-4 text-[#E7B743]" />}
           </button>
 
           {/* Cart Button */}

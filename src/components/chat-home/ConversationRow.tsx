@@ -84,7 +84,7 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
       onMouseLeave={() => setShowQuickActions(false)}
       className={`group relative w-full px-4 py-3 flex items-center gap-3 border-b border-[#453052]/20 transition-all duration-150 cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
         isSelected
-          ? 'bg-[#2B173C] border-l-2 border-l-[#E7B743] shadow-[inset_0_1px_1px_rgba(247,240,255,0.06),inset_0_-1px_1px_rgba(18,9,31,0.3)]'
+          ? 'conversation-row-active bg-[#2B173C] border-l-2 border-l-[#E7B743] shadow-[inset_0_1px_1px_rgba(247,240,255,0.06),inset_0_-1px_1px_rgba(18,9,31,0.3)]'
           : 'bg-[#180D2B] hover:bg-[#352044] hover:shadow-[0_2px_8px_rgba(18,9,31,0.3)] active:scale-[0.995]'
       }`}
     >

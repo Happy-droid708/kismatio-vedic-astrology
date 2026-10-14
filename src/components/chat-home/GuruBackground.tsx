@@ -279,7 +279,7 @@ export const GuruBackground: React.FC<GuruBackgroundProps> = ({
       className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
     >
       {/* 1. Base Canvas color */}
-      <div className={`absolute inset-0 ${themeStyles.baseBg} transition-colors duration-500`} />
+      <div className={`absolute inset-0 ${themeStyles.baseBg} guru-background-canvas transition-colors duration-500`} />
 
       {/* 2. Primary & Secondary Ambient Glowing Auras */}
       <div
@@ -330,7 +330,7 @@ export const GuruBackground: React.FC<GuruBackgroundProps> = ({
 
       {/* 6. Message Readability Overlay (Strictly ensures AAA contrast) */}
       <div
-        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 guru-readability-overlay ${
           isEmpty
             ? 'bg-gradient-to-b from-[#12091F]/55 via-[#180D2B]/40 to-[#12091F]/65'
             : 'bg-gradient-to-b from-[#12091F]/85 via-[#180D2B]/78 to-[#12091F]/90 backdrop-blur-[0.5px]'
@@ -338,8 +338,8 @@ export const GuruBackground: React.FC<GuruBackgroundProps> = ({
       />
 
       {/* 7. Edge Dissolves under Header and above Input */}
-      <div className="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#12091F] to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#12091F] to-transparent pointer-events-none" />
+      <div className="absolute top-0 inset-x-0 h-14 bg-gradient-to-b from-[#12091F] to-transparent pointer-events-none guru-edge-dissolve-top" />
+      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#12091F] to-transparent pointer-events-none guru-edge-dissolve-bottom" />
     </div>
   );
 };
