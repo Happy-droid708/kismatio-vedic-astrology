@@ -21,7 +21,7 @@ interface GuruDiscoveryViewProps {
   onSelectGuru: (guru: MaharajGuru) => void;
   recentConversations?: ConversationThread[];
   onSelectRecentConversation?: (conv: ConversationThread) => void;
-  onOpenProfile?: () => void;
+  onOpenProfile?: (guru: MaharajGuru) => void;
   liveRemainingSeconds?: number;
 }
 
@@ -29,6 +29,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
   onSelectGuru,
   recentConversations = [],
   onSelectRecentConversation,
+  onOpenProfile,
   liveRemainingSeconds = 522,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -131,19 +132,28 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
             <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#E7B743]/10 blur-3xl pointer-events-none group-hover:scale-125 transition-transform" />
 
             <div className="flex items-start sm:items-center gap-4 relative z-10">
-              <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl p-1 bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] shadow-lg shrink-0 flex items-center justify-center overflow-hidden">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onOpenProfile) onOpenProfile(flagshipGuru);
+                  else onSelectGuru(flagshipGuru);
+                }}
+                className="w-16 h-16 sm:w-18 sm:h-18 rounded-2xl p-1 bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] shadow-lg shrink-0 flex items-center justify-center overflow-hidden cursor-pointer group/avatar text-left border-0"
+                title={`View ${flagshipGuru.name}'s Profile`}
+              >
                 <div className="w-full h-full rounded-[14px] bg-[#180D2B] flex items-center justify-center text-3xl sm:text-4xl overflow-hidden">
                   {flagshipGuru.avatarUrl ? (
                     <img
                       src={flagshipGuru.avatarUrl}
                       alt={flagshipGuru.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/avatar:scale-110"
                     />
                   ) : (
                     flagshipGuru.symbol
                   )}
                 </div>
-              </div>
+              </button>
 
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -154,25 +164,50 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
                     ★ {flagshipGuru.rating} · {flagshipGuru.experienceYears} Years Mastery
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-serif-luxury font-bold text-[#F7F0FF] group-hover:text-[#E7B743] transition-colors mt-1">
-                  {flagshipGuru.name} — {flagshipGuru.title}
-                </h3>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onOpenProfile) onOpenProfile(flagshipGuru);
+                    else onSelectGuru(flagshipGuru);
+                  }}
+                  className="text-left p-0 bg-transparent border-0 cursor-pointer block"
+                  title={`View ${flagshipGuru.name}'s Profile`}
+                >
+                  <h3 className="text-lg sm:text-xl font-serif-luxury font-bold text-[#F7F0FF] group-hover:text-[#E7B743] transition-colors mt-1">
+                    {flagshipGuru.name} — {flagshipGuru.title}
+                  </h3>
+                </button>
                 <p className="text-xs text-[#C5B8D9] max-w-xl mt-1 leading-relaxed">
                   {flagshipGuru.shortDescription}
                 </p>
               </div>
             </div>
 
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onSelectGuru(flagshipGuru);
-              }}
-              className="clay-button-primary px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 shrink-0 cursor-pointer self-stretch sm:self-auto justify-center"
-            >
-              <span>Begin Flagship Reading</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            <div className="flex items-center gap-2 self-stretch sm:self-auto shrink-0">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onOpenProfile) onOpenProfile(flagshipGuru);
+                  else onSelectGuru(flagshipGuru);
+                }}
+                className="clay-button-secondary px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
+                title={`View ${flagshipGuru.name}'s Profile`}
+              >
+                <span>View Profile</span>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSelectGuru(flagshipGuru);
+                }}
+                className="clay-button-primary px-5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>Begin Flagship Reading</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
         )}
 
@@ -256,6 +291,7 @@ export const GuruDiscoveryView: React.FC<GuruDiscoveryViewProps> = ({
                 key={guru.id}
                 guru={guru}
                 onOpenChat={onSelectGuru}
+                onOpenProfile={onOpenProfile}
                 isFlagshipFeatured={guru.badge === 'flagship'}
               />
             ))}

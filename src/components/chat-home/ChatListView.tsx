@@ -1,5 +1,6 @@
 import React from 'react';
 import { ConversationThread } from '../../types/astrology';
+import { MaharajGuru } from '../../data/maharajGurusData';
 import { ConversationRow } from './ConversationRow';
 import { Pin, Archive, MessageSquareOff } from 'lucide-react';
 
@@ -7,6 +8,7 @@ interface ChatListViewProps {
   conversations: ConversationThread[];
   selectedConversationId?: string;
   onSelectConversation: (conv: ConversationThread) => void;
+  onOpenProfile?: (guru: MaharajGuru) => void;
   onTogglePin: (convId: string, e: React.MouseEvent) => void;
   onToggleArchive: (convId: string, e: React.MouseEvent) => void;
   onToggleRead: (convId: string, e: React.MouseEvent) => void;
@@ -19,6 +21,7 @@ export const ChatListView: React.FC<ChatListViewProps> = ({
   conversations,
   selectedConversationId,
   onSelectConversation,
+  onOpenProfile,
   onTogglePin,
   onToggleArchive,
   onToggleRead,
@@ -72,6 +75,7 @@ export const ChatListView: React.FC<ChatListViewProps> = ({
               conversation={conv}
               isSelected={conv.id === selectedConversationId}
               onSelect={onSelectConversation}
+              onOpenProfile={onOpenProfile}
               onTogglePin={onTogglePin}
               onToggleArchive={onToggleArchive}
               onToggleRead={onToggleRead}
@@ -94,6 +98,7 @@ export const ChatListView: React.FC<ChatListViewProps> = ({
             conversation={conv}
             isSelected={conv.id === selectedConversationId}
             onSelect={onSelectConversation}
+            onOpenProfile={onOpenProfile}
             onTogglePin={onTogglePin}
             onToggleArchive={onToggleArchive}
             onToggleRead={onToggleRead}

@@ -34,10 +34,13 @@ export const getHistoryGroup = (
   return 'Older';
 };
 
+import { MaharajGuru } from '../../data/maharajGurusData';
+
 interface ChatHistoryListProps {
   conversations: ConversationThread[];
   activeConversationId: string | null;
   onSelectConversation: (conv: ConversationThread) => void;
+  onOpenProfile?: (guru: MaharajGuru) => void;
   onTogglePin?: (convId: string, e: React.MouseEvent) => void;
   onDelete?: (convId: string, e: React.MouseEvent) => void;
   onRename?: (convId: string, newTitle: string) => void;
@@ -49,6 +52,7 @@ export const ChatHistoryList: React.FC<ChatHistoryListProps> = ({
   conversations,
   activeConversationId,
   onSelectConversation,
+  onOpenProfile,
   onTogglePin,
   onDelete,
   onRename,
@@ -144,6 +148,7 @@ export const ChatHistoryList: React.FC<ChatHistoryListProps> = ({
                   conversation={conv}
                   isActive={activeConversationId === conv.id}
                   onSelect={onSelectConversation}
+                  onOpenProfile={onOpenProfile}
                   onTogglePin={onTogglePin}
                   onDelete={onDelete}
                   onRename={onRename}

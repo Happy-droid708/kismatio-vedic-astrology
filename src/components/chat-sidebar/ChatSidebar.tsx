@@ -20,6 +20,7 @@ interface ChatSidebarProps {
   activeGuru: MaharajGuru | null;
   onSelectConversation: (conv: ConversationThread) => void;
   onSelectGuru: (guru: MaharajGuru) => void;
+  onOpenProfile?: (guru: MaharajGuru) => void;
   onStartNewChat: () => void;
   onTogglePin?: (convId: string, e: React.MouseEvent) => void;
   onDeleteConversation?: (convId: string, e: React.MouseEvent) => void;
@@ -36,6 +37,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
   activeGuru,
   onSelectConversation,
   onSelectGuru,
+  onOpenProfile,
   onStartNewChat,
   onTogglePin,
   onDeleteConversation,
@@ -166,6 +168,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
           <GuruSelector
             activeGuru={activeGuru}
             onSelectGuru={onSelectGuru}
+            onOpenProfile={onOpenProfile}
             isCollapsed
           />
         </div>
@@ -295,6 +298,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         <GuruSelector
           activeGuru={activeGuru}
           onSelectGuru={handleGuruSelect}
+          onOpenProfile={onOpenProfile}
         />
       </div>
 
@@ -303,6 +307,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         conversations={filteredConversations}
         activeConversationId={activeConversationId}
         onSelectConversation={handleItemSelect}
+        onOpenProfile={onOpenProfile}
         onTogglePin={onTogglePin}
         onDelete={onDeleteConversation}
         onRename={onRenameConversation}

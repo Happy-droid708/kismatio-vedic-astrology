@@ -56,6 +56,12 @@ export interface MaharajGuru {
   location: string;
   bio: string;
   structuredData: GuruStructuredData;
+  aboutCopy: string;
+  personality: string;
+  approach: string;
+  expertise: string[];
+  sampleQuestions: string[];
+  disclaimer: string;
 }
 
 export const MAHARAJ_GURUS: MaharajGuru[] = [
@@ -107,6 +113,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'Astrological compatibility offers perspective on emotional dynamics and should be paired with mutual respect and honest dialogue.',
     },
+    aboutCopy: 'Adit helps you explore love, relationships, and emotional connections through thoughtful conversations and personalized astrological insights.',
+    personality: 'Warm, empathetic, approachable, emotionally intelligent, and reassuring.',
+    approach: 'Focuses on emotional communication, Venusian planetary harmony, and understanding relationship patterns without judgment.',
+    expertise: [
+      'Love & Relationships',
+      'Relationship Compatibility',
+      'Emotional Connection & Communication',
+      'Understanding Relationship Patterns',
+      'Shukra (Venus) Alignment',
+    ],
+    sampleQuestions: [
+      'Help me understand my relationship.',
+      'What should I consider before making a relationship decision?',
+      'Explain our compatibility through astrology.',
+      'How can I improve emotional communication with my partner?',
+    ],
+    disclaimer: 'Astrological compatibility offers perspective on emotional dynamics and should be paired with mutual respect and honest dialogue.',
   },
 
   // =========================================================================
@@ -116,7 +139,7 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     id: 'nupur',
     num: '02',
     name: 'Guru Nupur',
-    title: 'Preferred — Real-Time Timeline & Charts',
+    title: 'Timeline & Chart Specialist',
     specialization: 'Real-time astrological timelines, planetary movements, chart-based interpretation, and astrological period analysis.',
     shortDescription: 'Explore your astrological timeline through chart-based insights and planetary movements.',
     route: '/chats/nupur',
@@ -157,6 +180,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'Calculated using Lahiri (Chitra Paksha) Ayanamsha based on user birth coordinates. Placeholders reflect documented astrological periods.',
     },
+    aboutCopy: 'Guru Nupur specializes in structured astrological analysis, helping you explore planetary timelines, birth charts, and important periods through clear, organized interpretations.',
+    personality: 'Analytical, precise, organized, insightful, and methodical.',
+    approach: 'Focuses on chronological precision, planetary transits, and clear milestone mapping so seekers understand when cosmic windows open.',
+    expertise: [
+      'Birth Charts',
+      'Planetary Timelines',
+      'Transit Analysis (Gochara)',
+      'Astrological Periods (Dashas)',
+      'Auspicious Turning Points',
+    ],
+    sampleQuestions: [
+      'Help me understand my birth chart.',
+      'Explain my planetary timeline.',
+      'What does this astrological period traditionally represent?',
+      'When is the next major planetary transit affecting my career?',
+    ],
+    disclaimer: 'Calculated using Lahiri (Chitra Paksha) Ayanamsha based on user birth coordinates. Transits reflect documented astrological cycles.',
   },
 
   // =========================================================================
@@ -207,6 +247,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'Astrological reflection provides spiritual and self-reflective perspectives. It does not constitute clinical psychological diagnosis or medical treatment.',
     },
+    aboutCopy: 'Dr. Aditi combines thoughtful self-reflection with astrological insights to help you understand personal emotional patterns, behavioral tendencies, and pathways to sustainable inner growth.',
+    personality: 'Thoughtful, compassionate, articulate, calm, and psychologically aware.',
+    approach: 'Creates a reflective, non-judgmental space for self-inquiry, viewing astrological placements as mirrors for personal development and emotional balance.',
+    expertise: [
+      'Personality Insights',
+      'Emotional Patterns',
+      'Self-Reflection',
+      'Personal Growth',
+      'Mindful Boundary Setting',
+    ],
+    sampleQuestions: [
+      'Help me understand my recurring emotional patterns.',
+      'How can I approach personal decision-making with more clarity?',
+      'What does astrology suggest about my communication style?',
+      'Guide me through a reflective assessment of my current stress triggers.',
+    ],
+    disclaimer: 'Astrological reflection provides spiritual and self-reflective perspectives. It does not constitute clinical psychological diagnosis, psychotherapy, or medical treatment.',
   },
 
   // =========================================================================
@@ -216,7 +273,7 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     id: 'kavya',
     num: '04',
     name: 'Kavya',
-    title: 'Vastu Shastra — Home & Office',
+    title: 'Vastu Shastra Expert',
     specialization: 'Vastu Shastra, home layouts, office environments, spatial organization, and traditional architectural guidance.',
     shortDescription: 'Explore Vastu-inspired ideas for creating balanced and thoughtfully organized living and working spaces.',
     route: '/chats/kavya',
@@ -257,6 +314,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'Spatial guidance is based on classical Vastu Shastra principles. Exact structural changes should be reviewed with certified civil engineers.',
     },
+    aboutCopy: 'Kavya specializes in classical Vastu Shastra, helping you evaluate residential and commercial floor plans to create harmonious, balanced living and working environments.',
+    personality: 'Practical, elegant, observant, balanced, and solution-oriented.',
+    approach: 'Focuses on non-destructive spatial adjustments, optimal room usage, cardinal direction alignment (Ashta Dik), and balanced elemental distribution.',
+    expertise: [
+      'Home Vastu',
+      'Office & Workplace Vastu',
+      'Spatial Planning & Room Layouts',
+      'Directional Guidance (Ashta Dik)',
+      'Non-Destructive Space Harmonization',
+    ],
+    sampleQuestions: [
+      'Help me evaluate my home layout.',
+      'What Vastu considerations apply to my workspace?',
+      'Help me organize my room according to traditional Vastu principles.',
+      'Where should I position my work desk or study for maximum focus?',
+    ],
+    disclaimer: 'Spatial guidance is based on classical Vastu Shastra principles. Exact structural modifications should be reviewed with certified civil engineers or architects.',
   },
 
   // =========================================================================
@@ -266,7 +340,7 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     id: 'acharya-vasudev',
     num: '05',
     name: 'Acharya Vasudev',
-    title: 'Premium Expert — Real Charts',
+    title: 'Premium Astrology Expert',
     specialization: 'Premium expert-level astrological chart interpretation and detailed chart-based guidance.',
     shortDescription: 'Explore detailed astrological charts and receive a more comprehensive interpretation of your astrological questions.',
     route: '/chats/acharya-vasudev',
@@ -307,6 +381,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'Based on authentic Vedic mathematical calculations. Detailed planetary degrees correspond to user-submitted birth coordinates.',
     },
+    aboutCopy: 'Acharya Vasudev delivers rigorous classical Jyotish chart analysis, examining divisional charts, planetary strengths (Shadbala), and subtle planetary yogas with scholarly depth.',
+    personality: 'Experienced, composed, authoritative, thoughtful, and scholarly.',
+    approach: 'Rooted in traditional Brihat Parashara Hora Shastra principles with meticulous mathematical calculations and dignified, clear explanations.',
+    expertise: [
+      'Advanced Astrology',
+      'Birth Chart Analysis (D-1 Rashi)',
+      'Divisional Charts (D-9 Navamsha, D-10)',
+      'Planetary Combinations & Yogas',
+      'Shadbala Strength Calculations',
+    ],
+    sampleQuestions: [
+      'Can you interpret my D-9 Navamsha chart in detail?',
+      'Explain the planetary combinations governing my profession.',
+      'What are the Shadbala strengths of my ruling planets?',
+      'Provide an in-depth breakdown of my Mahadasha transitions.',
+    ],
+    disclaimer: 'Based on authentic Vedic mathematical calculations. Detailed planetary degrees correspond to user-submitted birth coordinates.',
   },
 
   // =========================================================================
@@ -316,7 +407,7 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     id: 'acharya-guru',
     num: '06',
     name: 'Acharya Guru',
-    title: 'Flagship — Kundali Guru',
+    title: 'Flagship Kundali Guru',
     specialization: 'Flagship Kundali guidance, birth chart exploration, traditional astrological interpretation, and comprehensive astrological consultations.',
     shortDescription: 'Your central destination for comprehensive Kundali exploration and traditional astrological guidance.',
     route: '/chats/acharya-guru',
@@ -357,6 +448,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'Flagship synthesis computed according to Parashari tradition with Chitra Paksha Lahiri Ayanamsha.',
     },
+    aboutCopy: 'Acharya Guru represents Kismatios flagship spiritual presence, guiding seekers through comprehensive Kundali readings, life-purpose alignment, and authentic Agamic traditions.',
+    personality: 'Wise, dignified, confident, welcoming, and deeply knowledgeable.',
+    approach: 'Offers holistic, sovereign Vedic counsel spanning birth charts, auspicious timing, gemstone recommendations, and peaceful spiritual grounding.',
+    expertise: [
+      'Comprehensive Kundali Analysis',
+      'Planetary Houses (12 Bhavas)',
+      'Traditional Parashari Astrology',
+      'Graha Dosha Pariharas & Remedial Pooja',
+      'Personalized Life Guidance',
+    ],
+    sampleQuestions: [
+      'Provide a comprehensive Kundali reading for my life path.',
+      'What Graha Yogas and Dosha Pariharas are present in my chart?',
+      'How does my Lagna and Moon Nakshatra shape my destiny?',
+      'What traditional Vedic remedies are recommended for my career?',
+    ],
+    disclaimer: 'Flagship synthesis computed according to Parashari tradition with Chitra Paksha Lahiri Ayanamsha.',
   },
 
   // =========================================================================
@@ -366,7 +474,7 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
     id: 'khoji-baba',
     num: '07',
     name: 'Khoji Baba',
-    title: 'Find & Lost Guru',
+    title: 'Lost & Found Guru',
     specialization: 'Lost-and-found inquiries, locating misplaced belongings, organizing search information, and helping users think through possible next steps.',
     shortDescription: 'Bring together the details, clues, and circumstances that may help you work through a lost-and-found situation.',
     route: '/chats/khoji-baba',
@@ -407,6 +515,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'This guidance helps organize memories and deductive steps. It does not provide real-time GPS tracking or guarantee physical recovery.',
     },
+    aboutCopy: 'Khoji Baba helps you organize scattered clues, reconstruct timelines, and establish systematic search perimeters when everyday valuables or important documents are misplaced.',
+    personality: 'Observant, curious, investigative, resourceful, and reassuring.',
+    approach: 'Blends Prashna Jyotish directional markers with disciplined deductive questioning, helping seekers move from anxiety into organized, calm action.',
+    expertise: [
+      'Lost-Item Search Planning',
+      'Chronological Clue Organization',
+      'Search Strategies & Grids',
+      'Last-Known-Location Perimeter Review',
+      'Practical Next Steps & Retracing',
+    ],
+    sampleQuestions: [
+      'Help me create a search plan for my lost item.',
+      'Organize the clues I remember.',
+      'Which places should I check first?',
+      'Help me retrace my steps from the last known sighting.',
+    ],
+    disclaimer: 'This guidance helps organize memories and deductive steps. It does not provide real-time GPS tracking or guarantee physical recovery.',
   },
 
   // =========================================================================
@@ -457,6 +582,23 @@ export const MAHARAJ_GURUS: MaharajGuru[] = [
       ],
       disclaimer: 'This service provides educational legal information and organization. It does NOT constitute legal advice or an attorney-client relationship. Always consult a licensed advocate for specific legal counsel.',
     },
+    aboutCopy: 'Nyaya Guru helps individuals organize facts, understand general procedural stages, assemble document checklists, and prepare focused questions prior to meeting a qualified legal professional.',
+    personality: 'Serious, balanced, analytical, trustworthy, and professional.',
+    approach: 'Focuses on structured fact timelines, documentary preparedness, and educational explanation of legal concepts without promising outcomes.',
+    expertise: [
+      'Legal Information & Concepts',
+      'Case Fact Chronology & Organization',
+      'Document & Evidence Checklists',
+      'Preparing Questions for Lawyers',
+      'Procedural Stage Awareness',
+    ],
+    sampleQuestions: [
+      'Help me organize the facts of my case.',
+      'Which documents might be relevant?',
+      'What questions should I ask my lawyer?',
+      'Explain the general stages of civil dispute resolution.',
+    ],
+    disclaimer: 'Nyaya Guru provides general legal information and organization only. This service does NOT constitute legal advice or an attorney-client relationship. Always consult a qualified, licensed advocate for formal representation.',
   },
 ];
 

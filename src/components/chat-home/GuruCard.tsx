@@ -1,20 +1,31 @@
 import React from 'react';
 import { MaharajGuru } from '../../data/maharajGurusData';
-import { ArrowRight, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, Sparkles, Star, Info, User } from 'lucide-react';
 
 interface GuruCardProps {
   guru: MaharajGuru;
   onOpenChat: (guru: MaharajGuru) => void;
+  onOpenProfile?: (guru: MaharajGuru) => void;
   isFlagshipFeatured?: boolean;
 }
 
 export const GuruCard: React.FC<GuruCardProps> = ({
   guru,
   onOpenChat,
+  onOpenProfile,
   isFlagshipFeatured = false,
 }) => {
   const isFlagship = guru.badge === 'flagship';
   const isPreferred = guru.badge === 'preferred';
+
+  const handleProfileClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onOpenProfile) {
+      onOpenProfile(guru);
+    } else {
+      onOpenChat(guru);
+    }
+  };
 
   return (
     <div
@@ -37,22 +48,28 @@ export const GuruCard: React.FC<GuruCardProps> = ({
 
       {/* Top Row: Guru Identity Mark, Badges & Online Status */}
       <div className="flex items-start justify-between gap-3 relative z-10">
-        <div className="flex items-center gap-3">
-          {/* Guru Avatar / Portrait Glyph */}
-          <div className="relative shrink-0">
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Guru Avatar / Portrait Glyph — Interactive: Clicking opens Guru Profile */}
+          <button
+            type="button"
+            onClick={handleProfileClick}
+            className="relative shrink-0 cursor-pointer group/avatar p-0 bg-transparent border-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] rounded-2xl"
+            title={`View ${guru.name}'s Profile`}
+            aria-label={`View ${guru.name}'s Profile`}
+          >
             <div
-              className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl p-0.5 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-md bg-gradient-to-tr from-[#A87B2A] to-[#E7B743]"
+              className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl p-0.5 flex items-center justify-center transition-transform duration-300 group-hover/avatar:scale-105 shadow-md bg-gradient-to-tr from-[#A87B2A] to-[#E7B743]"
             >
               <div className="w-full h-full rounded-[14px] bg-[#24133B] flex items-center justify-center relative overflow-hidden">
                 {guru.avatarUrl ? (
                   <img
                     src={guru.avatarUrl}
                     alt={guru.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover/avatar:scale-110"
                     loading="lazy"
                   />
                 ) : (
-                  <span className="text-2xl sm:text-3xl select-none group-hover:scale-110 transition-transform text-[#E7B743]">
+                  <span className="text-2xl sm:text-3xl select-none group-hover/avatar:scale-110 transition-transform text-[#E7B743]">
                     {guru.symbol}
                   </span>
                 )}
@@ -63,9 +80,9 @@ export const GuruCard: React.FC<GuruCardProps> = ({
               className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#00D6A0] border-2 border-[#2B173C] ring-1 ring-[#00D6A0]/50"
               title="Online for consultation"
             />
-          </div>
+          </button>
 
-          {/* Name & Guru Number */}
+          {/* Name & Guru Number — Interactive: Clicking name opens Guru Profile */}
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-[10px] font-mono text-[#9685AE] uppercase tracking-wider">
@@ -84,9 +101,16 @@ export const GuruCard: React.FC<GuruCardProps> = ({
               )}
             </div>
 
-            <h3 className="text-base sm:text-lg font-serif-luxury font-bold text-[#F7F0FF] group-hover:text-[#E7B743] transition-colors truncate">
-              {guru.name}
-            </h3>
+            <button
+              type="button"
+              onClick={handleProfileClick}
+              className="text-left p-0 bg-transparent border-0 cursor-pointer block max-w-full"
+              title={`View ${guru.name}'s Profile`}
+            >
+              <h3 className="text-base sm:text-lg font-serif-luxury font-bold text-[#F7F0FF] hover:text-[#FFD76A] group-hover:text-[#E7B743] transition-colors truncate">
+                {guru.name}
+              </h3>
+            </button>
 
             <p className="text-xs font-medium text-[#E7B743] truncate mt-0.5">
               {guru.title}
@@ -125,14 +149,18 @@ export const GuruCard: React.FC<GuruCardProps> = ({
         ))}
       </div>
 
-      {/* Bottom Action Strip: Consultation entry button */}
-      <div className="pt-3 border-t border-[#453052]/30 flex items-center justify-between relative z-10">
-        <div className="flex items-center gap-1.5 text-[11px] text-[#9685AE]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00D6A0]" />
-          <span>Active now</span>
-          <span>·</span>
-          <span>{guru.location.split('/')[0].trim()}</span>
-        </div>
+      {/* Bottom Action Strip: Profile Action + Open Chat */}
+      <div className="pt-3 border-t border-[#453052]/30 flex items-center justify-between relative z-10 gap-2">
+        {/* Profile button */}
+        <button
+          type="button"
+          onClick={handleProfileClick}
+          className="px-2.5 py-1.5 rounded-xl bg-[#24133B] hover:bg-[#352044] text-[#C5B8D9] hover:text-[#FFD76A] text-[11px] font-medium flex items-center gap-1 cursor-pointer transition-colors shadow-xs"
+          title={`View ${guru.name}'s Profile & Specializations`}
+        >
+          <Info className="w-3.5 h-3.5 text-[#E7B743]" />
+          <span>Profile</span>
+        </button>
 
         <button
           onClick={(e) => {

@@ -11,6 +11,7 @@ import {
   Scale,
   PanelLeftClose,
   PanelLeftOpen,
+  Info,
 } from 'lucide-react';
 import { CelestialPill } from '../ui/CelestialPill';
 
@@ -51,6 +52,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
   isSearchOpen,
   onToggleStructuredWorkspace,
   isStructuredWorkspaceOpen,
+  onOpenProfile,
 }) => {
   const formatTime = (secs: number) => {
     const mins = Math.floor(secs / 60);
@@ -130,11 +132,17 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
             </span>
           </button>
 
-          {/* Guru Avatar and Credentials */}
+          {/* Guru Avatar and Credentials — Interactive: Click opens Guru Profile */}
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="relative shrink-0">
+            <button
+              type="button"
+              onClick={onOpenProfile}
+              className="relative shrink-0 cursor-pointer p-0 bg-transparent border-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] rounded-full group/avatar"
+              title={`View ${guru.name}'s Profile`}
+              aria-label={`View ${guru.name}'s Profile`}
+            >
               <div
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 shadow-sm flex items-center justify-center overflow-hidden bg-gradient-to-tr from-[#A87B2A] to-[#E7B743]"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 shadow-sm flex items-center justify-center overflow-hidden bg-gradient-to-tr from-[#A87B2A] to-[#E7B743] group-hover/avatar:scale-105 transition-transform"
               >
                 <div className="w-full h-full rounded-full bg-[#24133B] flex items-center justify-center text-base sm:text-lg select-none overflow-hidden text-[#E7B743]">
                   {guru.avatarUrl ? (
@@ -149,11 +157,16 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
                 </div>
               </div>
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#00D6A0] border-2 border-[#24133B]" />
-            </div>
+            </button>
 
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5">
-                <h3 className="text-xs sm:text-sm font-serif-luxury font-bold text-[#F7F0FF] truncate max-w-[120px] xs:max-w-[160px] sm:max-w-[220px]">
+              <button
+                type="button"
+                onClick={onOpenProfile}
+                className="flex items-center gap-1.5 p-0 bg-transparent border-0 text-left cursor-pointer group/name outline-none"
+                title={`View ${guru.name}'s Profile`}
+              >
+                <h3 className="text-xs sm:text-sm font-serif-luxury font-bold text-[#F7F0FF] group-hover/name:text-[#FFD76A] transition-colors truncate max-w-[120px] xs:max-w-[160px] sm:max-w-[220px]">
                   {guru.name}
                 </h3>
                 <span className="w-3.5 h-3.5 rounded-full bg-[#E7B743]/20 text-[#E7B743] flex items-center justify-center text-[9px] font-bold shrink-0">
@@ -164,7 +177,7 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
                     FLAGSHIP
                   </span>
                 )}
-              </div>
+              </button>
               <div className="flex items-center gap-1 sm:gap-1.5 text-[10px] text-[#9685AE]">
                 <span className="text-[#00D6A0] font-semibold shrink-0">● Active</span>
                 <span>·</span>
@@ -178,6 +191,18 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
 
         {/* Right: Controls & Countdown Timer */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Profile Quick Action */}
+          {onOpenProfile && (
+            <button
+              onClick={onOpenProfile}
+              className="p-1.5 rounded-xl text-[#C5B8D9] hover:text-[#FFD76A] hover:bg-[#352044] active:bg-[#352044] transition-colors cursor-pointer min-h-[32px] min-w-[32px] sm:min-h-[34px] sm:min-w-[34px] flex items-center justify-center shrink-0 border border-transparent hover:border-[#A87B2A]/30"
+              title={`View ${guru.name}'s Profile & Expertise`}
+              aria-label={`View ${guru.name}'s Profile`}
+            >
+              <Info className="w-4 h-4 text-[#E7B743]" />
+            </button>
+          )}
+
           {/* Structured Workspace Toggle */}
           <CelestialPill
             variant="default"

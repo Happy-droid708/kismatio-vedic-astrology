@@ -59,6 +59,7 @@ import { GuruHeader } from './GuruHeader';
 import { GuruEmptyState } from './GuruEmptyState';
 import { GuruDiscoveryView } from './GuruDiscoveryView';
 import { GuruStructuredCards } from './GuruStructuredCards';
+import { GuruProfilePage } from './GuruProfilePage';
 import { ChatSidebar } from '../chat-sidebar/ChatSidebar';
 import {
   ArrowLeft,
@@ -105,6 +106,7 @@ export const KismatioApp: React.FC = () => {
     return null;
   });
   const [isStructuredWorkspaceOpen, setIsStructuredWorkspaceOpen] = useState<boolean>(false);
+  const [profileGuru, setProfileGuru] = useState<MaharajGuru | null>(null);
 
   // Message cache across conversations / Gurus
   const [messagesByConv, setMessagesByConv] = useState<Record<string, ChatMessageItem[]>>({
@@ -911,6 +913,7 @@ export const KismatioApp: React.FC = () => {
     setSelectedConvId(targetId);
     setMessages(messagesByConv[targetId] || []);
     setIsStructuredWorkspaceOpen(false);
+    setProfileGuru(null);
     setActiveMobileTab('chats');
     setIsMobileHistoryDrawerOpen(false);
   };
@@ -981,6 +984,7 @@ export const KismatioApp: React.FC = () => {
     window.history.pushState(null, '', '/chats');
     setActiveGuru(null);
     setSelectedConvId(null);
+    setProfileGuru(null);
     setIsStructuredWorkspaceOpen(false);
     setIsMobileHistoryDrawerOpen(false);
   };
@@ -1030,6 +1034,35 @@ export const KismatioApp: React.FC = () => {
       prev.map((c) => (c.id === conv.id ? { ...c, unreadCount: 0 } : c))
     );
     setIsMobileHistoryDrawerOpen(false);
+    setProfileGuru(null);
+  };
+
+  // Guru Profile Handlers
+  const handleOpenGuruProfile = (guru: MaharajGuru) => {
+    setProfileGuru(guru);
+    setIsMobileHistoryDrawerOpen(false);
+  };
+
+  const handleCloseGuruProfile = () => {
+    setProfileGuru(null);
+  };
+
+  const handleStartChatFromProfile = (guru: MaharajGuru) => {
+    setProfileGuru(null);
+    handleSelectGuru(guru, true);
+  };
+
+  const handleSelectSampleQuestionFromProfile = (guru: MaharajGuru, question: string) => {
+    setProfileGuru(null);
+    handleSelectGuru(guru, true);
+    setTimeout(() => {
+      handleSendMessage(question);
+    }, 150);
+  };
+
+  const handleSelectConversationFromProfile = (conv: ConversationThread) => {
+    setProfileGuru(null);
+    handleSelectConversation(conv);
   };
 
   const handleTogglePin = (convId: string, e: React.MouseEvent) => {
@@ -1235,6 +1268,7 @@ export const KismatioApp: React.FC = () => {
         onToggleRead={handleToggleRead}
         archivedCount={archivedCount}
         liveRemainingSeconds={remainingSeconds}
+        onOpenProfile={handleOpenGuruProfile}
       />
 
       {/* 5. Mobile Floating Action Button (✦ Start Consultation) */}
@@ -1257,6 +1291,19 @@ export const KismatioApp: React.FC = () => {
   // RENDER: Right Panel / Active Conversation View
   // =========================================================================
   const renderActiveConversationView = () => {
+    if (profileGuru) {
+      return (
+        <GuruProfilePage
+          guru={profileGuru}
+          conversations={conversations}
+          onBack={handleCloseGuruProfile}
+          onStartChat={handleStartChatFromProfile}
+          onSelectSampleQuestion={handleSelectSampleQuestionFromProfile}
+          onSelectConversation={handleSelectConversationFromProfile}
+        />
+      );
+    }
+
     if (activeGuru) {
       return (
         <div className="flex-1 min-h-0 h-full flex flex-col bg-[#0c0d15] relative overflow-hidden">
@@ -1272,6 +1319,7 @@ export const KismatioApp: React.FC = () => {
             isSidebarCollapsed={isSidebarCollapsed}
             onToggleSidebarCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
             onBackToDiscovery={handleBackToGurusDiscovery}
+            onOpenProfile={() => handleOpenGuruProfile(activeGuru)}
             onOpenRecharge={handleOpenRecharge}
             onOpenChatMenu={() => setIsChatMenuOpen(true)}
             onToggleSearch={() => setIsInChatSearchOpen(!isInChatSearchOpen)}
@@ -1459,6 +1507,7 @@ export const KismatioApp: React.FC = () => {
           recentConversations={conversations}
           onSelectRecentConversation={handleSelectConversation}
           liveRemainingSeconds={remainingSeconds}
+          onOpenProfile={handleOpenGuruProfile}
         />
       );
     }
@@ -1959,7 +2008,7 @@ export const KismatioApp: React.FC = () => {
 
                     {activeMobileTab === 'chats' && (
                       <div className="w-full h-full min-h-0 flex flex-col overflow-hidden relative">
-                        {selectedConvId || activeGuru ? renderActiveConversationView() : renderChatHomeListPanel()}
+                        {selectedConvId || activeGuru || profileGuru ? renderActiveConversationView() : renderChatHomeListPanel()}
 
                         {/* Mobile Shared History Drawer */}
                         {isMobileHistoryDrawerOpen && (
@@ -1973,6 +2022,7 @@ export const KismatioApp: React.FC = () => {
                             onTogglePin={handleTogglePin}
                             onDeleteConversation={handleDeleteConversation}
                             onRenameConversation={handleRenameConversation}
+                            onOpenProfile={handleOpenGuruProfile}
                             isCollapsed={false}
                             onToggleCollapse={() => {}}
                             isMobileDrawer
@@ -1986,7 +2036,7 @@ export const KismatioApp: React.FC = () => {
               </div>
 
               {/* Fixed Mobile Bottom Navigation (docked across the 4 primary tabs: Chats, Explore, Orders, Tools) */}
-              {!isProfileOpen && (!selectedConvId && !activeGuru || activeMobileTab !== 'chats') && (
+              {!isProfileOpen && (!selectedConvId && !activeGuru && !profileGuru || activeMobileTab !== 'chats') && (
                 <div className="shrink-0 z-40">
                   <MobileBottomNav
                     activeTab={activeMobileTab}
@@ -2191,6 +2241,7 @@ export const KismatioApp: React.FC = () => {
                             onTogglePin={handleTogglePin}
                             onDeleteConversation={handleDeleteConversation}
                             onRenameConversation={handleRenameConversation}
+                            onOpenProfile={handleOpenGuruProfile}
                             isCollapsed={isSidebarCollapsed}
                             onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
                           />

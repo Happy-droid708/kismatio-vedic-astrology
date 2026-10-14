@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { ConversationThread } from '../../types/astrology';
+import { MAHARAJ_GURUS, MaharajGuru } from '../../data/maharajGurusData';
 import { Pin, Trash2, Edit3, Check, X } from 'lucide-react';
 
 interface ChatHistoryItemProps {
   conversation: ConversationThread;
   isActive: boolean;
   onSelect: (conv: ConversationThread) => void;
+  onOpenProfile?: (guru: MaharajGuru) => void;
   onTogglePin?: (convId: string, e: React.MouseEvent) => void;
   onDelete?: (convId: string, e: React.MouseEvent) => void;
   onRename?: (convId: string, newTitle: string) => void;
@@ -16,6 +18,7 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
   conversation,
   isActive,
   onSelect,
+  onOpenProfile,
   onTogglePin,
   onDelete,
   onRename,
@@ -40,6 +43,21 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
     setIsEditing(false);
   };
 
+  const matchedGuru = MAHARAJ_GURUS.find(
+    (g) =>
+      g.id === conversation.astrologerId ||
+      g.id === conversation.guruId ||
+      conversation.id === `conv-${g.id}` ||
+      conversation.id.includes(g.id)
+  );
+
+  const handleAvatarClick = (e: React.MouseEvent) => {
+    if (matchedGuru && onOpenProfile) {
+      e.stopPropagation();
+      onOpenProfile(matchedGuru);
+    }
+  };
+
   if (isCollapsed) {
     return (
       <button
@@ -51,7 +69,10 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
         }`}
         title={`${conversation.astrologerName} — ${conversation.lastMessage.slice(0, 50)}...`}
       >
-        <div className="w-full h-full rounded-full overflow-hidden bg-[#24133B] flex items-center justify-center">
+        <div
+          onClick={handleAvatarClick}
+          className="w-full h-full rounded-full overflow-hidden bg-[#24133B] flex items-center justify-center"
+        >
           {conversation.avatarUrl ? (
             <img
               src={conversation.avatarUrl}
@@ -84,7 +105,15 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
     >
       {/* Guru Avatar */}
       <div className="relative shrink-0 mt-0.5">
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-[#24133B] p-0.5 border border-transparent shadow-xs">
+        <button
+          type="button"
+          onClick={handleAvatarClick}
+          className={`w-8 h-8 rounded-full overflow-hidden bg-[#24133B] p-0.5 border border-transparent shadow-xs block text-left ${
+            matchedGuru && onOpenProfile ? 'cursor-pointer hover:scale-105 transition-transform' : ''
+          }`}
+          title={matchedGuru ? `View ${matchedGuru.name}'s Profile` : conversation.astrologerName}
+          aria-label={matchedGuru ? `View ${matchedGuru.name}'s Profile` : conversation.astrologerName}
+        >
           {conversation.avatarUrl ? (
             <img
               src={conversation.avatarUrl}
@@ -96,9 +125,9 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
               {conversation.astrologerName.charAt(0)}
             </div>
           )}
-        </div>
+        </button>
         {conversation.isOnline && (
-          <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#00D6A0] border border-[#180D2B]" />
+          <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#00D6A0] border border-[#180D2B] pointer-events-none" />
         )}
       </div>
 

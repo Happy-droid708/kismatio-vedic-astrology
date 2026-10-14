@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { ConversationThread } from '../../types/astrology';
+import { MAHARAJ_GURUS, MaharajGuru } from '../../data/maharajGurusData';
 import { Check, Pin, Archive, Box, CheckCheck, Clock } from 'lucide-react';
 
 interface ConversationRowProps {
   conversation: ConversationThread;
   isSelected?: boolean;
   onSelect: (conv: ConversationThread) => void;
+  onOpenProfile?: (guru: MaharajGuru) => void;
   onTogglePin: (convId: string, e: React.MouseEvent) => void;
   onToggleArchive: (convId: string, e: React.MouseEvent) => void;
   onToggleRead: (convId: string, e: React.MouseEvent) => void;
@@ -16,12 +18,21 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
   conversation,
   isSelected = false,
   onSelect,
+  onOpenProfile,
   onTogglePin,
   onToggleArchive,
   onToggleRead,
   liveRemainingSeconds,
 }) => {
   const [showQuickActions, setShowQuickActions] = useState(false);
+
+  const matchedGuru = MAHARAJ_GURUS.find(
+    (g) =>
+      g.id === conversation.astrologerId ||
+      g.id === conversation.guruId ||
+      conversation.id === `conv-${g.id}` ||
+      conversation.id.includes(g.id)
+  );
 
   const seconds = liveRemainingSeconds !== undefined && conversation.status === 'active'
     ? liveRemainingSeconds
@@ -77,9 +88,22 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
           : 'bg-[#180D2B] hover:bg-[#352044] hover:shadow-[0_2px_8px_rgba(18,9,31,0.3)] active:scale-[0.995]'
       }`}
     >
-      {/* Left: Avatar with Online indicator */}
+      {/* Left: Avatar with Online indicator — Interactive: Clicking opens Guru Profile */}
       <div className="relative shrink-0">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#A87B2A] via-[#E7B743] to-[#FFD76A] p-0.5 shadow-sm">
+        <button
+          type="button"
+          onClick={(e) => {
+            if (matchedGuru && onOpenProfile) {
+              e.stopPropagation();
+              onOpenProfile(matchedGuru);
+            }
+          }}
+          className={`w-12 h-12 rounded-full bg-gradient-to-tr from-[#A87B2A] via-[#E7B743] to-[#FFD76A] p-0.5 shadow-sm block text-left border-0 ${
+            matchedGuru && onOpenProfile ? 'cursor-pointer hover:scale-105 transition-transform' : ''
+          }`}
+          title={matchedGuru ? `View ${matchedGuru.name}'s Profile` : conversation.astrologerName}
+          aria-label={matchedGuru ? `View ${matchedGuru.name}'s Profile` : conversation.astrologerName}
+        >
           <div className="w-full h-full rounded-full bg-[#2B173C] flex items-center justify-center overflow-hidden">
             {conversation.avatarUrl ? (
               <img
@@ -93,9 +117,9 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
               </div>
             )}
           </div>
-        </div>
+        </button>
         {conversation.isOnline && (
-          <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#00D6A0] border-2 border-[#180D2B] ring-1 ring-[#00D6A0]/50" />
+          <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#00D6A0] border-2 border-[#180D2B] ring-1 ring-[#00D6A0]/50 pointer-events-none" />
         )}
       </div>
 
@@ -103,7 +127,18 @@ export const ConversationRow: React.FC<ConversationRowProps> = ({
       <div className="flex-1 min-w-0 pr-1">
         <div className="flex items-center justify-between gap-1">
           <div className="flex items-center gap-1.5 truncate">
-            <span className="text-sm font-serif-luxury font-bold text-[#F7F0FF] truncate">
+            <span
+              onClick={(e) => {
+                if (matchedGuru && onOpenProfile) {
+                  e.stopPropagation();
+                  onOpenProfile(matchedGuru);
+                }
+              }}
+              className={`text-sm font-serif-luxury font-bold text-[#F7F0FF] truncate ${
+                matchedGuru && onOpenProfile ? 'hover:text-[#FFD76A] transition-colors cursor-pointer' : ''
+              }`}
+              title={matchedGuru ? `View ${matchedGuru.name}'s Profile` : conversation.astrologerName}
+            >
               {conversation.astrologerName}
             </span>
             {conversation.isVerified && (
