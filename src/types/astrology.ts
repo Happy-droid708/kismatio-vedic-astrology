@@ -170,7 +170,10 @@ export interface ConversationThread {
   topics: string[];
   productName?: string;
   guruId?: string;
+  userId?: string;
 }
+
+export const DEFAULT_AUTHENTICATED_USER_ID = 'user-devanand-jaipur';
 
 export type MainAppMenuItem =
   | 'chats'

@@ -11,7 +11,14 @@ import {
   ConversationFilter,
   MainAppMenuItem,
   ChatMenuItem,
+  DEFAULT_AUTHENTICATED_USER_ID,
 } from '../../types/astrology';
+import {
+  loadConversationsFromStorage,
+  saveConversationsToStorage,
+  loadMessagesFromStorage,
+  saveMessagesToStorage,
+} from '../../services/chatHistoryService';
 import {
   CURATED_ASTROLOGERS,
   FEATURED_GEMSTONES,
@@ -88,8 +95,14 @@ export const KismatioApp: React.FC = () => {
     isLargeDesktop,
   } = useResponsiveBreakpoint();
 
-  // Conversations State
-  const [conversations, setConversations] = useState<ConversationThread[]>(INITIAL_CONVERSATIONS);
+  // Authenticated user state
+  const [authenticatedUserId] = useState<string>(DEFAULT_AUTHENTICATED_USER_ID);
+
+  // Conversations State (synced with storage and isolated per Guru)
+  const [conversations, setConversations] = useState<ConversationThread[]>(() => {
+    const stored = loadConversationsFromStorage(DEFAULT_AUTHENTICATED_USER_ID);
+    return stored && stored.length > 0 ? stored : INITIAL_CONVERSATIONS;
+  });
   const [selectedConvId, setSelectedConvId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeFilter, setActiveFilter] = useState<ConversationFilter>('all');
@@ -108,31 +121,45 @@ export const KismatioApp: React.FC = () => {
   const [isStructuredWorkspaceOpen, setIsStructuredWorkspaceOpen] = useState<boolean>(false);
   const [profileGuru, setProfileGuru] = useState<MaharajGuru | null>(null);
 
-  // Message cache across conversations / Gurus
-  const [messagesByConv, setMessagesByConv] = useState<Record<string, ChatMessageItem[]>>({
-    'conv-acharya-guru': [
-      {
-        id: 'm1-flagship',
-        sender: 'astrologer',
-        text: 'Hari Om, Devanand ji. I have cast your Janma Kundli with Lahiri Chitra Paksha coordinates in Jaipur (Libra Lagna, Pisces Moon in Uttara Bhadrapada Nakshatra). I see profound planetary movements at play in your chart right now.',
-        timestamp: '10:02 AM',
-        widgetType: 'kundli_summary',
-      },
-      {
-        id: 'm2-flagship',
-        sender: 'user',
-        text: 'Pranam Acharya ji. Over the past 9 months, despite putting in 14-hour days, every major deal and promotion in my tech enterprise has gotten stalled at the final signature. I feel an unexplained exhaustion and heavy resistance. What is happening in my Graha dasha?',
-        timestamp: '10:03 AM',
-      },
-      {
-        id: 'm-recom-flagship',
-        sender: 'astrologer',
-        text: 'I recommend these stones based on your chart and current planetary transits to dissolve this resistance and unlock your Rajayoga momentum:',
-        timestamp: '10:04 AM',
-        widgetType: 'gemstone_recommendation',
-      },
-    ],
+  // Message cache across conversations / Gurus (synced with storage)
+  const [messagesByConv, setMessagesByConv] = useState<Record<string, ChatMessageItem[]>>(() => {
+    const stored = loadMessagesFromStorage(DEFAULT_AUTHENTICATED_USER_ID);
+    if (stored && Object.keys(stored).length > 0) return stored;
+    return {
+      'conv-acharya-guru': [
+        {
+          id: 'm1-flagship',
+          sender: 'astrologer',
+          text: 'Hari Om, Devanand ji. I have cast your Janma Kundli with Lahiri Chitra Paksha coordinates in Jaipur (Libra Lagna, Pisces Moon in Uttara Bhadrapada Nakshatra). I see profound planetary movements at play in your chart right now.',
+          timestamp: '10:02 AM',
+          widgetType: 'kundli_summary',
+        },
+        {
+          id: 'm2-flagship',
+          sender: 'user',
+          text: 'Pranam Acharya ji. Over the past 9 months, despite putting in 14-hour days, every major deal and promotion in my tech enterprise has gotten stalled at the final signature. I feel an unexplained exhaustion and heavy resistance. What is happening in my Graha dasha?',
+          timestamp: '10:03 AM',
+        },
+        {
+          id: 'm-recom-flagship',
+          sender: 'astrologer',
+          text: 'I recommend these stones based on your chart and current planetary transits to dissolve this resistance and unlock your Rajayoga momentum:',
+          timestamp: '10:04 AM',
+          widgetType: 'gemstone_recommendation',
+        },
+      ],
+    };
   });
+
+  // Persist conversations to client storage
+  useEffect(() => {
+    saveConversationsToStorage(authenticatedUserId, conversations);
+  }, [conversations, authenticatedUserId]);
+
+  // Persist messages to client storage
+  useEffect(() => {
+    saveMessagesToStorage(authenticatedUserId, messagesByConv);
+  }, [messagesByConv, authenticatedUserId]);
 
   // Tablet Sidebar Collapse State
   const [isTabletSidebarCollapsed, setIsTabletSidebarCollapsed] = useState<boolean>(false);
@@ -881,16 +908,19 @@ export const KismatioApp: React.FC = () => {
     const astro = guruToAstrologer(guru);
     setSelectedAstrologer(astro);
 
-    const convId = `conv-${guru.id}`;
-    const existing = conversations.find(
-      (c) => c.astrologerId === guru.id || c.id === convId || c.guruId === guru.id || c.id.includes(guru.id)
+    // Find all active conversations belonging strictly to this Guru
+    const guruConvs = conversations.filter(
+      (c) => (c.guruId === guru.id || c.astrologerId === guru.id) && !c.isArchived
     );
-    if (!existing) {
+    let targetConv = guruConvs[0];
+    if (!targetConv) {
+      const convId = `conv-${guru.id}`;
       const newConv: ConversationThread = {
         id: convId,
+        userId: authenticatedUserId,
         astrologerId: guru.id,
         astrologerName: guru.name,
-        astrologerTitle: guru.title,
+        astrologerTitle: `${guru.name} Consultation`,
         astrologerLineage: guru.location,
         isVerified: true,
         avatarSeed: guru.id,
@@ -908,10 +938,27 @@ export const KismatioApp: React.FC = () => {
         avatarUrl: guru.avatarUrl,
       };
       setConversations((prev) => [newConv, ...prev]);
+      targetConv = newConv;
     }
-    const targetId = existing ? existing.id : convId;
+    const targetId = targetConv.id;
     setSelectedConvId(targetId);
-    setMessages(messagesByConv[targetId] || []);
+
+    const existingMsgs = messagesByConv[targetId];
+    if (existingMsgs && existingMsgs.length > 0) {
+      setMessages(existingMsgs);
+    } else {
+      const fallbackMsgs: ChatMessageItem[] = [
+        {
+          id: `welcome-${targetId}`,
+          sender: 'astrologer',
+          text: targetConv.lastMessage || guru.welcomeMessage,
+          timestamp: targetConv.lastMessageTimestamp || 'Just now',
+        },
+      ];
+      setMessages(fallbackMsgs);
+      setMessagesByConv((map) => ({ ...map, [targetId]: fallbackMsgs }));
+    }
+
     setIsStructuredWorkspaceOpen(false);
     setProfileGuru(null);
     setActiveMobileTab('chats');
@@ -927,9 +974,10 @@ export const KismatioApp: React.FC = () => {
     const newConvId = `conv-${targetGuru.id}-${Date.now()}`;
     const newConv: ConversationThread = {
       id: newConvId,
+      userId: authenticatedUserId,
       astrologerId: targetGuru.id,
       astrologerName: targetGuru.name,
-      astrologerTitle: targetGuru.title,
+      astrologerTitle: `Consultation with ${targetGuru.name}`,
       astrologerLineage: targetGuru.location,
       isVerified: true,
       avatarSeed: targetGuru.id,
@@ -947,8 +995,16 @@ export const KismatioApp: React.FC = () => {
       avatarUrl: targetGuru.avatarUrl,
     };
     setConversations((prev) => [newConv, ...prev]);
-    setMessagesByConv((map) => ({ ...map, [newConvId]: [] }));
-    setMessages([]);
+    const initMsgs: ChatMessageItem[] = [
+      {
+        id: `welcome-${newConvId}`,
+        sender: 'astrologer',
+        text: targetGuru.welcomeMessage,
+        timestamp: 'Just now',
+      },
+    ];
+    setMessagesByConv((map) => ({ ...map, [newConvId]: initMsgs }));
+    setMessages(initMsgs);
     setSelectedConvId(newConvId);
     setActiveGuru(targetGuru);
     setSelectedAstrologer(guruToAstrologer(targetGuru));
@@ -1014,8 +1070,9 @@ export const KismatioApp: React.FC = () => {
       stopStream();
     }
     setSelectedConvId(conv.id);
+    const targetGuruId = conv.guruId || conv.astrologerId;
     const foundGuru = MAHARAJ_GURUS.find(
-      (g) => g.id === conv.astrologerId || `conv-${g.id}` === conv.id || g.id === conv.guruId || conv.id.includes(g.id)
+      (g) => g.id === targetGuruId || `conv-${g.id}` === conv.id || conv.id.includes(g.id)
     );
     if (foundGuru) {
       setActiveGuru(foundGuru);
@@ -1028,7 +1085,23 @@ export const KismatioApp: React.FC = () => {
         setSelectedAstrologer(foundAstro);
       }
     }
-    setMessages(messagesByConv[conv.id] || []);
+
+    const convMsgs = messagesByConv[conv.id];
+    if (convMsgs && convMsgs.length > 0) {
+      setMessages(convMsgs);
+    } else {
+      const fallbackMsgs: ChatMessageItem[] = [
+        {
+          id: `msg-${conv.id}`,
+          sender: 'astrologer',
+          text: conv.lastMessage || (foundGuru ? foundGuru.welcomeMessage : 'Hari Om. Consultation opened.'),
+          timestamp: conv.lastMessageTimestamp || 'Just now',
+        },
+      ];
+      setMessages(fallbackMsgs);
+      setMessagesByConv((map) => ({ ...map, [conv.id]: fallbackMsgs }));
+    }
+
     // Mark as read
     setConversations((prev) =>
       prev.map((c) => (c.id === conv.id ? { ...c, unreadCount: 0 } : c))
@@ -2016,6 +2089,7 @@ export const KismatioApp: React.FC = () => {
                             conversations={conversations}
                             activeConversationId={selectedConvId}
                             activeGuru={activeGuru}
+                            authenticatedUserId={authenticatedUserId}
                             onSelectConversation={handleSelectConversation}
                             onSelectGuru={(guru) => handleSelectGuru(guru, true)}
                             onStartNewChat={handleStartNewChatWithCurrentGuru}
@@ -2235,6 +2309,7 @@ export const KismatioApp: React.FC = () => {
                             conversations={conversations}
                             activeConversationId={selectedConvId}
                             activeGuru={activeGuru}
+                            authenticatedUserId={authenticatedUserId}
                             onSelectConversation={handleSelectConversation}
                             onSelectGuru={(guru) => handleSelectGuru(guru, true)}
                             onStartNewChat={handleStartNewChatWithCurrentGuru}

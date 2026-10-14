@@ -200,6 +200,153 @@ function streamFallbackResponse(
   }
 }
 
+// 8 Approved Gurus Whitelist
+const APPROVED_GURU_IDS = [
+  'adit',
+  'nupur',
+  'dr-aditi',
+  'kavya',
+  'acharya-vasudev',
+  'acharya-guru',
+  'khoji-baba',
+  'nyaya-guru',
+];
+
+// In-memory conversation store for data isolation verification
+const serverConversationRecords: Array<{
+  id: string;
+  userId: string;
+  guruId: string;
+  astrologerName: string;
+  astrologerTitle: string;
+  lastMessage: string;
+  lastMessageTimestamp: string;
+  isPinned?: boolean;
+  isArchived?: boolean;
+}> = [
+  {
+    id: 'conv-acharya-guru',
+    userId: 'user-devanand-jaipur',
+    guruId: 'acharya-guru',
+    astrologerName: 'Acharya Guru',
+    astrologerTitle: 'Flagship — Kundali Guru',
+    lastMessage: "Namaste. I'm Acharya Guru, your flagship Kundali Guru. Let's begin with your question and explore the astrological guidance most relevant to your situation.",
+    lastMessageTimestamp: '10:45 AM',
+    isPinned: true,
+  },
+  {
+    id: 'conv-acharya-guru-remedies',
+    userId: 'user-devanand-jaipur',
+    guruId: 'acharya-guru',
+    astrologerName: 'Acharya Guru',
+    astrologerTitle: 'Rahu-Shani Vish Yog & Gemstone Protocol',
+    lastMessage: 'The Ceylon Yellow Sapphire energized in Kashi will mitigate the 6th house affliction and stabilize your executive endeavours.',
+    lastMessageTimestamp: '3 days ago',
+  },
+  {
+    id: 'conv-nupur',
+    userId: 'user-devanand-jaipur',
+    guruId: 'nupur',
+    astrologerName: 'Guru Nupur',
+    astrologerTitle: 'Preferred — Real-Time Timeline & Charts',
+    lastMessage: "Namaste. I'm Guru Nupur. Let's explore your astrological timeline and understand the planetary patterns relevant to your questions.",
+    lastMessageTimestamp: '10:30 AM',
+    isPinned: true,
+  },
+  {
+    id: 'conv-adit',
+    userId: 'user-devanand-jaipur',
+    guruId: 'adit',
+    astrologerName: 'ADIT',
+    astrologerTitle: 'Love Guru — Relationship Dynamics',
+    lastMessage: "Welcome. I'm Adit, your Love Guru. Let's explore what's on your mind and find clarity in your relationships.",
+    lastMessageTimestamp: '10:15 AM',
+  },
+  {
+    id: 'conv-dr-aditi',
+    userId: 'user-devanand-jaipur',
+    guruId: 'dr-aditi',
+    astrologerName: 'Dr. Aditi',
+    astrologerTitle: 'Astro-Psychologist — Mindset & Reflection',
+    lastMessage: "Hello, I'm Dr. Aditi. We can explore your thoughts, patterns, and personal journey through reflective conversations and astrological perspectives.",
+    lastMessageTimestamp: 'Yesterday',
+  },
+  {
+    id: 'conv-kavya',
+    userId: 'user-devanand-jaipur',
+    guruId: 'kavya',
+    astrologerName: 'Kavya',
+    astrologerTitle: 'Vastu Shastra — Home & Office Directions',
+    lastMessage: "Namaste. I'm Kavya, your Vastu Guru. Tell me about your home, office, room layout, or architectural concerns, and we'll explore suitable Vastu-inspired guidance.",
+    lastMessageTimestamp: 'Yesterday',
+  },
+  {
+    id: 'conv-acharya-vasudev',
+    userId: 'user-devanand-jaipur',
+    guruId: 'acharya-vasudev',
+    astrologerName: 'Acharya Vasudev',
+    astrologerTitle: 'Premium Expert — Real Charts & Shadbala',
+    lastMessage: "Namaste. I'm Acharya Vasudev. Share your astrological question, and we'll explore the relevant chart information and its interpretation in detail.",
+    lastMessageTimestamp: '2 days ago',
+  },
+  {
+    id: 'conv-khoji-baba',
+    userId: 'user-devanand-jaipur',
+    guruId: 'khoji-baba',
+    astrologerName: 'Khoji Baba',
+    astrologerTitle: 'Find & Lost Guru — Recovery Clues',
+    lastMessage: "Namaste. I'm Khoji Baba. Tell me what you're trying to find, where you last remember seeing it, and any details that might help us organize the search.",
+    lastMessageTimestamp: '3 days ago',
+  },
+  {
+    id: 'conv-nyaya-guru',
+    userId: 'user-devanand-jaipur',
+    guruId: 'nyaya-guru',
+    astrologerName: 'Nyaya Guru',
+    astrologerTitle: 'Court Case & Legal Guidance — Strategy',
+    lastMessage: "Namaste. I'm Nyaya Guru. Tell me about your legal concern, and I'll help you organize the facts, understand general legal information, and identify questions to discuss with a qualified lawyer.",
+    lastMessageTimestamp: '4 days ago',
+  },
+];
+
+// GET /api/history: Authenticated, isolated history query by userId and guruId
+app.get('/api/history', (req, res) => {
+  const userId = req.query.userId as string;
+  const guruId = req.query.guruId as string;
+  const searchQuery = (req.query.q as string || '').toLowerCase().trim();
+
+  // 1. Authenticated user authorization check
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized: Missing authenticated userId' });
+  }
+
+  // 2. Strict Guru ID validation
+  if (!guruId || !APPROVED_GURU_IDS.includes(guruId)) {
+    return res.status(400).json({ error: 'Invalid or missing approved guruId' });
+  }
+
+  // 3. Return only conversations belonging to that user and that Guru
+  const isolatedHistory = serverConversationRecords.filter((conv) => {
+    if (conv.userId !== userId) return false;
+    if (conv.guruId !== guruId) return false;
+    if (conv.isArchived) return false;
+    if (searchQuery) {
+      const matchTitle = conv.astrologerTitle.toLowerCase().includes(searchQuery);
+      const matchMsg = conv.lastMessage.toLowerCase().includes(searchQuery);
+      if (!matchTitle && !matchMsg) return false;
+    }
+    return true;
+  });
+
+  return res.json({
+    success: true,
+    userId,
+    guruId,
+    count: isolatedHistory.length,
+    conversations: isolatedHistory,
+  });
+});
+
 // POST /api/chat/stream: SSE Real-Time Streaming Endpoint
 app.post('/api/chat/stream', async (req, res) => {
   const { message, astrologer, kundli, history } = req.body;

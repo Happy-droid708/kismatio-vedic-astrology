@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MaharajGuru } from '../../data/maharajGurusData';
-import { ConversationThread } from '../../types/astrology';
+import { ConversationThread, DEFAULT_AUTHENTICATED_USER_ID } from '../../types/astrology';
+import { getChatHistory } from '../../services/chatHistoryService';
 import {
   ArrowLeft,
   MessageSquare,
@@ -43,14 +44,12 @@ export const GuruProfilePage: React.FC<GuruProfilePageProps> = ({
   const isFlagship = guru.badge === 'flagship';
   const isPreferred = guru.badge === 'preferred';
 
-  // Find existing conversations for this specific Guru
-  const guruConversations = conversations.filter(
-    (c) =>
-      c.astrologerId === guru.id ||
-      c.guruId === guru.id ||
-      c.id === `conv-${guru.id}` ||
-      c.id.includes(guru.id)
-  );
+  // Find existing conversations strictly for this specific Guru
+  const guruConversations = getChatHistory({
+    conversations,
+    userId: DEFAULT_AUTHENTICATED_USER_ID,
+    guruId: guru.id,
+  });
   const hasExistingChat = guruConversations.length > 0;
 
   const formatTime = (secs: number) => {

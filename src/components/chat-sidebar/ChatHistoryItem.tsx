@@ -172,8 +172,9 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
                   className={`text-xs font-serif-luxury font-bold truncate ${
                     isActive ? 'text-[#FFD76A]' : 'text-[#F7F0FF] group-hover:text-[#FFD76A]'
                   }`}
+                  title={conversation.astrologerTitle || conversation.astrologerName}
                 >
-                  {conversation.astrologerName}
+                  {conversation.astrologerTitle || conversation.astrologerName}
                 </span>
                 {conversation.isPinned && (
                   <Pin className="w-2.5 h-2.5 text-[#E7B743] fill-[#E7B743] shrink-0" />
@@ -193,11 +194,14 @@ export const ChatHistoryItem: React.FC<ChatHistoryItemProps> = ({
           </p>
         )}
 
-        {/* Quick action pill metadata if available */}
+        {/* Topic or status tag metadata */}
         <div className="flex items-center gap-1.5 mt-1">
           <span className="text-[9px] font-mono uppercase px-1.5 py-0.2 rounded-full bg-[#12091F] text-[#9685AE]">
-            {conversation.astrologerTitle || 'Vedic Guidance'}
+            {conversation.topics?.[0] || 'Vedic Guidance'}
           </span>
+          {conversation.isSaved && (
+            <span className="text-[9px] font-mono text-[#E7B743]">★ Saved</span>
+          )}
         </div>
       </div>
 

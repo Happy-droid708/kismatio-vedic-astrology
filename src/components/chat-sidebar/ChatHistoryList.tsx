@@ -39,8 +39,10 @@ import { MaharajGuru } from '../../data/maharajGurusData';
 interface ChatHistoryListProps {
   conversations: ConversationThread[];
   activeConversationId: string | null;
+  guruName?: string;
   onSelectConversation: (conv: ConversationThread) => void;
   onOpenProfile?: (guru: MaharajGuru) => void;
+  onStartNewChat?: () => void;
   onTogglePin?: (convId: string, e: React.MouseEvent) => void;
   onDelete?: (convId: string, e: React.MouseEvent) => void;
   onRename?: (convId: string, newTitle: string) => void;
@@ -51,8 +53,10 @@ interface ChatHistoryListProps {
 export const ChatHistoryList: React.FC<ChatHistoryListProps> = ({
   conversations,
   activeConversationId,
+  guruName,
   onSelectConversation,
   onOpenProfile,
+  onStartNewChat,
   onTogglePin,
   onDelete,
   onRename,
@@ -61,18 +65,28 @@ export const ChatHistoryList: React.FC<ChatHistoryListProps> = ({
 }) => {
   if (conversations.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center p-6 text-center h-48 select-none">
+      <div className="flex flex-col items-center justify-center p-6 text-center h-52 select-none">
         <div className="w-10 h-10 rounded-full bg-[#24133B] flex items-center justify-center mb-2.5 text-[#9685AE] shadow-[inset_0_1px_1px_rgba(247,240,255,0.04)]">
           <MessageSquare className="w-5 h-5 text-[#9685AE]" />
         </div>
-        <p className="text-xs font-semibold text-[#F7F0FF]">
-          {searchQuery ? 'No matching consultations' : 'No previous conversations'}
+        <p className="text-xs font-serif-luxury font-bold text-[#F7F0FF]">
+          {searchQuery
+            ? 'No matching consultations'
+            : `No past consultations with ${guruName || 'this Guru'}`}
         </p>
-        <p className="text-[11px] text-[#9685AE] mt-1 max-w-[200px]">
+        <p className="text-[11px] text-[#9685AE] mt-1 max-w-[210px] leading-relaxed">
           {searchQuery
             ? `No chats found for "${searchQuery}". Try a different keyword.`
-            : 'Start a consultation to record your Vedic guidance.'}
+            : `Every Guru keeps an independent, private chat history. Start a new dialogue below.`}
         </p>
+        {!searchQuery && onStartNewChat && (
+          <button
+            onClick={onStartNewChat}
+            className="mt-3 px-3.5 py-1.5 rounded-xl clay-button-primary text-xs font-bold text-[#180D2B] cursor-pointer"
+          >
+            + Start First Chat
+          </button>
+        )}
       </div>
     );
   }

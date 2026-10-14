@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ConversationThread } from '../../types/astrology';
-import { MaharajGuru } from '../../data/maharajGurusData';
+import { ConversationThread, DEFAULT_AUTHENTICATED_USER_ID } from '../../types/astrology';
+import { MAHARAJ_GURUS, MaharajGuru } from '../../data/maharajGurusData';
 import { GuruSelector } from './GuruSelector';
 import { ChatHistoryList } from './ChatHistoryList';
+import { getChatHistory } from '../../services/chatHistoryService';
 import {
   PanelLeftClose,
   PanelLeftOpen,
@@ -18,6 +19,7 @@ interface ChatSidebarProps {
   conversations: ConversationThread[];
   activeConversationId: string | null;
   activeGuru: MaharajGuru | null;
+  authenticatedUserId?: string;
   onSelectConversation: (conv: ConversationThread) => void;
   onSelectGuru: (guru: MaharajGuru) => void;
   onOpenProfile?: (guru: MaharajGuru) => void;
@@ -35,6 +37,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
   conversations,
   activeConversationId,
   activeGuru,
+  authenticatedUserId = DEFAULT_AUTHENTICATED_USER_ID,
   onSelectConversation,
   onSelectGuru,
   onOpenProfile,
@@ -48,7 +51,9 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
   onCloseMobileDrawer,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterMode, setFilterMode] = useState<'all' | 'guru'>('all');
+
+  // Fallback to flagship if none specified
+  const currentGuru = activeGuru || MAHARAJ_GURUS[0];
 
   // Handle Escape key to close mobile drawer or clear search
   useEffect(() => {
@@ -65,32 +70,21 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isMobileDrawer, onCloseMobileDrawer, searchQuery]);
 
-  // Filter conversations
-  const filteredConversations = conversations.filter((c) => {
-    if (c.isArchived) return false;
+  // Reset search when switching between Gurus to prevent stale queries
+  useEffect(() => {
+    setSearchQuery('');
+  }, [currentGuru.id]);
 
-    // Filter by active guru if selected
-    if (filterMode === 'guru' && activeGuru) {
-      const matchesGuru =
-        c.guruId === activeGuru.id ||
-        c.astrologerId === activeGuru.id ||
-        c.id.includes(activeGuru.id);
-      if (!matchesGuru) return false;
-    }
-
-    // Filter by search query
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase().trim();
-      const matchesName = c.astrologerName.toLowerCase().includes(q);
-      const matchesTitle = (c.astrologerTitle || '').toLowerCase().includes(q);
-      const matchesMsg = (c.lastMessage || '').toLowerCase().includes(q);
-      const matchesTopic = (c.topics || []).some((t) => t.toLowerCase().includes(q));
-      if (!matchesName && !matchesTitle && !matchesMsg && !matchesTopic) {
-        return false;
-      }
-    }
-
-    return true;
+  /**
+   * CRITICAL REQUIREMENT: ONE GURU = ONE PRIVATE CHAT-HISTORY VIEW.
+   * Every Guru has an independent chat-history sidebar.
+   * Never display another Guru's conversations in the currently selected Guru's sidebar.
+   */
+  const guruConversations = getChatHistory({
+    conversations,
+    userId: authenticatedUserId,
+    guruId: currentGuru.id,
+    searchQuery,
   });
 
   // Handle conversation selection in mobile drawer (auto-close drawer)
@@ -141,11 +135,11 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
           ✦
         </div>
 
-        {/* New Chat Icon Button */}
+        {/* New Chat Icon Button for Current Guru */}
         <button
           onClick={onStartNewChat}
           className="w-10 h-10 rounded-xl clay-button-primary flex items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 mb-4 shadow-sm"
-          title={`New chat with ${activeGuru?.name || 'Guru'}`}
+          title={`New chat with ${currentGuru.name}`}
           aria-label="New chat"
         >
           <Plus className="w-5 h-5 text-[#180D2B] stroke-[2.5]" />
@@ -155,7 +149,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         <button
           onClick={onToggleCollapse}
           className="p-2.5 rounded-xl text-[#9685AE] hover:text-[#F7F0FF] hover:bg-[#352044] transition-colors cursor-pointer mb-4"
-          title="Search previous chats"
+          title={`Search ${currentGuru.name}'s history`}
         >
           <Search className="w-4 h-4" />
         </button>
@@ -203,7 +197,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
               KISMATIO SANCTUM
             </h2>
             <p className="text-[9px] font-mono text-[#9685AE] uppercase tracking-wider truncate">
-              Vedic Astrology & Gurus
+              Private Guru History
             </p>
           </div>
         </div>
@@ -230,21 +224,64 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         )}
       </div>
 
-      {/* 2. New Chat Button */}
-      <div className="px-3 pt-3 pb-2 shrink-0">
+      {/* 2. Active Guru Identity Header Card */}
+      <div className="px-3 pt-2.5 pb-1 shrink-0">
+        <div className="p-2.5 rounded-xl bg-[#24133B]/90 border border-transparent shadow-[0_2px_12px_rgba(18,9,31,0.5)] flex items-center justify-between">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden bg-[#180D2B] ring-1 ring-[#E7B743]/60 shrink-0">
+              {currentGuru.avatarUrl ? (
+                <img
+                  src={currentGuru.avatarUrl}
+                  alt={currentGuru.name}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-xs font-bold text-[#E7B743]">
+                  {currentGuru.symbol}
+                </div>
+              )}
+              <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#00D6A0] border border-[#180D2B]" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <h3 className="font-serif-luxury font-bold text-xs text-[#F7F0FF] truncate">
+                  {currentGuru.name}
+                </h3>
+                <span className="text-[9px] font-mono text-[#E7B743]">✦</span>
+              </div>
+              <p className="text-[10px] text-[#9685AE] truncate">
+                {currentGuru.title}
+              </p>
+            </div>
+          </div>
+
+          {onOpenProfile && (
+            <button
+              onClick={() => onOpenProfile(currentGuru)}
+              className="p-1 px-2 rounded-lg bg-[#2B173C] hover:bg-[#352044] text-[10px] font-mono text-[#E7B743] border border-[#A87B2A]/30 hover:border-[#E7B743] transition-colors cursor-pointer shrink-0"
+              title={`View ${currentGuru.name}'s Profile`}
+            >
+              Profile
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* 3. New Chat Button — Creates chat strictly with current Guru */}
+      <div className="px-3 pt-1 pb-2 shrink-0">
         <button
           onClick={handleNewChatClick}
           className="w-full py-2.5 px-3.5 rounded-xl clay-button-primary flex items-center justify-center gap-2 cursor-pointer transition-transform hover:scale-[1.01] active:scale-[0.98] shadow-md group outline-none focus-visible:ring-2 focus-visible:ring-[#FFD76A]"
-          title={`Start a new conversation with ${activeGuru?.name || 'Guru'}`}
+          title={`Start a new conversation with ${currentGuru.name}`}
         >
           <Plus className="w-4 h-4 text-[#180D2B] stroke-[2.5] group-hover:rotate-90 transition-transform duration-200" />
           <span className="font-serif-luxury font-bold text-xs text-[#180D2B] tracking-wide">
-            + New Chat {activeGuru ? `(${activeGuru.name})` : ''}
+            + New Chat with {currentGuru.name}
           </span>
         </button>
       </div>
 
-      {/* 3. Search Bar */}
+      {/* 4. Search Bar — Searches ONLY current Guru's history */}
       <div className="px-3 pb-2 shrink-0">
         <div className="relative flex items-center">
           <Search className="w-3.5 h-3.5 text-[#9685AE] absolute left-3 pointer-events-none" />
@@ -252,7 +289,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search previous chats..."
+            placeholder={`Search ${currentGuru.name}'s history...`}
             className="w-full pl-8 pr-7 py-1.5 text-xs text-[#F7F0FF] placeholder:text-[#9685AE] bg-[#12091F] border border-transparent rounded-xl clay-input outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743]"
           />
           {searchQuery && (
@@ -267,33 +304,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         </div>
       </div>
 
-      {/* 4. Filter Toggle: All Chats vs Active Guru */}
-      {activeGuru && (
-        <div className="px-3 pb-2 shrink-0 flex items-center gap-1.5">
-          <button
-            onClick={() => setFilterMode('all')}
-            className={`flex-1 py-1 px-2 rounded-lg text-[10px] font-mono font-medium transition-all cursor-pointer border border-transparent outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] ${
-              filterMode === 'all'
-                ? 'bg-[#E7B743] text-[#180D2B] font-bold shadow-xs'
-                : 'bg-[#24133B] text-[#C5B8D9] hover:bg-[#352044]'
-            }`}
-          >
-            All Gurus ({conversations.filter((c) => !c.isArchived).length})
-          </button>
-          <button
-            onClick={() => setFilterMode('guru')}
-            className={`flex-1 py-1 px-2 rounded-lg text-[10px] font-mono font-medium transition-all cursor-pointer border border-transparent outline-none focus-visible:ring-2 focus-visible:ring-[#E7B743] truncate ${
-              filterMode === 'guru'
-                ? 'bg-[#E7B743] text-[#180D2B] font-bold shadow-xs'
-                : 'bg-[#24133B] text-[#C5B8D9] hover:bg-[#352044]'
-            }`}
-          >
-            {activeGuru.name} Only
-          </button>
-        </div>
-      )}
-
-      {/* 5. Guru Switcher (All 8 Approved Gurus) */}
+      {/* 5. Switch Guru Selector (The Eight Approved Gurus) */}
       <div className="shrink-0 border-b border-[#453052]/20 pb-2">
         <GuruSelector
           activeGuru={activeGuru}
@@ -302,17 +313,30 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         />
       </div>
 
-      {/* 6. Recent Chat History List (Grouped by Today, Yesterday, Previous 7 Days, Older) */}
-      <ChatHistoryList
-        conversations={filteredConversations}
-        activeConversationId={activeConversationId}
-        onSelectConversation={handleItemSelect}
-        onOpenProfile={onOpenProfile}
-        onTogglePin={onTogglePin}
-        onDelete={onDeleteConversation}
-        onRename={onRenameConversation}
-        searchQuery={searchQuery}
-      />
+      {/* 6. Recent Chat History List — Strictly isolated to current Guru */}
+      <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+        <div className="px-3 pt-2 pb-1 flex items-center justify-between">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-[#9685AE] font-semibold">
+            {currentGuru.name}'s Consultations
+          </span>
+          <span className="text-[10px] font-mono text-[#E7B743] bg-[#24133B] px-1.5 py-0.2 rounded-full border border-transparent">
+            {guruConversations.length}
+          </span>
+        </div>
+
+        <ChatHistoryList
+          conversations={guruConversations}
+          activeConversationId={activeConversationId}
+          guruName={currentGuru.name}
+          onSelectConversation={handleItemSelect}
+          onOpenProfile={onOpenProfile}
+          onStartNewChat={handleNewChatClick}
+          onTogglePin={onTogglePin}
+          onDelete={onDeleteConversation}
+          onRename={onRenameConversation}
+          searchQuery={searchQuery}
+        />
+      </div>
     </div>
   );
 
@@ -323,7 +347,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
         className="fixed inset-0 z-50 flex animate-in fade-in duration-200"
         role="dialog"
         aria-modal="true"
-        aria-label="Chat History Drawer"
+        aria-label={`${currentGuru.name}'s Chat History Drawer`}
       >
         {/* Backdrop overlay */}
         <div
@@ -344,7 +368,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
   return (
     <aside
       className="w-full h-full min-h-0 flex flex-col relative"
-      aria-label="Chat History and Gurus Sidebar"
+      aria-label={`${currentGuru.name}'s Chat History Sidebar`}
     >
       {content}
     </aside>
