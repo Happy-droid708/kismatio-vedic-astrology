@@ -59,6 +59,7 @@ import { GuruHeader } from './GuruHeader';
 import { GuruEmptyState } from './GuruEmptyState';
 import { GuruDiscoveryView } from './GuruDiscoveryView';
 import { GuruStructuredCards } from './GuruStructuredCards';
+import { ChatSidebar } from '../chat-sidebar/ChatSidebar';
 import {
   ArrowLeft,
   Clock,
@@ -133,6 +134,28 @@ export const KismatioApp: React.FC = () => {
 
   // Tablet Sidebar Collapse State
   const [isTabletSidebarCollapsed, setIsTabletSidebarCollapsed] = useState<boolean>(false);
+
+  // Shared Persistent Sidebar State (Section 2 & 8)
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('kismatio_sidebar_collapsed') === 'true';
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  });
+  const [isMobileHistoryDrawerOpen, setIsMobileHistoryDrawerOpen] = useState<boolean>(false);
+
+  // Sync sidebar preference
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('kismatio_sidebar_collapsed', String(isSidebarCollapsed));
+      } catch {}
+    }
+  }, [isSidebarCollapsed]);
 
   // In-Chat Search State
   const [isInChatSearchOpen, setIsInChatSearchOpen] = useState<boolean>(false);
@@ -846,6 +869,9 @@ export const KismatioApp: React.FC = () => {
 
   // Eight Maharaj Guru Selection Handler
   const handleSelectGuru = (guru: MaharajGuru, pushHistory: boolean = true) => {
+    if (isStreaming) {
+      stopStream();
+    }
     if (pushHistory) {
       window.history.pushState(null, '', guru.route);
     }
@@ -855,7 +881,7 @@ export const KismatioApp: React.FC = () => {
 
     const convId = `conv-${guru.id}`;
     const existing = conversations.find(
-      (c) => c.astrologerId === guru.id || c.id === convId || c.guruId === guru.id
+      (c) => c.astrologerId === guru.id || c.id === convId || c.guruId === guru.id || c.id.includes(guru.id)
     );
     if (!existing) {
       const newConv: ConversationThread = {
@@ -877,13 +903,77 @@ export const KismatioApp: React.FC = () => {
         isOnline: true,
         topics: guru.quickActions,
         guruId: guru.id,
+        avatarUrl: guru.avatarUrl,
       };
       setConversations((prev) => [newConv, ...prev]);
     }
-    setSelectedConvId(convId);
-    setMessages(messagesByConv[convId] || []);
+    const targetId = existing ? existing.id : convId;
+    setSelectedConvId(targetId);
+    setMessages(messagesByConv[targetId] || []);
     setIsStructuredWorkspaceOpen(false);
     setActiveMobileTab('chats');
+    setIsMobileHistoryDrawerOpen(false);
+  };
+
+  // Start fresh conversation for the currently active Guru (or default flagship)
+  const handleStartNewChatWithCurrentGuru = () => {
+    if (isStreaming) {
+      stopStream();
+    }
+    const targetGuru = activeGuru || MAHARAJ_GURUS[0];
+    const newConvId = `conv-${targetGuru.id}-${Date.now()}`;
+    const newConv: ConversationThread = {
+      id: newConvId,
+      astrologerId: targetGuru.id,
+      astrologerName: targetGuru.name,
+      astrologerTitle: targetGuru.title,
+      astrologerLineage: targetGuru.location,
+      isVerified: true,
+      avatarSeed: targetGuru.id,
+      avatarColor: targetGuru.accentColor,
+      status: 'active',
+      remainingSeconds: 600,
+      lastMessage: targetGuru.welcomeMessage,
+      lastMessageTimestamp: 'Just now',
+      unreadCount: 0,
+      isPinned: false,
+      isArchived: false,
+      isOnline: true,
+      topics: targetGuru.quickActions,
+      guruId: targetGuru.id,
+      avatarUrl: targetGuru.avatarUrl,
+    };
+    setConversations((prev) => [newConv, ...prev]);
+    setMessagesByConv((map) => ({ ...map, [newConvId]: [] }));
+    setMessages([]);
+    setSelectedConvId(newConvId);
+    setActiveGuru(targetGuru);
+    setSelectedAstrologer(guruToAstrologer(targetGuru));
+    window.history.pushState(null, '', targetGuru.route);
+    setIsStructuredWorkspaceOpen(false);
+    setIsMobileHistoryDrawerOpen(false);
+  };
+
+  const handleDeleteConversation = (convId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setConversations((prev) => {
+      const filtered = prev.filter((c) => c.id !== convId);
+      if (selectedConvId === convId) {
+        if (filtered.length > 0) {
+          handleSelectConversation(filtered[0]);
+        } else {
+          setSelectedConvId(null);
+          setMessages([]);
+        }
+      }
+      return filtered;
+    });
+  };
+
+  const handleRenameConversation = (convId: string, newTitle: string) => {
+    setConversations((prev) =>
+      prev.map((c) => (c.id === convId ? { ...c, astrologerTitle: newTitle } : c))
+    );
   };
 
   // Back to All 8 Gurus Discovery
@@ -892,6 +982,7 @@ export const KismatioApp: React.FC = () => {
     setActiveGuru(null);
     setSelectedConvId(null);
     setIsStructuredWorkspaceOpen(false);
+    setIsMobileHistoryDrawerOpen(false);
   };
 
   // URL routing and browser back/forward sync
@@ -915,9 +1006,12 @@ export const KismatioApp: React.FC = () => {
 
   // Conversation Selection & Actions
   const handleSelectConversation = (conv: ConversationThread) => {
+    if (isStreaming) {
+      stopStream();
+    }
     setSelectedConvId(conv.id);
     const foundGuru = MAHARAJ_GURUS.find(
-      (g) => g.id === conv.astrologerId || `conv-${g.id}` === conv.id || g.id === conv.guruId
+      (g) => g.id === conv.astrologerId || `conv-${g.id}` === conv.id || g.id === conv.guruId || conv.id.includes(g.id)
     );
     if (foundGuru) {
       setActiveGuru(foundGuru);
@@ -935,6 +1029,7 @@ export const KismatioApp: React.FC = () => {
     setConversations((prev) =>
       prev.map((c) => (c.id === conv.id ? { ...c, unreadCount: 0 } : c))
     );
+    setIsMobileHistoryDrawerOpen(false);
   };
 
   const handleTogglePin = (convId: string, e: React.MouseEvent) => {
@@ -1173,6 +1268,9 @@ export const KismatioApp: React.FC = () => {
             isTablet={isTablet}
             isTabletSidebarCollapsed={isTabletSidebarCollapsed}
             onToggleTabletSidebar={() => setIsTabletSidebarCollapsed(!isTabletSidebarCollapsed)}
+            onOpenHistoryDrawer={() => setIsMobileHistoryDrawerOpen(true)}
+            isSidebarCollapsed={isSidebarCollapsed}
+            onToggleSidebarCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
             onBackToDiscovery={handleBackToGurusDiscovery}
             onOpenRecharge={handleOpenRecharge}
             onOpenChatMenu={() => setIsChatMenuOpen(true)}
@@ -1860,8 +1958,27 @@ export const KismatioApp: React.FC = () => {
                     )}
 
                     {activeMobileTab === 'chats' && (
-                      <div className="w-full h-full min-h-0 flex flex-col overflow-hidden">
+                      <div className="w-full h-full min-h-0 flex flex-col overflow-hidden relative">
                         {selectedConvId || activeGuru ? renderActiveConversationView() : renderChatHomeListPanel()}
+
+                        {/* Mobile Shared History Drawer */}
+                        {isMobileHistoryDrawerOpen && (
+                          <ChatSidebar
+                            conversations={conversations}
+                            activeConversationId={selectedConvId}
+                            activeGuru={activeGuru}
+                            onSelectConversation={handleSelectConversation}
+                            onSelectGuru={(guru) => handleSelectGuru(guru, true)}
+                            onStartNewChat={handleStartNewChatWithCurrentGuru}
+                            onTogglePin={handleTogglePin}
+                            onDeleteConversation={handleDeleteConversation}
+                            onRenameConversation={handleRenameConversation}
+                            isCollapsed={false}
+                            onToggleCollapse={() => {}}
+                            isMobileDrawer
+                            onCloseMobileDrawer={() => setIsMobileHistoryDrawerOpen(false)}
+                          />
+                        )}
                       </div>
                     )}
                   </>
@@ -2058,9 +2175,25 @@ export const KismatioApp: React.FC = () => {
 
                     {activeMobileTab === 'chats' && (
                       <div className="w-full h-full min-h-0 flex overflow-hidden">
-                        {/* Left Panel: Conversations Navigation */}
-                        <div className={`${getLeftPanelWidthClass()} h-full min-h-0 flex flex-col relative overflow-hidden`}>
-                          {renderChatHomeListPanel()}
+                        {/* Left Panel: Shared Persistent Chat History Sidebar */}
+                        <div
+                          className={`${
+                            isSidebarCollapsed ? 'w-[68px]' : 'w-[280px] lg:w-[310px]'
+                          } h-full min-h-0 shrink-0 flex flex-col relative overflow-hidden transition-all duration-200`}
+                        >
+                          <ChatSidebar
+                            conversations={conversations}
+                            activeConversationId={selectedConvId}
+                            activeGuru={activeGuru}
+                            onSelectConversation={handleSelectConversation}
+                            onSelectGuru={(guru) => handleSelectGuru(guru, true)}
+                            onStartNewChat={handleStartNewChatWithCurrentGuru}
+                            onTogglePin={handleTogglePin}
+                            onDeleteConversation={handleDeleteConversation}
+                            onRenameConversation={handleRenameConversation}
+                            isCollapsed={isSidebarCollapsed}
+                            onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                          />
                         </div>
 
                         {/* Right Panel: Active Conversation or Desktop Empty State */}

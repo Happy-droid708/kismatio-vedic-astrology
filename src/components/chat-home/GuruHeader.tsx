@@ -21,6 +21,9 @@ interface GuruHeaderProps {
   isTablet?: boolean;
   isTabletSidebarCollapsed?: boolean;
   onToggleTabletSidebar?: () => void;
+  onOpenHistoryDrawer?: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: () => void;
   onBackToDiscovery: () => void;
   onOpenRecharge: () => void;
   onOpenChatMenu: () => void;
@@ -38,6 +41,9 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
   isTablet = false,
   isTabletSidebarCollapsed = false,
   onToggleTabletSidebar,
+  onOpenHistoryDrawer,
+  isSidebarCollapsed,
+  onToggleSidebarCollapse,
   onBackToDiscovery,
   onOpenRecharge,
   onOpenChatMenu,
@@ -78,35 +84,51 @@ export const GuruHeader: React.FC<GuruHeaderProps> = ({
     <header className="shrink-0 sticky top-0 z-30 bg-[#24133B] border-b border-[#453052]/20 px-2.5 sm:px-4 py-2 sm:py-2.5 flex flex-col gap-1.5 sm:gap-0 justify-center min-h-[58px] select-none shadow-md">
       {/* Top Main Controls Bar */}
       <div className="flex items-center justify-between w-full gap-2">
-        {/* Left: Back to Discovery + Guru Avatar & Credentials */}
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-          {/* Back to Chats Discovery button (Works on both mobile & desktop) */}
-          <button
-            onClick={onBackToDiscovery}
-            className="flex items-center gap-1 p-1.5 -ml-1 rounded-xl text-[#E7B743] hover:text-[#FFD76A] hover:bg-[#352044] active:bg-[#352044] cursor-pointer shrink-0 transition-all font-medium text-xs group"
-            title="Return to all 8 Maharajs"
-            aria-label="Back to all Gurus"
-          >
-            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
-            <span className="hidden sm:inline font-sans font-semibold text-xs text-[#C5B8D9] group-hover:text-[#E7B743]">
-              All Gurus
-            </span>
-          </button>
-
-          {/* Tablet sidebar toggle button */}
-          {isTablet && onToggleTabletSidebar && (
+        {/* Left: Back to Discovery + History Drawer Toggle + Guru Avatar & Credentials */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0 flex-1">
+          {/* Mobile/Tablet History Drawer Toggle */}
+          {onOpenHistoryDrawer && (
             <button
-              onClick={onToggleTabletSidebar}
-              className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#F7F0FF] cursor-pointer mr-0.5 shrink-0"
-              title={isTabletSidebarCollapsed ? 'Show conversations list' : 'Hide conversations list'}
+              onClick={onOpenHistoryDrawer}
+              className="p-1.5 -ml-1 rounded-xl text-[#E7B743] hover:text-[#FFD76A] hover:bg-[#352044] active:bg-[#352044] cursor-pointer shrink-0 transition-all flex items-center gap-1 group"
+              title="Open chat history and Gurus drawer"
+              aria-label="Open history drawer"
             >
-              {isTabletSidebarCollapsed ? (
+              <PanelLeftOpen className="w-5 h-5 text-[#E7B743] group-hover:scale-105 transition-transform" />
+              <span className="text-[10px] font-mono font-semibold text-[#C5B8D9] hidden xs:inline">
+                History
+              </span>
+            </button>
+          )}
+
+          {/* Desktop/Tablet Sidebar Collapse Toggle */}
+          {!isMobile && onToggleSidebarCollapse && (
+            <button
+              onClick={onToggleSidebarCollapse}
+              className="p-1.5 rounded-lg text-[#9685AE] hover:text-[#FFD76A] hover:bg-[#352044] cursor-pointer shrink-0 transition-colors"
+              title={isSidebarCollapsed ? 'Expand history sidebar' : 'Collapse history sidebar'}
+              aria-label="Toggle sidebar"
+            >
+              {isSidebarCollapsed ? (
                 <PanelLeftOpen className="w-5 h-5 text-[#E7B743]" />
               ) : (
                 <PanelLeftClose className="w-5 h-5" />
               )}
             </button>
           )}
+
+          {/* Back to Chats Discovery button (Returns to 8 Maharajs grid) */}
+          <button
+            onClick={onBackToDiscovery}
+            className="flex items-center gap-1 p-1.5 rounded-xl text-[#E7B743] hover:text-[#FFD76A] hover:bg-[#352044] active:bg-[#352044] cursor-pointer shrink-0 transition-all font-medium text-xs group"
+            title="Return to all 8 Maharajs discovery"
+            aria-label="Back to all Gurus"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <span className="hidden sm:inline font-sans font-semibold text-xs text-[#C5B8D9] group-hover:text-[#E7B743]">
+              All Gurus
+            </span>
+          </button>
 
           {/* Guru Avatar and Credentials */}
           <div className="flex items-center gap-2.5 min-w-0">
